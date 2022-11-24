@@ -1,10 +1,14 @@
 <template>
-  <div>首页</div>
+  <div class="homePage">
+    <Header></Header>
+  </div>
 </template>
 
 <script>
+import Header from '@/components/common/head.vue'
 export default {
-  name:'homePage'
+  name:'homePage',
+  components:{Header}
 }
 </script>
 
