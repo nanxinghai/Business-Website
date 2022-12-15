@@ -1,17 +1,123 @@
 <template>
   <div class="homePage">
-    <Header></Header>
+    <full-page :options="options" ref="fullpage">
+      <!-- 第一屏 -->
+      <div class="section">
+        <vue-particles
+          id="particles-js"    	
+          color="#fff"
+          :particleOpacity="0.7"
+          :particlesNumber="60"
+          shapeType="circle"
+          :particleSize="4"
+          linesColor="#fff"
+          :linesWidth="1"
+          :lineLinked="true"
+          :lineOpacity="0.4"
+          :linesDistance="150"
+          :moveSpeed="2"
+          :hoverEffect="true"
+          hoverMode="grab"
+          :clickEffect="true"
+          clickMode="push"
+          class="lizi"   
+          >
+        </vue-particles>
+        <!-- 菜单导航 -->
+        <Header></Header>
+        <!-- 轮播图 -->
+        <div class="slide">
+          <img src="/static/homepage/1.png"/>
+        </div>
+        <div class="slide">
+          <img src="/static/homepage/2.png"/>
+        </div>
+        <div class="slide">
+          <img src="/static/homepage/3.png"/>
+        </div>
+      </div>
+      <!-- 第二屏 -->
+      <div class="section bg_down about_us">
+        <el-row style="height:100%;width: 80%;margin: 0 auto;" type="flex" justify="space-around" align="middle">
+          <el-col :sm="{span:24}" :lg="{span:10}" class="left">
+            <div ></div>
+          </el-col>
+          <el-col :sm="{span:24}" :lg="{span:10}" class="right">
+            <div ></div>
+          </el-col>
+        </el-row>
+      </div>
+      <!-- 页脚底部 -->
+      <div class="section fp-auto-height">
+        <Foot></Foot>
+      </div>
+    </full-page>
   </div>
 </template>
 
 <script>
 import Header from '@/components/common/head.vue'
+import Foot from '@/components/common/foot.vue'
 export default {
   name:'homePage',
-  components:{Header}
+  components:{Header, Foot},
+  data(){
+    return {
+      options:{
+        licenseKey: "OPEN-SOURCE-GPLV3-LICENSE",
+        //是否显示导航，默认为false(竖向)
+        navigation: true,
+        //是否显示两侧的箭头
+        controlArrows: true,
+        //横向slide幻灯片是否循环滚动(最后一张再切换回到第一张)
+        loopHorizontal: true,
+        //为每个section设置背景色
+        sectionsColor: [
+            "#133367",
+        ],
+      },
+      time:''
+    }
+  },
+  mounted(){
+    this.loop()
+  },
+  methods:{
+    loop(){
+        this.time = setInterval(() => {
+          this.$refs.fullpage.api.moveSlideRight() // 向右滚动
+        }, 7000)
+    }
+  }
 }
 </script>
 
-<style>
+<style lang="less" scoped>
+.homePage {
+  .slide {
+    img {
+      width: 1280px;
+      height: 720px;
+      margin: 0 auto;
+      display: block;
+      box-shadow: 22px 27px 11px rgb(0 0 0 / 50%);
+    }
+  }
+  .about_us {
+    .left {
+      height: 50%;
+      background: #000;
+    }
+    .right {
+      height: 50%;
+      background: #007acc;
+    }
+  }
 
+}
+#particles-js{
+  width: 100%;
+  height: calc(100% - 100px);
+  position: absolute;   //设置absolute,其他DIV设置为relative，这样这个例子效果就作为背景
+}
 </style>

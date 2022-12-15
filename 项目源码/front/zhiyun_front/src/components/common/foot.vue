@@ -30,7 +30,7 @@
             <!-- 公司二维码 -->
             <el-col :sm="{span:6}" style="background:#2E3033;height:140px;">
               <div class="qr">
-                <img src="../../../static/foot/qrcode.png"/>
+                <img src="/static/foot/qrcode.png"/>
               </div>
             </el-col>
           </el-row>
@@ -47,7 +47,10 @@
       <el-col :lg="{span:15}" :xl="{span:15}" class="bottom_box">
         <div>版权所有：鹤岗智云科技有限责任公司  备案编号：黑ICP备19005092号</div>
         <div>始于2012，十年专注，值得信赖</div>
-        <div><i class="iconfont icon-qq"></i>QQ交流</div>
+        <div>
+          <i class="iconfont icon-qq"></i>
+          <a href="http://wpa.qq.com/msgrd?v=3&uin=2830224482&site=qq&menu=yes" target="_blank">QQ交流</a>
+        </div>
       </el-col>
     </el-row>
   </div>
@@ -63,7 +66,6 @@ export default {
 .footer {
   width: 100%;
   background: #2E3033;
-  height: 280px;
   font-size: @font_size_small;
   color: @font_grey_color;
   .contactPhone {
@@ -117,5 +119,35 @@ export default {
 }
 i {
   vertical-align: middle;
+}
+/*去除a标签下划线*/
+a {
+  color: #768190;
+  text-decoration: none;
+}
+/*去除未被访问的a标签的下划线*/
+a:link {
+  color: #768190;
+  text-decoration: none;
+}
+/*去除已经被访问过的a标签的下划线*/
+a:visited {
+  color: #768190;
+  text-decoration: none;
+}
+/*去除鼠标悬停时的a标签的下划线*/
+a:hover {
+  color: #768190;
+  text-decoration: none;
+}
+/*去除正在点击的a标签的下划线（鼠标按下，尚未松开）*/
+a:active {
+  color: #768190;
+  text-decoration: none;
+}
+/*去除获得焦点的a标签的下划线（被鼠标点击过）*/
+a:focus {
+  color: #768190;
+  text-decoration: none;
 }
 </style>

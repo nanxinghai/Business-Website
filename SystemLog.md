@@ -18,3 +18,7 @@
 - [x] 1、前端项目初始化（添加对应插件、Vuex、VueRouter、Less、normalize.css、iconfont）------------simon
 - [x] 2、通用底部footer响应式页面编写------------simon
 - [x] 3、通用顶部header响应式页面编写------------simon
+
+##### 2022-11-29 09:32:32
+
+- [x] 1、前台轮播图、整屏滚动大致搭建完成------------simon

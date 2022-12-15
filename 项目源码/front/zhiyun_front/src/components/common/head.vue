@@ -1,8 +1,8 @@
 <template>
   <div class="head">
-    <el-row style="height:60px;" type="flex" align="middle">
+    <el-row style="height:60px;max-width:1400px;margin:0 auto" type="flex" align="middle">
       <el-col :xs="{span:24}" :sm="{span:12}">
-        <img src="../../../static/head/logo.png"/>
+        <img src="static/head/logo.png"/>
       </el-col>
       <el-col :xs="{span:24}" :sm="{span:12}" class="hidden-xs-only menu">
         <ul>
@@ -54,6 +54,9 @@ export default {
 <style lang="less" scoped>
 .head {
   color: @font_grey_color;
+  position: absolute;
+  width: 100%;
+  z-index: 999;
 }
 .expandmenu {
   li {
