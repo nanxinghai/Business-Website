@@ -25,3 +25,6 @@ hs_err_pid*
 # 过滤前端项目node_module包文件夹和dist打包文件夹
 */node_modules/
 */dist/
+# 过滤后端项目文件夹
+*/target/
+*/.idea/

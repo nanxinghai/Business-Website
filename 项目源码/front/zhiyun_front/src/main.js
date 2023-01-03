@@ -13,6 +13,8 @@ import '@/assets/iconfont/iconfont.css'
 import 'fullpage.js/vendors/scrolloverflow';
 import VueFullPage from 'vue-fullpage.js';
 Vue.use(VueFullPage);
+// Animate动画效果
+import animate from 'animate.css'
 // 背景粒子效果
 import VueParticles from 'vue-particles'  
 Vue.use(VueParticles) 
