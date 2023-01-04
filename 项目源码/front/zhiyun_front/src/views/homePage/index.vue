@@ -22,12 +22,12 @@
         type="flex" justify="space-around" align="middle">
           <el-col :sm="{span:24}" :lg="{span:10}" class="left">
             <transition enter-active-class="animated fadeInLeft">
-              <div v-if="currentIndex == 1"></div>
+              <div v-show="currentIndex == 1"></div>
             </transition>
           </el-col>
           <el-col :sm="{span:24}" :lg="{span:10}" class="right">
             <transition enter-active-class="animated fadeInRight">
-              <div v-if="currentIndex == 1"></div>
+              <div v-show="currentIndex == 1"></div>
             </transition>
           </el-col>
         </el-row>

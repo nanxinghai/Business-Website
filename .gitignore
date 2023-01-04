@@ -28,3 +28,4 @@ hs_err_pid*
 # 过滤后端项目文件夹
 */target/
 */.idea/
+*.iml
