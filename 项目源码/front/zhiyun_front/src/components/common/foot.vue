@@ -76,7 +76,7 @@ export default {
     }
     .contactPhone_phoneNum {
       display: flex;
-      // color: white;
+      color: white;
       justify-content:center;
       margin-top: 20px;
       margin-left: 25px;

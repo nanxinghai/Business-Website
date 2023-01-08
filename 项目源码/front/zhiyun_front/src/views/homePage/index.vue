@@ -18,19 +18,135 @@
       </div>
       <!-- 第二屏 -->
       <div class="section bg_down about_us">
-        <el-row style="height:100%;width: 80%;margin: 0 auto;" 
-        type="flex" justify="space-around" align="middle">
+        <el-row style="height:100%;width: 70%;margin: 0 auto;" 
+        type="flex" justify="space-between" align="middle">
           <el-col :sm="{span:24}" :lg="{span:10}" class="left">
             <transition enter-active-class="animated fadeInLeft">
-              <div v-show="currentIndex == 1"></div>
+              <div v-show="currentIndex == 1">
+                <div class="ab_left_1">
+                  <div class="top">专注提供企业软件研发服务</div>
+                  <div class="buttom">ABOUT US</div>
+                </div>
+                <div class="ab_left_2">
+                  <span>我们拥有专业水平的系统开发队伍，具有丰富的系统开发制作经验和新颖的创意水平。
+                    我们强调以客户为中心的经验策划理念，将客户的网络行为特征作为设计的核心，
+                    结合客户所在行业的网络特点，针对不同行业的每一位客户设计与其品牌、服务、业务等相适合的网站系统方案
+                  </span>
+                </div>
+                <div class="ab_left_3">
+                  <div class="ab_btn">了解更多</div>
+                </div>
+              </div>
             </transition>
           </el-col>
           <el-col :sm="{span:24}" :lg="{span:10}" class="right">
             <transition enter-active-class="animated fadeInRight">
-              <div v-show="currentIndex == 1"></div>
+              <div v-show="currentIndex == 1">
+                <img src="/static/homepage/aboutUs.png">
+              </div>
             </transition>
           </el-col>
         </el-row>
+      </div>
+      <!-- 第三屏 -->
+      <div class="section bg_up service_scope">
+        <div class="sc_box">
+          <transition enter-active-class="animated fadeInUp">
+            <div class="sc_1" v-show="currentIndex == 2">
+              <div class="sc_1_1">公司服务范围</div>
+              <div class="sc_1_2">COMPANY SERVICE SCOPE</div>
+              <div class="sc_1_3">为企业量身定制开发软件操作简单快捷，随时随地访问您需要的实时数据，帮助企业更简捷地达成交易</div>
+            </div>
+          </transition>
+          <el-row style="height:40%;margin-top:8vh;" type="flex" justify="space-around">
+            <el-col :span="6" style="height:100%;">
+              <transition enter-active-class="animated fadeInUp">
+                <div class="sc_2_box" v-show="currentIndex == 2">
+                  <img src="/static/homepage/scope1.png" alt="">
+                  <div class="sc_2_box_word">
+                    <h4>企业网站系统开发</h4>
+                    <span>设计开发合适的网站系统方案，精准打磨每一个细节</span>
+                  </div>
+                </div>
+              </transition>
+            </el-col>
+            <el-col :span="6" style="height:100%;">
+              <transition enter-active-class="animated fadeInUp">
+                <div class="sc_2_box" v-show="currentIndex == 2">
+                  <img src="/static/homepage/scope2.png" alt="">
+                  <div class="sc_2_box_word">
+                    <h4>智能APP整合资源</h4>
+                    <span>利用搜索引擎的规则提高网站在有关搜索引擎内的自然排名</span>
+                  </div>
+                </div>
+              </transition>
+            </el-col>
+            <el-col :span="6" style="height:100%;">
+              <transition enter-active-class="animated fadeInUp">
+                <div class="sc_2_box" v-show="currentIndex == 2">
+                  <img src="/static/homepage/scope3.png" alt="">
+                  <div class="sc_2_box_word">
+                    <h4>小程序开发</h4>
+                    <span>强大稳定的开店系统快速搭建电商小程序，一体化小程序解决方案</span>
+                  </div>
+                </div>
+              </transition>
+            </el-col>
+          </el-row>
+          <div class="sc_3">
+            <transition enter-active-class="animated fadeInUp">
+              <div class="sc_3_btn" v-show="currentIndex == 2">了解更多</div>
+            </transition>
+          </div>
+        </div>
+      </div>
+      <!-- 第四屏 -->
+      <div class="section bg_down pro_exam">
+        <div class="proex_box">
+          <transition enter-active-class="animated fadeInUp">
+            <div class="proex_1" v-show="currentIndex == 3">
+              <div class="proex_1_1">优秀客户案例</div>
+              <div class="proex_1_2">OUR COMMITMENT</div>
+              <div class="proex_1_3">提供优质服务项目，为企业量身定制开发软件</div>
+            </div>
+          </transition>
+          <el-row style="height:40%;margin-top:8vh;" type="flex" justify="space-around">
+            <el-col :span="5" style="height:100%;">
+              <transition enter-active-class="animated fadeInUp">
+                <div class="proex_2_box" v-show="currentIndex == 3">
+                  <img src="/static/homepage/proex1.png" alt="">
+                  <div></div>
+                </div>
+              </transition>
+            </el-col>
+            <el-col :span="5" style="height:100%;">
+              <transition enter-active-class="animated fadeInUp">
+                <div class="proex_2_box" v-show="currentIndex == 3">
+                  
+                </div>
+              </transition>
+            </el-col>
+            <el-col :span="5" style="height:100%;">
+              <transition enter-active-class="animated fadeInUp">
+                <div class="proex_2_box" v-show="currentIndex == 3">
+                  
+                </div>
+              </transition>
+            </el-col>
+            <el-col :span="5" style="height:100%;">
+              <transition enter-active-class="animated fadeInUp">
+                <div class="proex_2_box" v-show="currentIndex == 3">
+                  
+                </div>
+              </transition>
+            </el-col>
+          </el-row>
+          <div class="proex_3">
+            <transition enter-active-class="animated fadeInUp">
+              <div class="proex_3_btn" v-show="currentIndex == 3">了解更多</div>
+            </transition>
+          </div>
+        </div>
       </div>
       <!-- 页脚底部 -->
       <div class="section fp-auto-height">
@@ -96,26 +212,169 @@ export default {
   }
   .about_us {
     .left {
-      height: 50%;
-      div{
+      height: 70%;
+      &>div {
         width: 100%;
         height: 100%;
-        background: #000;
+        .ab_left_1 {
+          margin-top: 12vh;
+          .top{
+            font-size: @font_size_large;
+            color: @font_pageTitleBlue_color;
+          }
+          .buttom{
+            margin-top: 2vh;
+            font-size: @font_size_small;
+            color: @font_pageWordGrey_color;
+          }
+        }
+        .ab_left_2 {
+          max-height: 30vh;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          margin-top: 5vh;
+          font-size: @font_size_small;
+          color: @font_pageWordGrey_color;
+          letter-spacing: 5px;
+          line-height: 25px;
+        }
+        .ab_left_3 {
+          margin-top: 4vh;
+          .ab_btn {
+            cursor: pointer;
+            width: 146px;
+            height: 42px;
+            opacity: 1;
+            border-radius: 24px;
+            background-color: @font_pageButtonBlue_color;
+            color: white;
+            text-align: center;
+            line-height: 42px;
+            font-size: @font_size_small;
+            letter-spacing: 2px;
+          }
+        }
       }
     }
     .right {
-      height: 50%;
-      div{
+      height: 70%;
+      div {
         width: 100%;
         height: 100%;
-        background: #007acc;
+        img {
+          margin-left: 22%;
+          display: block;
+          height: 100%;
+        }
       }
     }
   }
-}
-#particles-js {
-  width: 100%;
-  height: calc(100%);
-  position: absolute; //设置absolute,其他DIV设置为relative，这样这个例子效果就作为背景
+  .service_scope {
+    .sc_box {
+      overflow: hidden;
+      height: 100%;
+      width: 80%;
+      margin: 0 auto;
+      .sc_1 {
+        margin-top: 15vh;
+        text-align: center;
+        .sc_1_1 {
+          .pageTitle()
+        }
+        .sc_1_2 {
+          .pageSubTitle()
+        }
+        .sc_1_3 {
+          .pageWordDes()
+        }
+      }
+      .sc_2_box {
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 1);
+        border: 1px solid rgba(227, 216, 216, 1);
+        text-align: center;
+        box-shadow: 0px 4px 0px 0px #54a0f7;
+        &>img {
+          margin-top: 10vh;
+        }
+        .sc_2_box_word {
+          overflow: hidden;
+          text-align: center;
+          width: 80%;
+          margin: 0 auto;
+          &>h4 {
+            margin: 1vh;
+          }
+          &>span {
+            font-size: @font_size_small;
+            color: @font_grey_color;
+          }
+        }
+      }
+      .sc_3 {
+        margin-top: 5vh;
+        .sc_3_btn {
+          cursor: pointer;
+          margin: 0 auto;
+          width: 146px;
+          height: 42px;
+          opacity: 1;
+          border-radius: 24px;
+          background-color: @font_pageButtonBlue_color;
+          color: white;
+          text-align: center;
+          line-height: 42px;
+          font-size: @font_size_small;
+          letter-spacing: 2px;
+        }
+      }
+    }
+  }
+  .pro_exam {
+    .proex_box {
+      overflow: hidden;
+      height: 100%;
+      width: 90%;
+      margin: 0 auto;
+      .proex_1 {
+        margin-top: 15vh;
+        text-align: center;
+        .proex_1_1 {
+          .pageTitle()
+        }
+        .proex_1_2 {
+          .pageSubTitle()
+        }
+        .proex_1_3 {
+          .pageWordDes()
+        }
+      }
+      .proex_2_box {
+        &>img {
+          width: 100%;
+        }
+      }
+      .proex_3 {
+        margin-top: 5vh;
+        .proex_3_btn {
+          cursor: pointer;
+          margin: 0 auto;
+          width: 146px;
+          height: 42px;
+          opacity: 1;
+          border-radius: 24px;
+          background-color: @font_pageButtonBlue_color;
+          color: white;
+          text-align: center;
+          line-height: 42px;
+          font-size: @font_size_small;
+          letter-spacing: 2px;
+        }
+      }
+    }
+  }
 }
 </style>
