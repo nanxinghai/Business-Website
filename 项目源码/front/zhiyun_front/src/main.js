@@ -15,9 +15,6 @@ import VueFullPage from 'vue-fullpage.js';
 Vue.use(VueFullPage);
 // Animate动画效果
 import animate from 'animate.css'
-// 背景粒子效果
-import VueParticles from 'vue-particles'  
-Vue.use(VueParticles) 
 // 按需引入elementui
 import { Col,Row,Divider,Drawer } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css'

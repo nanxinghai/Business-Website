@@ -115,28 +115,39 @@
               <transition enter-active-class="animated fadeInUp">
                 <div class="proex_2_box" v-show="currentIndex == 3">
                   <img src="/static/homepage/proex1.png" alt="">
-                  <div></div>
+                  <div class="proex_2_box_word">
+                    私家智能定制APP
+                  </div>
                 </div>
               </transition>
             </el-col>
             <el-col :span="5" style="height:100%;">
               <transition enter-active-class="animated fadeInUp">
                 <div class="proex_2_box" v-show="currentIndex == 3">
-                  
+                  <img src="/static/homepage/proex2.png" alt="">
+                  <div class="proex_2_box_word">
+                    公司企业定制系统
+                  </div>
                 </div>
               </transition>
             </el-col>
             <el-col :span="5" style="height:100%;">
               <transition enter-active-class="animated fadeInUp">
                 <div class="proex_2_box" v-show="currentIndex == 3">
-                  
+                  <img src="/static/homepage/proex3.png" alt="">
+                  <div class="proex_2_box_word">
+                    公司定制官网
+                  </div>
                 </div>
               </transition>
             </el-col>
             <el-col :span="5" style="height:100%;">
               <transition enter-active-class="animated fadeInUp">
                 <div class="proex_2_box" v-show="currentIndex == 3">
-                  
+                  <img src="/static/homepage/proex4.png" alt="">
+                  <div class="proex_2_box_word">
+                    大型物流企业定制小程序
+                  </div>
                 </div>
               </transition>
             </el-col>
@@ -146,6 +157,50 @@
               <div class="proex_3_btn" v-show="currentIndex == 3">了解更多</div>
             </transition>
           </div>
+        </div>
+      </div>
+      <!-- 第五屏 -->
+      <div class="section bg_up use_company">
+        <div class="uc_box">
+          <transition enter-active-class="animated fadeInUp">
+            <div class="uc_box_1" v-show="currentIndex == 4 || currentIndex == 5">
+              <div class="uc_box_1_1">为全球商户提供 7 x 24 小时优质服务</div>
+              <div class="uc_box_1_2">WE OFFER MORE SUITABLE SOLUTIONS</div>
+              <div class="uc_box_1_3">靠谱的服务是所有项目成功的必备条件</div>
+            </div>
+          </transition>
+          <transition enter-active-class="animated fadeInUp">
+            <el-row class="uc_box_2" type="flex" justify="space-between" v-show="currentIndex == 4 || currentIndex == 5">
+              <el-col :span="6">
+                <img src="/static/homepage/uc1.png" alt="">
+              </el-col>
+              <el-col :span="6">
+                <img src="/static/homepage/uc2.png" alt="">
+              </el-col>
+              <el-col :span="6">
+                <img src="/static/homepage/uc3.png" alt="">
+              </el-col>
+              <el-col :span="6">
+                <img src="/static/homepage/uc4.png" alt="">
+              </el-col>
+            </el-row>
+          </transition>
+          <transition enter-active-class="animated fadeInUp">
+            <el-row class="uc_box_2" type="flex" justify="space-between" v-show="currentIndex == 4 || currentIndex == 5">
+              <el-col :span="6">
+                <img src="/static/homepage/uc5.png" alt="">
+              </el-col>
+              <el-col :span="6">
+                <img src="/static/homepage/uc6.png" alt="">
+              </el-col>
+              <el-col :span="6">
+                <img src="/static/homepage/uc7.png" alt="">
+              </el-col>
+              <el-col :span="6">
+                <img src="/static/homepage/uc8.png" alt="">
+              </el-col>
+            </el-row>
+          </transition>
         </div>
       </div>
       <!-- 页脚底部 -->
@@ -159,9 +214,11 @@
 <script>
 import Header from '@/components/common/head.vue'
 import Foot from '@/components/common/foot.vue'
+import mixin from '@/mixin/index.js'
 export default {
   name: 'homePage',
   components: { Header, Foot },
+  mixins:[mixin],
   data() {
     return {
       options: {
@@ -178,12 +235,10 @@ export default {
           console.log("index"+JSON.stringify(index))
           console.log("nextIndex"+JSON.stringify(nextIndex))
           console.log("direction"+direction)
-          this.addAnimate()
           this.currentIndex = nextIndex.index
         }
       },
       time:'',
-      currentIndex:0
     }
   },
   mounted() {
@@ -353,8 +408,15 @@ export default {
         }
       }
       .proex_2_box {
+        width: 100%;
+        height: 100%;
         &>img {
           width: 100%;
+        }
+        .proex_2_box_word {
+          text-align: center;
+          font-size: @font_size_small;
+          color: @font_grey_color;
         }
       }
       .proex_3 {
@@ -372,6 +434,34 @@ export default {
           line-height: 42px;
           font-size: @font_size_small;
           letter-spacing: 2px;
+        }
+      }
+    }
+  }
+  .use_company {
+    .uc_box {
+      overflow: hidden;
+      height: 100%;
+      width: 80%;
+      margin: 0 auto;
+      .uc_box_1 {
+        margin-top: 10vh;
+        margin-bottom: 5vh;
+        .uc_box_1_1 {
+          .pageTitle()
+        }
+        .uc_box_1_2 {
+          .pageSubTitle()
+        }
+        .uc_box_1_3 {
+          .pageWordDes()
+        }
+      }
+      .uc_box_2 {
+        height:30%;
+        margin-top:0vh;
+        img {
+          width: 100%;
         }
       }
     }
