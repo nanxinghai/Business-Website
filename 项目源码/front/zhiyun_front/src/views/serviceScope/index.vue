@@ -1,6 +1,7 @@
 <template>
   <div class="service_scope">
     <full-page :options="options" ref="fullpage">
+      <!-- 第一屏 -->
       <div class="section sc_box_1 bg_up">
         <Header></Header>
         <div class="sc_box">
@@ -48,6 +49,7 @@
           </el-row>
         </div>
       </div>
+      <!-- 第二屏 -->
       <div class="section sc_box_2 bg_down">
         <div class="sc_box">
           <transition enter-active-class="animated fadeInUp">
@@ -104,8 +106,36 @@
           </el-row>
         </div>
       </div>
+      <!-- 第三屏 -->
       <div class="section bg_up sc_box_3">
-
+        <div class="sc_box_3_w80">
+          <transition enter-active-class="animated fadeInUp">
+            <div class="sc_box_3_top" v-show="currentIndex == 2 || currentIndex == 3">
+              <div class="sc_box_3_top_1">提供一站式行业解决方案</div>
+              <div class="sc_box_3_top_2">PROVIDE INDUSTRY SOLUTIONS</div>
+              <div class="sc_box_3_top_3">100＋行业模板直接套用，提供一站式行业解决方案，助力企业打造互联网营销闭环，零技术也可以搞定所有小程序，全球专业开放的小程序，服务平台 致力于开发，者与小程序主提供基于即速应用的各类开放能力及解决方案。</div>
+            </div>
+          </transition>
+          <el-row class="sc_box_3_bottom" type="flex" justify="space-around">
+            <transition enter-active-class="animated fadeInLeft">
+              <el-col :span="12" class="sc_box_3_bottom_left" v-show="currentIndex == 2 || currentIndex == 3">
+                <img src="/static/servicescope/sc_3_1.png" alt="">
+              </el-col>
+            </transition>
+            <transition enter-active-class="animated fadeInRight">
+              <el-col :span="6" class="sc_box_3_bottom_right" v-show="currentIndex == 2 || currentIndex == 3">
+                <img src="/static/servicescope/sc_3_2.png" alt="">
+                <div>通过多平台多渠道的全面网络推广方式</div>
+              </el-col>
+            </transition>
+            <transition enter-active-class="animated fadeInRight">
+              <el-col :span="6" class="sc_box_3_bottom_right" v-show="currentIndex == 2 || currentIndex == 3">
+                <img src="/static/servicescope/sc_3_3.png" alt="">
+                <div>通过多平台多渠道的全面网络推广方式</div>
+              </el-col>
+            </transition>
+          </el-row>
+        </div>
       </div>
       <!-- 页脚底部 -->
       <div class="section fp-auto-height">
@@ -232,7 +262,42 @@ export default {
     }
   }
   .sc_box_3 {
-    
+    .sc_box_3_w80 {
+      border: 1px solid transparent;
+      height: 100%;
+      width: 80%;
+      margin: 0 auto;
+      .sc_box_3_top {
+        margin-top: 15vh;
+        width: 100%;
+        .sc_box_3_top_1 {
+          .pageTitle()
+        }
+        .sc_box_3_top_2 {
+          .pageSubTitle()
+        }
+        .sc_box_3_top_3 {
+          .pageWordDes()
+        }
+      }
+      .sc_box_3_bottom {
+        height: 40%;
+        margin-top: 15vh;
+        .sc_box_3_bottom_left {
+          &>img {
+            width: 100%;
+          }
+        }
+        .sc_box_3_bottom_right {
+          text-align: center;
+          font-size: @font_size_small;
+          color: @font_grey_color;
+          &>img {
+            width: 100%;
+          }
+        }
+      }
+    }
   }
 }
 </style>

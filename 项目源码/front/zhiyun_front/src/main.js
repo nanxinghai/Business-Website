@@ -15,6 +15,8 @@ import VueFullPage from 'vue-fullpage.js';
 Vue.use(VueFullPage);
 // Animate动画效果
 import animate from 'animate.css'
+// 引入svg全局组件注册
+import '@/assets/icons/index';
 // 按需引入elementui
 import { Col,Row,Divider,Drawer } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css'
