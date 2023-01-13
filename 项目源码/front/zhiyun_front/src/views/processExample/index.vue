@@ -119,19 +119,37 @@
       <!-- 第三屏 -->
       <div class="section bg_up">
         <div class="pro_box_3">
-          <div class="pro_box_3_top">
-            <div>项目流程</div>
-            <div>PROJECT PROCESS</div>
-            <div>为企业量身定制开发软件操作简单快捷，随时随地访问您需要的实时数据，帮助企业更简捷地达成交易</div>
-          </div>
-          <el-row class="pro_box_3_middle" type="flex" justify="space-around">
-            <el-col :span="8"></el-col>
-            <el-col :span="8"></el-col>
-            <el-col :span="8"></el-col>
-          </el-row>
-          <div class="pro_box_3_bottom">
-            追求品质与力求不断超越自己的团队，每一位成员也是亲密的伙伴，与公司一起成长与发展。我们尊重每次合作的机会与挑战，不断精进，力求。团队秉承专注、专业的设计服务思维，让客户通过设计发挥产品的更大价值，并发掘无限的可能。热爱设计并坚信设计的力量让我们不断前进
-          </div>
+          <transition enter-active-class="animated fadeInUp">
+            <div class="pro_box_3_top" v-show="currentIndex == 2 || currentIndex == 3">
+              <div>项目流程</div>
+              <div>PROJECT PROCESS</div>
+              <div>为企业量身定制开发软件操作简单快捷，随时随地访问您需要的实时数据，帮助企业更简捷地达成交易</div>
+            </div>
+          </transition>
+          <transition enter-active-class="animated fadeInUp">
+            <el-row class="pro_box_3_middle" type="flex" justify="space-around" v-show="currentIndex == 2 || currentIndex == 3">
+              <el-col :span="8">
+                <img src="/static/processexample/pro_3_1.png" alt="">
+                <div>项目按时交付</div>
+                <div>遵守时间约定，项目实时跟进</div>
+              </el-col>
+              <el-col :span="8">
+                <img src="/static/processexample/pro_3_2.png" alt="">
+                <div>项目按时质量</div>
+                <div>代码规范检查，多方测试验收</div>
+              </el-col>
+              <el-col :span="8">
+                <img src="/static/processexample/pro_3_3.png" alt="">
+                <div>价格公允透明</div>
+                <div>按需报价，提供更高性价比</div>
+              </el-col>
+            </el-row>
+          </transition>
+          <transition enter-active-class="animated fadeInUp">
+            <div class="pro_box_3_bottom" v-show="currentIndex == 2 || currentIndex == 3">
+              追求品质与力求不断超越自己的团队，每一位成员也是亲密的伙伴，与公司一起成长与发展。我们尊重每次合作的机会与挑战，不断精进，力求。团队秉承专注、专业的设计服务思维，让客户通过设计发挥产品的更大价值，并发掘无限的可能。热爱设计并坚信设计的力量让我们不断前进
+            </div>
+          </transition>
         </div>
       </div>
       <div class="section fp-auto-height">
@@ -245,9 +263,29 @@ export default {
       }
     }
     .pro_box_3_middle {
-      height: 40%;
+      margin-top: 10vh;
+      height: 30%;
+      .el-col {
+        &>img {
+          display: block;
+          margin: 0 auto;
+        }
+        &>div:nth-child(2) {
+          margin-top: 2vh;
+          text-align: center;
+          font-size: @font_size_middle;
+          color: #333;
+        }
+        &>div:nth-child(3) {
+          margin-top: 2vh;
+          text-align: center;
+          font-size: @font_size_small;
+          color: @font_grey_color;
+        }
+      }
     }
     .pro_box_3_bottom {
+      margin-top: 10vh;
       text-align: center;
       font-size: @font_size_small;
       color: @font_grey_color;

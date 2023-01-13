@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>点标记</title>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+    <style>
+        html,body,#container{
+            height:100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=22b6a35d10d838e4a9b5d4d9c2287365"></script>
+    <script>
+        var map = new AMap.Map("container", {
+            zoom: 40,
+            center:[130.276128,47.327307]
+        });
+        var marker = new AMap.Marker({
+            map:map,
+            position:[130.276128,47.327307],
+            label: {
+                offset: new AMap.Pixel(20, 20),//修改label相对于maker的位置
+                content: "黑龙江省鹤岗市工农区新鹤路金广大厦1808"
+            } 
+        })
+    </script>
+</body>
+</html>

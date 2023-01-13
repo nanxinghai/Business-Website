@@ -6,6 +6,13 @@
   "description": "智云科技官网前台所有图标",
   "glyphs": [
     {
+      "icon_id": "10514894",
+      "name": "必填",
+      "font_class": "bitian",
+      "unicode": "e635",
+      "unicode_decimal": 58933
+    },
+    {
       "icon_id": "479382",
       "name": "QQ",
       "font_class": "qq",
