@@ -92,7 +92,7 @@
             <transition enter-active-class="animated fadeInRight">
               <el-col :span="11" v-show="currentIndex == 2 || currentIndex == 3">
                 <form class="abu_box_3_form">
-                  <el-row type="flex" justify="space-between" class="form_row" style="margin-top: 5%;">
+                  <el-row type="flex" justify="space-between" class="form_row">
                     <el-col :span="11">
                       <div>姓名    <i class="iconfont icon-bitian"></i></div>
                       <input type="text" />
@@ -112,7 +112,7 @@
                       <input type="text" />
                     </el-col>
                   </el-row>
-                  <el-row type="flex" justify="space-between" class="form_row" style="height:30%">
+                  <el-row type="flex" justify="space-between" class="form_row" style="height: 30%">
                     <el-col :span="24">
                       <div>需求    <i class="iconfont icon-bitian"></i></div>
                       <textarea/>
@@ -224,10 +224,13 @@ export default {
       }
     }
     .abu_box_2_bottom {
-      height: 40%;
+      height: 60%;
       margin-top: 10vh;
       .el-col {
         text-align: center;
+        &>img {
+          width: 100%;
+        }
         &>div:nth-child(2) {
           margin-top: 2vh;
           font-size: @font_size_middle;
@@ -265,6 +268,7 @@ export default {
         border: 1px solid transparent;
         width: 100%;
         height: 100%;
+        padding-top: 5%;
         .form_row {
           height: 20%;
           .el-col {
@@ -286,13 +290,13 @@ export default {
               outline:0;
               text-decoration:none;
               width:100%;
-              height: 39px;
+              height: 50%;
             }
             &>textarea {
               resize: none;
               margin-top: 1vh;
               width: 100%;
-              height:93px;
+              height:75%;
               border: 0; 
               -web-kit-appearance:none;
               -moz-appearance: none;  
@@ -309,12 +313,13 @@ export default {
           color: @font_grey_color;
         }
         .form_btn {
+          cursor: pointer;
           margin-top: 2vh;
           text-align: center;
           font-size: @font_size_middle;
-          line-height: 39px;
+          line-height: 30px;
           color: #ffffff;
-          height: 39px;
+          height: 8%;
           width: 35%;
           background-color: #1E50AE;
         }
