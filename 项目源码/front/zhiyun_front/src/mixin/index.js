@@ -12,9 +12,6 @@ export default {
         //为每个section设置背景色
         sectionsColor: [],
         onLeave:(index, nextIndex, direction)=>{
-          console.log("index"+JSON.stringify(index))
-          console.log("nextIndex"+JSON.stringify(nextIndex))
-          console.log("direction"+direction)
           this.currentIndex = nextIndex.index
         }
       },

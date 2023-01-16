@@ -7,13 +7,13 @@
         <Header></Header>
         <!-- 轮播图 -->
         <div class="slide">
-          <img src="/static/homepage/1.png" />
+          <img src="static/homepage/1.png" />
         </div>
         <div class="slide">
-          <img src="/static/homepage/2.png" />
+          <img src="static/homepage/2.png" />
         </div>
         <div class="slide">
-          <img src="/static/homepage/3.png" />
+          <img src="static/homepage/3.png" />
         </div>
       </div>
       <!-- 第二屏 -->
@@ -34,7 +34,7 @@
                   </span>
                 </div>
                 <div class="ab_left_3">
-                  <div class="ab_btn">了解更多</div>
+                  <div class="ab_btn"><router-link to="/aboutUs">了解更多</router-link></div>
                 </div>
               </div>
             </transition>
@@ -42,7 +42,7 @@
           <el-col :sm="{span:24}" :lg="{span:10}" class="right">
             <transition enter-active-class="animated fadeInRight">
               <div v-show="currentIndex == 1">
-                <img src="/static/homepage/aboutUs.png">
+                <img src="static/homepage/aboutUs.png">
               </div>
             </transition>
           </el-col>
@@ -62,7 +62,7 @@
             <el-col :span="6" style="height:100%;">
               <transition enter-active-class="animated fadeInUp">
                 <div class="sc_2_box" v-show="currentIndex == 2">
-                  <img src="/static/homepage/scope1.png" alt="">
+                  <img src="static/homepage/scope1.png" alt="">
                   <div class="sc_2_box_word">
                     <h4>企业网站系统开发</h4>
                     <span>设计开发合适的网站系统方案，精准打磨每一个细节</span>
@@ -73,7 +73,7 @@
             <el-col :span="6" style="height:100%;">
               <transition enter-active-class="animated fadeInUp">
                 <div class="sc_2_box" v-show="currentIndex == 2">
-                  <img src="/static/homepage/scope2.png" alt="">
+                  <img src="static/homepage/scope2.png" alt="">
                   <div class="sc_2_box_word">
                     <h4>智能APP整合资源</h4>
                     <span>利用搜索引擎的规则提高网站在有关搜索引擎内的自然排名</span>
@@ -84,7 +84,7 @@
             <el-col :span="6" style="height:100%;">
               <transition enter-active-class="animated fadeInUp">
                 <div class="sc_2_box" v-show="currentIndex == 2">
-                  <img src="/static/homepage/scope3.png" alt="">
+                  <img src="static/homepage/scope3.png" alt="">
                   <div class="sc_2_box_word">
                     <h4>小程序开发</h4>
                     <span>强大稳定的开店系统快速搭建电商小程序，一体化小程序解决方案</span>
@@ -95,7 +95,7 @@
           </el-row>
           <div class="sc_3">
             <transition enter-active-class="animated fadeInUp">
-              <div class="sc_3_btn" v-show="currentIndex == 2">了解更多</div>
+              <div class="sc_3_btn" v-show="currentIndex == 2"><router-link to="/serviceScope">了解更多</router-link></div>
             </transition>
           </div>
         </div>
@@ -114,7 +114,7 @@
             <el-col :span="5" style="height:100%;">
               <transition enter-active-class="animated fadeInUp">
                 <div class="proex_2_box" v-show="currentIndex == 3">
-                  <img src="/static/homepage/proex1.png" alt="">
+                  <img src="static/homepage/proex1.png" alt="">
                   <div class="proex_2_box_word">
                     私家智能定制APP
                   </div>
@@ -124,7 +124,7 @@
             <el-col :span="5" style="height:100%;">
               <transition enter-active-class="animated fadeInUp">
                 <div class="proex_2_box" v-show="currentIndex == 3">
-                  <img src="/static/homepage/proex2.png" alt="">
+                  <img src="static/homepage/proex2.png" alt="">
                   <div class="proex_2_box_word">
                     公司企业定制系统
                   </div>
@@ -134,7 +134,7 @@
             <el-col :span="5" style="height:100%;">
               <transition enter-active-class="animated fadeInUp">
                 <div class="proex_2_box" v-show="currentIndex == 3">
-                  <img src="/static/homepage/proex3.png" alt="">
+                  <img src="static/homepage/proex3.png" alt="">
                   <div class="proex_2_box_word">
                     公司定制官网
                   </div>
@@ -144,7 +144,7 @@
             <el-col :span="5" style="height:100%;">
               <transition enter-active-class="animated fadeInUp">
                 <div class="proex_2_box" v-show="currentIndex == 3">
-                  <img src="/static/homepage/proex4.png" alt="">
+                  <img src="static/homepage/proex4.png" alt="">
                   <div class="proex_2_box_word">
                     大型物流企业定制小程序
                   </div>
@@ -154,7 +154,7 @@
           </el-row>
           <div class="proex_3">
             <transition enter-active-class="animated fadeInUp">
-              <div class="proex_3_btn" v-show="currentIndex == 3">了解更多</div>
+              <div class="proex_3_btn" v-show="currentIndex == 3"><router-link to="/processExample">了解更多</router-link></div>
             </transition>
           </div>
         </div>
@@ -172,32 +172,32 @@
           <transition enter-active-class="animated fadeInUp">
             <el-row class="uc_box_2" type="flex" justify="space-between" v-show="currentIndex == 4 || currentIndex == 5">
               <el-col :span="6">
-                <img src="/static/homepage/uc1.png" alt="">
+                <img src="static/homepage/uc1.png" alt="">
               </el-col>
               <el-col :span="6">
-                <img src="/static/homepage/uc2.png" alt="">
+                <img src="static/homepage/uc2.png" alt="">
               </el-col>
               <el-col :span="6">
-                <img src="/static/homepage/uc3.png" alt="">
+                <img src="static/homepage/uc3.png" alt="">
               </el-col>
               <el-col :span="6">
-                <img src="/static/homepage/uc4.png" alt="">
+                <img src="static/homepage/uc4.png" alt="">
               </el-col>
             </el-row>
           </transition>
           <transition enter-active-class="animated fadeInUp">
             <el-row class="uc_box_2" type="flex" justify="space-between" v-show="currentIndex == 4 || currentIndex == 5">
               <el-col :span="6">
-                <img src="/static/homepage/uc5.png" alt="">
+                <img src="static/homepage/uc5.png" alt="">
               </el-col>
               <el-col :span="6">
-                <img src="/static/homepage/uc6.png" alt="">
+                <img src="static/homepage/uc6.png" alt="">
               </el-col>
               <el-col :span="6">
-                <img src="/static/homepage/uc7.png" alt="">
+                <img src="static/homepage/uc7.png" alt="">
               </el-col>
               <el-col :span="6">
-                <img src="/static/homepage/uc8.png" alt="">
+                <img src="static/homepage/uc8.png" alt="">
               </el-col>
             </el-row>
           </transition>
@@ -232,24 +232,23 @@ export default {
         //为每个section设置背景色
         sectionsColor: ['#133367'],
         onLeave:(index, nextIndex, direction)=>{
-          console.log("index"+JSON.stringify(index))
-          console.log("nextIndex"+JSON.stringify(nextIndex))
-          console.log("direction"+direction)
+          // console.log("index"+JSON.stringify(index))
+          // console.log("nextIndex"+JSON.stringify(nextIndex))
+          // console.log("direction"+direction)
           this.currentIndex = nextIndex.index
         }
       },
-      time:'',
+      timer:null,
     }
   },
   mounted() {
-    this.time = setInterval(() => {
+    this.timer = setInterval(() => {
       this.$refs.fullpage.api.moveSlideRight() // 向右滚动
     }, 5000)
   },
-  methods: {
-    addAnimate(){
-      console.log("hhhhh")
-    }
+  beforeDestroy(){
+    clearInterval(this.timer);        
+    this.timer = null;
   }
 }
 </script>
@@ -307,6 +306,10 @@ export default {
             line-height: 42px;
             font-size: @font_size_small;
             letter-spacing: 2px;
+            &>a {
+              color: white;
+              text-decoration: none;
+            }
           }
         }
       }
@@ -384,6 +387,10 @@ export default {
           line-height: 42px;
           font-size: @font_size_small;
           letter-spacing: 2px;
+          &>a {
+              color: white;
+              text-decoration: none;
+          }
         }
       }
     }
@@ -434,6 +441,10 @@ export default {
           line-height: 42px;
           font-size: @font_size_small;
           letter-spacing: 2px;
+          &>a {
+              color: white;
+              text-decoration: none;
+          }
         }
       }
     }

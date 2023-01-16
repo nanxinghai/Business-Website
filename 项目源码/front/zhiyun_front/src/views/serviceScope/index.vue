@@ -16,7 +16,7 @@
             <el-col :span="6" style="height:100%;">
               <transition enter-active-class="animated fadeInUp">
                 <div class="sc_2_box" v-show="currentIndex == 0">
-                  <img src="/static/homepage/scope1.png" alt="">
+                  <img src="static/homepage/scope1.png" alt="">
                   <div class="sc_2_box_word">
                     <h4>企业网站系统开发</h4>
                     <span>设计开发合适的网站系统方案，精准打磨每一个细节</span>
@@ -27,7 +27,7 @@
             <el-col :span="6" style="height:100%;">
               <transition enter-active-class="animated fadeInUp">
                 <div class="sc_2_box" v-show="currentIndex == 0">
-                  <img src="/static/homepage/scope2.png" alt="">
+                  <img src="static/homepage/scope2.png" alt="">
                   <div class="sc_2_box_word">
                     <h4>智能APP整合资源</h4>
                     <span>利用搜索引擎的规则提高网站在有关搜索引擎内的自然排名</span>
@@ -38,7 +38,7 @@
             <el-col :span="6" style="height:100%;">
               <transition enter-active-class="animated fadeInUp">
                 <div class="sc_2_box" v-show="currentIndex == 0">
-                  <img src="/static/homepage/scope3.png" alt="">
+                  <img src="static/homepage/scope3.png" alt="">
                   <div class="sc_2_box_word">
                     <h4>小程序开发</h4>
                     <span>强大稳定的开店系统快速搭建电商小程序，一体化小程序解决方案</span>
@@ -62,7 +62,7 @@
           <el-row type="flex" justify="space-around" class="sc_box_bottom">
             <transition enter-active-class="animated fadeInLeft">
               <el-col :span="8" class="sc_box_bottom_1" v-show="currentIndex == 1">
-                <img src="/static/servicescope/sc_2_1.png" alt="" >
+                <img src="static/servicescope/sc_2_1.png" alt="" >
               </el-col>
             </transition>
             <el-col :span="16">
@@ -70,14 +70,14 @@
               <div class="sc_box_bottom_2_in" v-show="currentIndex == 1">
                 <el-row class="sc_box_bottom_2_in_1">
                   <el-col :span="3">
-                    <img src="/static/servicescope/sc_2_2.png" alt="">
+                    <img src="static/servicescope/sc_2_2.png" alt="">
                   </el-col>
                   <el-col :span="9">
                     <div class="word_top">一站式服务</div>
                     <div class="word_bottom">关于互联网的那些事儿，太麻烦我们帮您搞定</div>
                   </el-col>
                   <el-col :span="3">
-                    <img src="/static/servicescope/sc_2_3.png" alt="">
+                    <img src="static/servicescope/sc_2_3.png" alt="">
                   </el-col>
                   <el-col :span="9">
                     <div class="word_top">无理由退款</div>
@@ -86,14 +86,14 @@
                 </el-row>
                 <el-row class="sc_box_bottom_2_in_1">
                   <el-col :span="3">
-                    <img src="/static/servicescope/sc_2_4.png" alt="">
+                    <img src="static/servicescope/sc_2_4.png" alt="">
                   </el-col>
                   <el-col :span="9">
                     <div class="word_top">全网络推广</div>
                     <div class="word_bottom">有那么多推广渠道，到底做那个？我们帮您全做</div>
                   </el-col>
                   <el-col :span="3">
-                    <img src="/static/servicescope/sc_2_5.png" alt="">
+                    <img src="static/servicescope/sc_2_5.png" alt="">
                   </el-col>
                   <el-col :span="9">
                     <div class="word_top">自主研发</div>
@@ -119,18 +119,18 @@
           <el-row class="sc_box_3_bottom" type="flex" justify="space-around">
             <transition enter-active-class="animated fadeInLeft">
               <el-col :span="12" class="sc_box_3_bottom_left" v-show="currentIndex == 2 || currentIndex == 3">
-                <img src="/static/servicescope/sc_3_1.png" alt="">
+                <img src="static/servicescope/sc_3_1.png" alt="">
               </el-col>
             </transition>
             <transition enter-active-class="animated fadeInRight">
               <el-col :span="6" class="sc_box_3_bottom_right" v-show="currentIndex == 2 || currentIndex == 3">
-                <img src="/static/servicescope/sc_3_2.png" alt="">
+                <img src="static/servicescope/sc_3_2.png" alt="">
                 <div>通过多平台多渠道的全面网络推广方式</div>
               </el-col>
             </transition>
             <transition enter-active-class="animated fadeInRight">
               <el-col :span="6" class="sc_box_3_bottom_right" v-show="currentIndex == 2 || currentIndex == 3">
-                <img src="/static/servicescope/sc_3_3.png" alt="">
+                <img src="static/servicescope/sc_3_3.png" alt="">
                 <div>通过多平台多渠道的全面网络推广方式</div>
               </el-col>
             </transition>

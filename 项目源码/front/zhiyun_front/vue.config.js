@@ -2,6 +2,8 @@ const path = require('path');
 const resolve = dir => path.join(__dirname, dir)
 module.exports = {
     lintOnSave: false,
+    // 打包之后本地访问需配置（publicPath:'./'和路由改成hash模式）
+    publicPath:'./',
     // webpack配置
     // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
     configureWebpack: {

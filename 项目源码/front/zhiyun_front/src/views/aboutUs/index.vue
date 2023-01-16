@@ -32,7 +32,7 @@
           <el-col :sm="{span:24}" :lg="{span:10}" class="right">
             <transition enter-active-class="animated fadeInRight">
               <div v-show="currentIndex == 0">
-                <img src="/static/homepage/aboutUs.png">
+                <img src="static/homepage/aboutUs.png">
               </div>
             </transition>
           </el-col>
@@ -51,14 +51,14 @@
           <el-row type="flex" justify="space-around" class="abu_box_2_bottom">
             <transition enter-active-class="animated fadeInLeft">
               <el-col :span="10" v-show="currentIndex == 1">
-                <img src="/static/aboutus/abu_2_1.png" alt="">
+                <img src="static/aboutus/abu_2_1.png" alt="">
                 <div>全网络推广</div>
                 <div>AI•智能推广以云计算为支持，7大搜索引擎全覆盖。并通过多平台多渠道的全面网络推广方式，覆盖电脑端和手机端，不仅解决被搜到</div>
               </el-col>
             </transition>
             <transition enter-active-class="animated fadeInRight">
               <el-col :span="10" v-show="currentIndex == 1">
-                <img src="/static/aboutus/abu_2_2.png" alt="">
+                <img src="static/aboutus/abu_2_2.png" alt="">
                 <div>方案集成</div>
                 <div>技术研发、业务实训、平台运营；以产、学、研的模式提供一站式的互联网服务。并通过多年的积累，在业内整合了丰富的资源，打通了多方渠道</div>
               </el-col>
@@ -86,7 +86,7 @@
           <el-row type="flex" justify="space-between" class="abu_box_3_bottom">
             <transition enter-active-class="animated fadeInLeft">
               <el-col :span="12" v-show="currentIndex == 2 || currentIndex == 3">
-                <iframe  src="/static/aboutus/map.html" name="iframeDemo" scrolling="no" style="width: 100%;height: 100%;" frameborder="0"></iframe>
+                <iframe  src="./static/aboutus/map.html" name="iframeDemo" scrolling="no" style="width: 100%;height: 100%;" frameborder="0"></iframe>
               </el-col>
             </transition>
             <transition enter-active-class="animated fadeInRight">

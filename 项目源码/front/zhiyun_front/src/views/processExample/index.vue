@@ -76,7 +76,7 @@
             <el-col :span="5" style="height:100%;">
               <transition enter-active-class="animated fadeInUp">
                 <div class="proex_2_box" v-show="currentIndex == 1">
-                  <img src="/static/homepage/proex1.png" alt="">
+                  <img src="static/homepage/proex1.png" alt="">
                   <div class="proex_2_box_word">
                     私家智能定制APP
                   </div>
@@ -86,7 +86,7 @@
             <el-col :span="5" style="height:100%;">
               <transition enter-active-class="animated fadeInUp">
                 <div class="proex_2_box" v-show="currentIndex == 1">
-                  <img src="/static/homepage/proex2.png" alt="">
+                  <img src="static/homepage/proex2.png" alt="">
                   <div class="proex_2_box_word">
                     公司企业定制系统
                   </div>
@@ -96,7 +96,7 @@
             <el-col :span="5" style="height:100%;">
               <transition enter-active-class="animated fadeInUp">
                 <div class="proex_2_box" v-show="currentIndex == 1">
-                  <img src="/static/homepage/proex3.png" alt="">
+                  <img src="static/homepage/proex3.png" alt="">
                   <div class="proex_2_box_word">
                     公司定制官网
                   </div>
@@ -106,7 +106,7 @@
             <el-col :span="5" style="height:100%;">
               <transition enter-active-class="animated fadeInUp">
                 <div class="proex_2_box" v-show="currentIndex == 1">
-                  <img src="/static/homepage/proex4.png" alt="">
+                  <img src="static/homepage/proex4.png" alt="">
                   <div class="proex_2_box_word">
                     大型物流企业定制小程序
                   </div>
@@ -129,17 +129,17 @@
           <transition enter-active-class="animated fadeInUp">
             <el-row class="pro_box_3_middle" type="flex" justify="space-around" v-show="currentIndex == 2 || currentIndex == 3">
               <el-col :span="8">
-                <img src="/static/processexample/pro_3_1.png" alt="">
+                <img src="static/processexample/pro_3_1.png" alt="">
                 <div>项目按时交付</div>
                 <div>遵守时间约定，项目实时跟进</div>
               </el-col>
               <el-col :span="8">
-                <img src="/static/processexample/pro_3_2.png" alt="">
+                <img src="static/processexample/pro_3_2.png" alt="">
                 <div>项目按时质量</div>
                 <div>代码规范检查，多方测试验收</div>
               </el-col>
               <el-col :span="8">
-                <img src="/static/processexample/pro_3_3.png" alt="">
+                <img src="static/processexample/pro_3_3.png" alt="">
                 <div>价格公允透明</div>
                 <div>按需报价，提供更高性价比</div>
               </el-col>

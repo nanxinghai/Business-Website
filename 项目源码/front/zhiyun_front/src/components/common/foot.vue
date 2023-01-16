@@ -30,7 +30,7 @@
             <!-- 公司二维码 -->
             <el-col :sm="{span:6}" style="background:#2E3033;height:140px;">
               <div class="qr">
-                <img src="/static/foot/qrcode.png"/>
+                <img src="static/foot/qrcode.png"/>
               </div>
             </el-col>
           </el-row>
