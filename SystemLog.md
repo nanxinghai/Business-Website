@@ -76,5 +76,7 @@
 
   ​	网站前台（无数据版本）已全部优化
 
-- [ ] 2、部署静态页面至 Page 服务
+- [x] 2、部署静态页面至 Page 服务
+
+​		已部署 github  网址：https://nanxinghai.github.io/zhiyun/
 
