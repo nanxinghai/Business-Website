@@ -86,7 +86,7 @@
           <el-row type="flex" justify="space-between" class="abu_box_3_bottom">
             <transition enter-active-class="animated fadeInLeft">
               <el-col :span="12" v-show="currentIndex == 2 || currentIndex == 3">
-                <iframe  src="./static/aboutus/map.html" name="iframeDemo" scrolling="no" style="width: 100%;height: 100%;" frameborder="0"></iframe>
+                <iframe  src="static/aboutus/map.html" name="iframeDemo" scrolling="no" style="width: 100%;height: 100%;" frameborder="0"></iframe>
               </el-col>
             </transition>
             <transition enter-active-class="animated fadeInRight">
@@ -146,7 +146,33 @@ import mixin from '@/mixin/index.js'
 export default {
   name:'aboutUs',
   components:{Header,Foot},
-  mixins:[mixin]
+  mixins:[mixin],
+  props:{
+    isMove:{
+      type: Boolean,
+      default: false
+    }
+  },
+  computed:{
+    _isMove(){
+      return this.isMove
+    }
+  },
+  watch:{
+    _isMove: {
+      handler(n,v){
+        if(n){
+          this.$nextTick(()=> {
+            this.$refs.fullpage.api.moveTo(3,0);
+          })
+        }
+      },
+      // 是否立即触发，true表示触发
+      immediate: true,
+      // 深度监听
+      deep: true
+    }
+  }
 }
 </script>
 

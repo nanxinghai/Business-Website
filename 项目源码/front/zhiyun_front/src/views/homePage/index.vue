@@ -2,22 +2,32 @@
   <div class="homePage">
     <full-page :options="options" ref="fullpage">
       <!-- 第一屏 -->
-      <div class="section">
+      <div class="section bg_up">
         <!-- 菜单导航 -->
         <Header></Header>
         <!-- 轮播图 -->
-        <div class="slide">
-          <img src="static/homepage/1.png" />
+        <div class="slide first">
+          <div class="info">
+            <router-link :to="{
+              name:'aboutUs',
+              params:{
+                isMove: true
+              }
+            }">
+              <img src="static/homepage/hm1_1.png" alt="">
+            </router-link>
+          </div>
+          <!-- <img src="static/homepage/1.png" /> -->
+          <video  controls autoplay muted loop style="width:100%" id="video1">
+            <source src="static/homepage/hm1_1.mp4" />
+          </video>
         </div>
         <div class="slide">
-          <img src="static/homepage/2.png" />
-        </div>
-        <div class="slide">
-          <img src="static/homepage/3.png" />
+          <img src="static/homepage/hm1_2.png" />
         </div>
       </div>
       <!-- 第二屏 -->
-      <div class="section bg_down about_us">
+      <div class="section bg_down about_us" >
         <el-row style="height:100%;width: 70%;margin: 0 auto;" 
         type="flex" justify="space-between" align="middle">
           <el-col :sm="{span:24}" :lg="{span:10}" class="left">
@@ -49,7 +59,7 @@
         </el-row>
       </div>
       <!-- 第三屏 -->
-      <div class="section bg_up service_scope">
+      <div class="section bg_up service_scope" >
         <div class="sc_box">
           <transition enter-active-class="animated fadeInUp">
             <div class="sc_1" v-show="currentIndex == 2">
@@ -101,7 +111,7 @@
         </div>
       </div>
       <!-- 第四屏 -->
-      <div class="section bg_down pro_exam">
+      <div class="section bg_down pro_exam" >
         <div class="proex_box">
           <transition enter-active-class="animated fadeInUp">
             <div class="proex_1" v-show="currentIndex == 3">
@@ -160,7 +170,7 @@
         </div>
       </div>
       <!-- 第五屏 -->
-      <div class="section bg_up use_company">
+      <div class="section bg_up use_company" >
         <div class="uc_box">
           <transition enter-active-class="animated fadeInUp">
             <div class="uc_box_1" v-show="currentIndex == 4 || currentIndex == 5">
@@ -230,21 +240,51 @@ export default {
         //横向slide幻灯片是否循环滚动(最后一张再切换回到第一张)
         loopHorizontal: true,
         //为每个section设置背景色
-        sectionsColor: ['#133367'],
+        sectionsColor: [''],
+        scrollingSpeed: 800,
         onLeave:(index, nextIndex, direction)=>{
           // console.log("index"+JSON.stringify(index))
           // console.log("nextIndex"+JSON.stringify(nextIndex))
           // console.log("direction"+direction)
           this.currentIndex = nextIndex.index
+        },
+        onSlideLeave:(section, origin, destination, direction, trigger)=>{
+          // console.log("section",section)
+          // console.log("origin",origin)
+          console.log("destination",destination)
+          // console.log("direction",direction)
+          // console.log("trigger",trigger)
+          this.destination = destination.index
         }
       },
+      destination: 0,
       timer:null,
+    }
+  },
+  watch: {
+    currentIndex: {
+      handler(n,o){
+        if(n === 0){
+          var myVideo=document.getElementById("video1");
+          if (myVideo.paused) 
+            myVideo.play(); 
+        }
+      }
+    },
+    destination: {
+      handler(n,o) {
+        if(n === 0){
+          var myVideo=document.getElementById("video1");
+          if (myVideo.paused) 
+            myVideo.play(); 
+        }
+      }
     }
   },
   mounted() {
     this.timer = setInterval(() => {
       this.$refs.fullpage.api.moveSlideRight() // 向右滚动
-    }, 5000)
+    }, 10000)
   },
   beforeDestroy(){
     clearInterval(this.timer);        
@@ -255,13 +295,33 @@ export default {
 
 <style lang="less" scoped>
 .homePage {
+  .first {
+    position: relative;
+  }
   .slide {
+    .info {
+      z-index: 1;
+      position: absolute;
+      left:50%;
+      top:50%;
+      margin-left:-270px;
+      margin-top:-309px;
+      a {
+        display: block;
+        &>img {
+          width: 541px;
+          height: 618px;
+        }
+      }
+      
+    }
     img {
-      width: 1280px;
-      height: 720px;
-      margin: 0 auto;
-      display: block;
-      box-shadow: 22px 27px 11px rgb(0 0 0 / 50%);
+      width: 100%;
+      // width: 1280px;
+      // height: 720px;
+      // margin: 0 auto;
+      // display: block;
+      // box-shadow: 22px 27px 11px rgb(0 0 0 / 50%);
     }
   }
   .about_us {

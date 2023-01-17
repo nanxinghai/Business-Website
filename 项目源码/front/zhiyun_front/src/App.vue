@@ -6,13 +6,20 @@
 </template>
 
 <script>
+import mixin from '@/mixin/index.js'
 export default {
   name: 'App',
-  components: {}
+  components: {},
+  mixins:[mixin],
+  data(){
+    return {
+      value: true
+    }
+  }
 }
 </script>
 
-<style>
+<style lang="less">
 #app {
   
 }

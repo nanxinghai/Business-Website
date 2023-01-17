@@ -15,7 +15,9 @@ export default {
           this.currentIndex = nextIndex.index
         }
       },
-      currentIndex:0
+      currentIndex:0,
+      // 白/黑 模式 light/dark  true/false
+      mode: true
     }
   }
 }

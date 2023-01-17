@@ -48,7 +48,8 @@ router.beforeEach((to, from, next) => {
             let obj = {
                 name: value.name,
                 path: value.path,
-                component: () => import(`@/views/${value.name}/index.vue`)
+                component: () => import(`@/views/${value.name}/index.vue`),
+                props: true
             }
             newrouter.push(obj)
         });
