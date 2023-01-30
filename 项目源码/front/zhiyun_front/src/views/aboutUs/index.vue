@@ -75,10 +75,10 @@
               <div>CONTACT US</div>
               <div>
                 <el-row type="flex" justify="space-around">
-                  <el-col :span="6">联系QQ：2830224482 </el-col>
-                  <el-col :span="6">手机号码：13438835715</el-col>
-                  <el-col :span="6">联系邮箱：2830224482@qq.com</el-col>
-                  <el-col :span="6">联系地址：黑龙江省鹤岗市工农区新鹤路金广大厦1808</el-col>
+                  <el-col :span="6">联系QQ：{{contactData.qqnum}} </el-col>
+                  <el-col :span="6">手机号码：{{contactData.phonenum}} </el-col>
+                  <el-col :span="6">联系邮箱：{{contactData.emailnum}}  </el-col>
+                  <el-col :span="6">联系地址：{{contactData.address}}  </el-col>
                 </el-row>
               </div>
             </div>
@@ -143,6 +143,7 @@
 import Header from '@/components/common/head.vue'
 import Foot from '@/components/common/foot.vue'
 import mixin from '@/mixin/index.js'
+import {getContactData} from '@/api/aboutUs.js'
 export default {
   name:'aboutUs',
   components:{Header,Foot},
@@ -171,6 +172,21 @@ export default {
       immediate: true,
       // 深度监听
       deep: true
+    }
+  },
+  data(){
+    return {
+      contactData:{}
+    }
+  },
+  created(){
+    this.getData()
+  },
+  methods:{
+    getData(){
+      getContactData().then((res) => {
+        this.contactData = res.data
+      })
     }
   }
 }

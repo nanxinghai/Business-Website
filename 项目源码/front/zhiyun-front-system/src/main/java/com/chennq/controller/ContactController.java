@@ -6,7 +6,9 @@ import com.chennq.service.ContactService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,7 +31,12 @@ public class ContactController {
     @ApiOperation("查询已启用数据")
     @GetMapping("/getContactData")
     public Contact getContactData(){
-        Contact contact = contactService.getOne(null);
-        return contact;
+        return contactService.getOne(null);
+    }
+
+    @ApiOperation("获取启用的隐私政策数据")
+    @PostMapping("/getWord")
+    public void getWord(){
+
     }
 }

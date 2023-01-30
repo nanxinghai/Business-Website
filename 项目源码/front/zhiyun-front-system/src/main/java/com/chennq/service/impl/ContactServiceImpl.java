@@ -4,7 +4,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chennq.entity.Contact;
 import com.chennq.mapper.ContactMapper;
 import com.chennq.service.ContactService;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.io.*;
 
 /**
  * @author ：Simon
@@ -16,4 +23,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ContactServiceImpl extends ServiceImpl<ContactMapper, Contact> implements ContactService {
 
+    @Override
+    public ResponseEntity<Contact> getContactData() {
+        return null;
+    }
 }

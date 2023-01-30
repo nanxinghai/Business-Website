@@ -251,7 +251,7 @@ export default {
         onSlideLeave:(section, origin, destination, direction, trigger)=>{
           // console.log("section",section)
           // console.log("origin",origin)
-          console.log("destination",destination)
+          // console.log("destination",destination)
           // console.log("direction",direction)
           // console.log("trigger",trigger)
           this.destination = destination.index

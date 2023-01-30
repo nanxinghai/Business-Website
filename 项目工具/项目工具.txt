@@ -1,2 +1,3 @@
-即时设计：https://js.design/
+﻿即时设计：https://js.design/
 数据库PDManer：http://www.pdman.cn/#/
+文件预览：https://kkfileview.keking.cn/zh-cn/docs/production.html

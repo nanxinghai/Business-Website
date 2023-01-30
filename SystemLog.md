@@ -80,3 +80,10 @@
 
 ​		已部署 github  网址：https://nanxinghai.github.io/zhiyun/
 
+
+
+今日任务：
+
+- [ ] 1、对接轮播图服务，以完成前端轮播动态切换
+- [ ] 2、对接联系我们版块
+
