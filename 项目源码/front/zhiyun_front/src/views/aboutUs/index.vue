@@ -121,7 +121,7 @@
                   <div class="form_file">
                     <input type="checkbox" style="vertical-align: middle;margin-top: -3px"/>
                     <span> 我已经阅读并同意 </span>
-                    <span style="color:#0879FF">《隐私保护协议》</span>
+                    <a :href="contactData.path"><span style="color:#0879FF">《隐私保护协议》</span></a>
                   </div>
                   <div class="form_btn">
                     立即申请
@@ -353,6 +353,9 @@ export default {
           margin-top: 2vh;
           font-size: @font_size_small;
           color: @font_grey_color;
+          a {
+            text-decoration: none;
+          }
         }
         .form_btn {
           cursor: pointer;

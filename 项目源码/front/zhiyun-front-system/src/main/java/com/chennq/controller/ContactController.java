@@ -34,9 +34,5 @@ public class ContactController {
         return contactService.getOne(null);
     }
 
-    @ApiOperation("获取启用的隐私政策数据")
-    @PostMapping("/getWord")
-    public void getWord(){
 
-    }
 }
