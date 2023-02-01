@@ -28,7 +28,7 @@
             <!-- 公司二维码 -->
             <el-col :sm="{span:6}" style="background:#2E3033;height:140px;">
               <div class="qr">
-                <img :src="footData.qrcode.path"/>
+                <img :src="footData.qrcode == undefined ? '' : footData.qrcode.path"/>
               </div>
             </el-col>
           </el-row>
@@ -72,12 +72,16 @@ export default {
   methods:{
     getData(){
       getContactData().then((res) => {
-        this.contactData = res.data
+        if(res.code == 0){
+          this.contactData = res.data
+        }
       })
     },
     getFoot(){
       getFootData().then((res) => {
-        this.footData = res.data
+        if(res.code == 0){
+          this.footData = res.data
+        }
       })
     }
   }
