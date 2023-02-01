@@ -12,9 +12,7 @@
                 <span>全国免费服务热线：</span>
               </div>
               <div class="contactPhone_phoneNum">
-                <span>13438835715</span>
-                <span>13550291397</span>
-                <span>18180639606</span>
+                <span v-for="(phone) in footData.phoneList" :key="phone.id">{{phone.phonenum}}</span>
               </div>
             </el-col>
             <!-- 公司地址 -->
@@ -24,13 +22,13 @@
                 <span>办公地址：</span>
               </div>
               <div class="contactPhone_phoneNum">
-                <span>黑龙江省鹤岗市工农区新鹤路金广大厦1808</span>
+                <span>{{contactData.address}}</span>
               </div>
             </el-col>
             <!-- 公司二维码 -->
             <el-col :sm="{span:6}" style="background:#2E3033;height:140px;">
               <div class="qr">
-                <img src="static/foot/qrcode.png"/>
+                <img :src="footData.qrcode.path"/>
               </div>
             </el-col>
           </el-row>
@@ -49,7 +47,7 @@
         <div>始于2012，十年专注，值得信赖</div>
         <div>
           <i class="iconfont icon-qq"></i>
-          <a href="http://wpa.qq.com/msgrd?v=3&uin=2830224482&site=qq&menu=yes" target="_blank">QQ交流</a>
+          <a :href="`http://wpa.qq.com/msgrd?v=3&uin=${contactData.qqnum}&site=qq&menu=yes`" target="_blank">QQ交流</a>
         </div>
       </el-col>
     </el-row>
@@ -57,8 +55,32 @@
 </template>
 
 <script>
+import {getContactData} from '@/api/aboutUs.js'
+import {getFootData} from '@/api/foot.js'
 export default {
-  name:'Foot'
+  name:'Foot',
+  data(){
+    return {
+      contactData:{},
+      footData:{}
+    }
+  },
+  created(){
+    this.getData()
+    this.getFoot()
+  },
+  methods:{
+    getData(){
+      getContactData().then((res) => {
+        this.contactData = res.data
+      })
+    },
+    getFoot(){
+      getFootData().then((res) => {
+        this.footData = res.data
+      })
+    }
+  }
 }
 </script>
 

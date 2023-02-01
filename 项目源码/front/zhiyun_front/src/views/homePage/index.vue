@@ -225,6 +225,7 @@
 import Header from '@/components/common/head.vue'
 import Foot from '@/components/common/foot.vue'
 import mixin from '@/mixin/index.js'
+import {getSwiperData} from '@/api/homepage.js'
 export default {
   name: 'homePage',
   components: { Header, Foot },
@@ -259,6 +260,7 @@ export default {
       },
       destination: 0,
       timer:null,
+      swiperData:[]
     }
   },
   watch: {
@@ -282,6 +284,7 @@ export default {
     }
   },
   mounted() {
+    this.getData()
     this.timer = setInterval(() => {
       this.$refs.fullpage.api.moveSlideRight() // 向右滚动
     }, 10000)
@@ -289,6 +292,15 @@ export default {
   beforeDestroy(){
     clearInterval(this.timer);        
     this.timer = null;
+  },
+  methods:{
+    getData(){
+      getSwiperData().then((res) => {
+        if(res.code == 0){
+          this.swiperData = res.data
+        }
+      })
+    }
   }
 }
 </script>
