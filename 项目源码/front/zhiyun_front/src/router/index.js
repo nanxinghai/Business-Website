@@ -47,12 +47,19 @@ router.beforeEach((to, from, next) => {
         // 如果vuex中没有路由,读取storage中是否有，有就加到vuex中，没有就要请求接口了
         if(menurouter.length === 0){
             // 读取菜单路由并设置到vuex和本地缓存中
-            getMenuData().then((res) => {
-                if(res.code === 0){
-                    store.dispatch('menu/setMenuRouter',JSON.stringify(res.data))
-                    sessionStorage.setItem('router',res.data)
-                }
-            })
+            let sessionRouter = JSON.parse(sessionStorage.getItem('router'))
+            if(sessionRouter === undefined || sessionRouter === null){
+                getMenuData().then((res) => {
+                    if(res.code === 0){
+                        store.dispatch('menu/setMenuRouter',res.data)
+                        sessionStorage.setItem('router',JSON.stringify(res.data))
+                        menurouter = res.data
+                    }
+                })
+            }else{
+                store.dispatch('menu/setMenuRouter',sessionRouter)
+                menurouter = sessionRouter
+            }
         }
         
 
