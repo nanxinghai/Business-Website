@@ -18,13 +18,14 @@ import animate from 'animate.css'
 // 引入svg全局组件注册
 import '@/assets/icons/index';
 // 按需引入elementui
-import { Col,Row,Divider } from 'element-ui';
+import { Col,Row,Divider,Message } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css'
 // 引入elementui的隐藏属性(响应式隐藏元素)
 import 'element-ui/lib/theme-chalk/display.css';
 Vue.use(Col)
 Vue.use(Row)
 Vue.use(Divider)
+Vue.prototype.$message = Message;
 
 Vue.config.productionTip = false
 

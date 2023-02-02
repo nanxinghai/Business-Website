@@ -95,35 +95,35 @@
                   <el-row type="flex" justify="space-between" class="form_row">
                     <el-col :span="11">
                       <div>姓名    <i class="iconfont icon-bitian"></i></div>
-                      <input type="text" />
+                      <input type="text" v-model="demandData.name"/>
                     </el-col>
                     <el-col :span="11">
                       <div>地址    <i class="iconfont icon-bitian"></i></div>
-                      <input type="text" />
+                      <input type="text" v-model="demandData.addr"/>
                     </el-col>
                   </el-row>
                   <el-row type="flex" justify="space-between" class="form_row">
                     <el-col :span="11">
                       <div>手机    <i class="iconfont icon-bitian"></i></div>
-                      <input type="text" />
+                      <input type="text" v-model="demandData.phone"/>
                     </el-col>
                     <el-col :span="11">
                       <div>邮箱    <i class="iconfont icon-bitian"></i></div>
-                      <input type="text" />
+                      <input type="text" v-model="demandData.email"/>
                     </el-col>
                   </el-row>
                   <el-row type="flex" justify="space-between" class="form_row" style="height: 30%">
                     <el-col :span="24">
                       <div>需求    <i class="iconfont icon-bitian"></i></div>
-                      <textarea/>
+                      <textarea v-model="demandData.demand"/>
                     </el-col>
                   </el-row>
                   <div class="form_file">
-                    <input type="checkbox" style="vertical-align: middle;margin-top: -3px"/>
+                    <input type="checkbox" style="vertical-align: middle;margin-top: -3px" v-model="demandData.isCheck"/>
                     <span> 我已经阅读并同意 </span>
                     <a :href="contactData.path"><span style="color:#0879FF">《隐私保护协议》</span></a>
                   </div>
-                  <div class="form_btn">
+                  <div class="form_btn" @click="submit">
                     立即申请
                   </div>
                 </form>
@@ -143,7 +143,7 @@
 import Header from '@/components/common/head.vue'
 import Foot from '@/components/common/foot.vue'
 import mixin from '@/mixin/index.js'
-import {getContactData} from '@/api/aboutUs.js'
+import {getContactData,addDemand} from '@/api/aboutUs.js'
 export default {
   name:'aboutUs',
   components:{Header,Foot},
@@ -176,7 +176,15 @@ export default {
   },
   data(){
     return {
-      contactData:{}
+      contactData:{},
+      demandData:{
+        name: '',
+        addr: '',
+        phone: '',
+        email: '',
+        demand: '',
+        isCheck: false
+      }
     }
   },
   created(){
@@ -186,6 +194,29 @@ export default {
     getData(){
       getContactData().then((res) => {
         this.contactData = res.data
+      })
+    },
+    submit(){
+      if(this.demandData.isCheck === false){
+        // 弹窗
+        this.$message.error('未同意隐私保护协议');
+        return
+      }
+      if(this.demandData.name === '' || this.demandData.name === null
+      || this.demandData.addr === '' || this.demandData.addr === null
+      || this.demandData.phone === '' || this.demandData.phone === null
+      || this.demandData.email === '' || this.demandData.email === null
+      || this.demandData.demand === '' || this.demandData.demand === null){
+        this.$message.error('信息尚未填写完整');
+        return
+      }
+      addDemand(this.demandData).then((res) => {
+        if(res.code === 0){
+          // 清空数据
+          this.demandData = {}
+          // 弹窗
+          this.$message.error('已收到需求，稍后客服会主动联系你');
+        }
       })
     }
   }

@@ -8,3 +8,12 @@ export const getContactData = ((obj) => {
         url:'/contact/getContactData'
     })
 })
+
+// 添加需求
+export const addDemand = ((obj) => {
+    return instance({
+        data: obj,
+        method:'post',
+        url:'/demand/add'
+    })
+})

@@ -30,7 +30,7 @@ public class MenuController {
     @ApiOperation("获取前台菜单数据")
     @GetMapping("/getMenuData")
     public List<Menu> getMenuData(){
-        List<Menu> list = menuService.list(null);
+        List<Menu> list = menuService.getMenuData(null);
         return list;
     }
 }

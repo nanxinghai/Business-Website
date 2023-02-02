@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(tags = "需求功能接口")
 @RestController
-@RequestMapping("/contact")
+@RequestMapping("/demand")
 public class DemandController {
     @Autowired
     private DemandService demandService;

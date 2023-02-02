@@ -1,6 +1,7 @@
 import VueRouter from 'vue-router'
 import Vue from 'vue'
 import store from '@/store'
+import {getMenuData} from '@/api/head.js'
 
 Vue.use(VueRouter)
 
@@ -43,6 +44,18 @@ router.beforeEach((to, from, next) => {
     // 判断是否有该路由,没有才添加(我搞了一天的重复添加问题)
     if (!hasRoute(to)) {
         let menurouter = store.state.menu.menurouter
+        // 如果vuex中没有路由,读取storage中是否有，有就加到vuex中，没有就要请求接口了
+        if(menurouter.length === 0){
+            // 读取菜单路由并设置到vuex和本地缓存中
+            getMenuData().then((res) => {
+                if(res.code === 0){
+                    store.dispatch('menu/setMenuRouter',JSON.stringify(res.data))
+                    sessionStorage.setItem('router',res.data)
+                }
+            })
+        }
+        
+
         let newrouter = []
         menurouter.forEach((value, index) => {
             let obj = {
