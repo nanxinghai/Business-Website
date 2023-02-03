@@ -1,10 +1,31 @@
 <template>
   <div class="homePage">
     <full-page :options="options" ref="fullpage">
+      <!-- 菜单导航 -->
+      <Header></Header>
       <!-- 第一屏 -->
-      <div class="section bg_up">
-        <!-- 菜单导航 -->
-        <Header></Header>
+      <div class="section bg_up" ref="swiper">
+        
+        
+        <!-- <div class="slide" v-for="(swiper,index) in swiperData" :key="swiper.id" :class="index === 0 ? 'first' : ''">
+          <div class="info" v-if="index === 0">
+            <router-link :to="{
+              name:'aboutUs',
+              params:{
+                isMove: true
+              }
+            }">
+              <img src="static/homepage/hm1_1.png" alt="">
+            </router-link>
+          </div>
+          <video  controls autoplay muted loop style="width:100%" id="video1" v-if="swiper.path.substr(swiper.path.lastIndexOf('.')+1) === 'mp4'">
+            <source :src="swiper.path" />
+          </video>
+          <img :src="swiper.path" v-if="swiper.path.substr(swiper.path.lastIndexOf('.')+1) === 'png'"/>
+        </div> -->
+
+
+
         <!-- 轮播图 -->
         <div class="slide first">
           <div class="info">
@@ -17,7 +38,6 @@
               <img src="static/homepage/hm1_1.png" alt="">
             </router-link>
           </div>
-          <!-- <img src="static/homepage/1.png" /> -->
           <video  controls autoplay muted loop style="width:100%" id="video1">
             <source src="static/homepage/hm1_1.mp4" />
           </video>
@@ -258,6 +278,7 @@ export default {
           this.destination = destination.index
         }
       },
+      currentIndex: 0,
       destination: 0,
       timer:null,
       swiperData:[]
@@ -271,7 +292,7 @@ export default {
           if (myVideo.paused) 
             myVideo.play(); 
         }
-      }
+      },
     },
     destination: {
       handler(n,o) {
@@ -284,10 +305,10 @@ export default {
     }
   },
   mounted() {
-    this.getData()
+    // this.getData()
     this.timer = setInterval(() => {
       this.$refs.fullpage.api.moveSlideRight() // 向右滚动
-    }, 10000)
+    }, 10000)  
   },
   beforeDestroy(){
     clearInterval(this.timer);        
@@ -298,6 +319,34 @@ export default {
       getSwiperData().then((res) => {
         if(res.code == 0){
           this.swiperData = res.data
+          // 动态渲染
+      //     let str = `<div class="slide first" style="position: relative;">
+      //     <div class="info" style="z-index: 1;
+      // position: absolute;
+      // left:50%;
+      // top:50%;
+      // margin-left:-270px;
+      // margin-top:-309px;">
+      //       <router-link :to="{
+      //         name:'aboutUs',
+      //         params:{
+      //           isMove: true
+      //         }
+      //       }">
+      //         <img src="static/homepage/hm1_1.png" alt="">
+      //       </router-link>
+      //     </div>
+      //     <video  controls autoplay muted loop style="width:100%" id="video1">
+      //       <source src="static/homepage/hm1_1.mp4" />
+      //     </video>
+      //   </div>
+      //   <div class="slide">
+      //     <img src="static/homepage/hm1_2.png" />
+      //   </div>`
+      //     this.$refs.swiper.innerHTML = str
+      //     this.$refs.fullpage.build()
+      //     this.$refs.fullpage.api.moveTo(1,0)
+      //     this.$forceUpdate()
         }
       })
     }

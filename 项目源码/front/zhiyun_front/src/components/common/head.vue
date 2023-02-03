@@ -8,10 +8,9 @@
       </el-col>
       <el-col :xs="{span:24}" :sm="{span:12}" class="menu">
         <ul>
-          <li><router-link to="/homePage">首页</router-link></li>
-          <li><router-link to="/serviceScope">服务范围</router-link></li>
-          <li><router-link to="/processExample">流程示例</router-link></li>
-          <li><router-link to="/aboutUs">关于我们</router-link></li>
+          <li v-for="(menu) in menurouter" :key="menu.id">
+            <router-link :to="menu.path">{{menu.menuname}}</router-link>
+          </li>
         </ul>
       </el-col>
     </el-row>
@@ -19,17 +18,11 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
   name:'Head',
-  data(){
-    return {
-
-    }
-  },
-  methods:{
-    
-
-
+  computed:{
+    ...mapState('menu',['menurouter'])
   }
 }
 </script>

@@ -45,4 +45,6 @@ public class Menu implements Serializable,Cloneable{
     @ApiModelProperty(name = "上传时间",notes = "")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createtime ;
+    @ApiModelProperty(name = "路由路径")
+    private String path;
 }

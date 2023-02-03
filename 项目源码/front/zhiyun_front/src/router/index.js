@@ -1,7 +1,7 @@
 import VueRouter from 'vue-router'
 import Vue from 'vue'
 import store from '@/store'
-import {getMenuData} from '@/api/head.js'
+import {getMenuData,insertData} from '@/api/head.js'
 
 Vue.use(VueRouter)
 
@@ -40,7 +40,7 @@ function hasRoute(to) {
 }
 
 // 全局前置路由
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
     // 判断是否有该路由,没有才添加(我搞了一天的重复添加问题)
     if (!hasRoute(to)) {
         let menurouter = store.state.menu.menurouter
@@ -49,7 +49,7 @@ router.beforeEach((to, from, next) => {
             // 读取菜单路由并设置到vuex和本地缓存中
             let sessionRouter = JSON.parse(sessionStorage.getItem('router'))
             if(sessionRouter === undefined || sessionRouter === null){
-                getMenuData().then((res) => {
+                await getMenuData().then((res) => {
                     if(res.code === 0){
                         store.dispatch('menu/setMenuRouter',res.data)
                         sessionStorage.setItem('router',JSON.stringify(res.data))
@@ -66,10 +66,11 @@ router.beforeEach((to, from, next) => {
         let newrouter = []
         menurouter.forEach((value, index) => {
             let obj = {
-                name: value.name,
+                name: value.menucode,
                 path: value.path,
-                component: () => import(`@/views/${value.name}/index.vue`),
-                props: true
+                component: () => import(`@/views/${value.menucode}/index.vue`),
+                props: true,
+                meta: value
             }
             newrouter.push(obj)
         });
@@ -86,5 +87,12 @@ router.beforeEach((to, from, next) => {
     }
 })
 
+// 全局后置路由
+router.afterEach((to,from) => {
+    let data = {
+        ...to.meta
+    }
+    insertData(JSON.stringify(data))
+})
 
 export default router

@@ -21,5 +21,7 @@ public class MyWebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new ResultInterceptor()).addPathPatterns("/**");
+        // 拦截前台请求 除去后台请求不会拦截
+
     }
 }
