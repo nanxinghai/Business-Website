@@ -11,6 +11,7 @@ import org.springframework.core.io.ClassPathResource;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,11 +21,12 @@ public class IpUtil {
         String browserName = browserName(request);
         String osName = osName(request);
         String ipAddress = getIpAddress(request);
+        String realAddress = getRealAddress(ipAddress);
         Log log = new Log();
         log.setBrowername(browserName);
         log.setOsname(osName);
         log.setIp(ipAddress);
-        log.setAddr("");
+        log.setAddr(realAddress);
         return log;
     }
 
@@ -102,6 +104,9 @@ public class IpUtil {
      * @version 1.0
      */
     public static String getRealAddress(String ip) {
+        if(ip.equals("127.0.0.1") || ip.equals("localhost")){
+            return "本机地址";
+        }
         String result = "";
         try {
             // 加载地址库
@@ -141,7 +146,7 @@ public class IpUtil {
         map.put("accessKey", "alibaba-inc");
         String result = HttpClientUtil.post("http://ip.taobao.com/outGetIpInfo", map);
         Map valueMap = JSONObject.parseObject(result, Map.class);
-
+//        System.out.println("successs" + result);
         // 请求成功，解析响应数据
         if ("query success".equals(valueMap.get("msg"))) {
             Map<String, String> dataMap = (Map<String, String>) valueMap.get("data");
@@ -152,4 +157,11 @@ public class IpUtil {
         }
         return "";
     }
+
+    public static void main(String[] args) {
+        String[] a = {"a","v"};
+        String s = Arrays.toString(a);
+        System.out.println(s);
+    }
+
 }
