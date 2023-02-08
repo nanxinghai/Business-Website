@@ -1,3 +1,4 @@
+const path = require('path');
 module.exports = {
     lintOnSave:false,
   // webpack配置
@@ -29,6 +30,14 @@ module.exports = {
   },
   // 第三方插件配置
   pluginOptions: {
-      // ...
+    // 添加全局less变量
+    'style-resources-loader': {
+        preProcessor: 'less',
+        patterns: [
+          // 路径
+          path.resolve(__dirname, './src/assets/css/theme.less'),
+        ],
+  
+    },
   }
 }
