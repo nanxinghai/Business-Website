@@ -4,6 +4,7 @@ import router from './router'
 // 引入初始化normalize.css
 import 'normalize.css/normalize.css'
 
+
 Vue.config.productionTip = false
 
 new Vue({

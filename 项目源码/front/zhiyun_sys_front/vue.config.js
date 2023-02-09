@@ -1,6 +1,7 @@
 const path = require('path');
+const resolve = dir => path.join(__dirname, dir)
 module.exports = {
-    lintOnSave:false,
+  lintOnSave:false,
   // webpack配置
   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
   configureWebpack: {
@@ -37,7 +38,6 @@ module.exports = {
           // 路径
           path.resolve(__dirname, './src/assets/css/theme.less'),
         ],
-  
     },
-  }
+  },
 }
