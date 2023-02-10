@@ -29,15 +29,16 @@ module.exports = {
       // },
       // disableHostCheck: true
   },
-  // 第三方插件配置
+  // 添加全局less变量
   pluginOptions: {
-    // 添加全局less变量
     'style-resources-loader': {
-        preProcessor: 'less',
-        patterns: [
-          // 路径
-          path.resolve(__dirname, './src/assets/css/theme.less'),
-        ],
+      preProcessor: 'less',
+      patterns: [
+        // 路径
+        path.resolve(__dirname, './src/assets/css/theme.less'),
+      ],
+
     },
+
   },
 }
