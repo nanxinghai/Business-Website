@@ -7,6 +7,11 @@ import 'normalize.css/normalize.css'
 import '@/assets/css/theme.less'
 // 引入svg全局组件注册
 import '@/assets/icons/index';
+// Elementui
+import ElementUI from 'element-ui';
+// 自定义主题
+import '@/style/theme/index.css'
+Vue.use(ElementUI);
 //中英文切换
 import VueI18n from 'vue-i18n'
 import ZH from '@/lang/zh.js'
