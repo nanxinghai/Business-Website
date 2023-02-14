@@ -13,9 +13,15 @@ const info = {
     codePlaceHolder2: '验证码',
     getCode: '立即发送',
     codeTips: '请输入手机号验证码',
+    otherLoginMethod: '第三方登录',
     // 微信登录
     wxTips: '请使用微信扫码登录',
-    otherLoginMethod: '第三方登录'
+    protocolText1: '扫码表示同意《',
+    protocolText2: '使用协议',
+    protocolText3: '》及《',
+    protocolText4: '隐私协议',
+    protocolText5: '》',
+    otherLoginMethod1: '其它登录',
   },
   EN: {
     title: 'Login',
@@ -31,11 +37,15 @@ const info = {
     codePlaceHolder2: 'Verification Code',
     getCode: 'Send Now',
     codeTips: 'Please enter the mobile phone number verification code',
+    otherLoginMethod: 'Third-party login',
     // 微信登录
     wxTips: 'Please log in using WeChat scanning code',
-
-
-    otherLoginMethod: 'Third-party login'
+    protocolText1: 'Scan the code to agree《',
+    protocolText2: 'Use Agreement',
+    protocolText3: '》and《',
+    protocolText4: 'Privacy Agreement',
+    protocolText5: '》',
+    otherLoginMethod1: 'Other logins',
   }
 }
 export default info
