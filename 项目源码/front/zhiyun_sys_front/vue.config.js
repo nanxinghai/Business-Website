@@ -2,6 +2,13 @@ const path = require('path');
 const resolve = dir => path.join(__dirname, dir)
 module.exports = {
   lintOnSave:false,
+  // 页面设置
+  pages: {
+    index: {
+      entry: 'src/main.js', // 入口文件
+      title: '智云科技后台'
+    }
+  },
   // webpack配置
   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
   configureWebpack: {

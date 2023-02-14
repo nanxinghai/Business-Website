@@ -17,59 +17,79 @@
       </div>
       <!-- 右盒子 -->
       <div class="right_box">
-        <div class="login_box" v-if="loginMethod === 'phoneLogin'">
-          <h1>{{$t('login.title')}}</h1>
-          <!-- 副标题 -->
-          <div class="sub_title">
-            <span :class="{'active':subLogin}" @click="switchSubLogin(true)">{{$t('login.subTitle1')}}</span>
-            <span class="two" :class="{'active':!subLogin}" @click="switchSubLogin(false)">{{$t('login.subTitle2')}}</span>
-          </div>
-          <!-- 密码登录表单 -->
-          <div class="login_form" v-if="subLogin">
-            <form style="height:100%;width:100%;">
-              <input type="text" :placeholder="$t('login.passPlaceHolder1')" style="margin-top: 14%;"/>
-              <div class="pass">
-                <input type="password" :placeholder="$t('login.passPlaceHolder2')"/>
-                <div>{{$t('login.forgetPass')}}</div>
+        <!-- 手机号登录 -->
+        <transition enter-active-class="animated fadeInLeft"
+        >
+          <div class="login_box" v-if="loginMethod === 'phoneLogin'" :class="loginMethod === 'phoneLogin' ? '' : 'hidden'">
+            <h1>{{$t('login.title')}}</h1>
+            <!-- 副标题 -->
+            <div class="sub_title">
+              <span :class="{'active':subLogin}" @click="switchSubLogin(true)">{{$t('login.subTitle1')}}</span>
+              <span class="two" :class="{'active':!subLogin}" @click="switchSubLogin(false)">{{$t('login.subTitle2')}}</span>
+            </div>
+            <!-- 密码登录表单 -->
+            <transition enter-active-class="animated fadeInLeft"
+            >
+              <div class="login_form" v-if="subLogin">
+                <form style="height:100%;width:100%;">
+                  <input type="text" :placeholder="$t('login.passPlaceHolder1')" style="margin-top: 14%;"/>
+                  <div class="pass">
+                    <input type="password" :placeholder="$t('login.passPlaceHolder2')"/>
+                    <div>{{$t('login.forgetPass')}}</div>
+                  </div>
+                  <div class="tips_box">{{$t('login.passTips')}}</div>
+                  <input  type="button" :value="$t('login.title')"/>
+                </form>
               </div>
-              <div class="tips_box">{{$t('login.passTips')}}</div>
-              <input  type="button" :value="$t('login.title')"/>
-            </form>
-          </div>
-          <!-- 验证码登录表单 -->
-          <div class="login_form" v-if="!subLogin">
-            <form style="height:100%;width:100%;">
-              <input type="text" :placeholder="$t('login.codePlaceHolder1')" style="margin-top: 14%;"/>
-              <div class="pass">
-                <input type="password" :placeholder="$t('login.codePlaceHolder2')"/>
-                <div>{{$t('login.getCode')}}</div>
+            </transition>
+            <!-- 验证码登录表单 -->
+            <transition enter-active-class="animated fadeInRight"
+            >
+              <div class="login_form" v-if="!subLogin">
+                <form style="height:100%;width:100%;">
+                  <input type="text" :placeholder="$t('login.codePlaceHolder1')" style="margin-top: 14%;"/>
+                  <div class="pass">
+                    <input type="password" :placeholder="$t('login.codePlaceHolder2')"/>
+                    <div>{{$t('login.getCode')}}</div>
+                  </div>
+                  <div class="tips_box">{{$t('login.codeTips')}}</div>
+                  <input  type="button" :value="$t('login.title')"/>
+                </form>
               </div>
-              <div class="tips_box">{{$t('login.codeTips')}}</div>
-              <input  type="button" :value="$t('login.title')"/>
-            </form>
-          </div>
-          <!-- 第三方登录 -->
-          <div class="login_method">
-            <div class="other_method">{{$t('login.otherLoginMethod')}}</div>
-            <div class="method_icon">
-              <img :src="require('@/assets/img/sign-weixin.png')" alt="" width="100%">
+            </transition>
+            <!-- 第三方登录 -->
+            <div class="login_method">
+              <div class="other_method">{{$t('login.otherLoginMethod')}}</div>
+              <div class="method_icon" @click="changeLoginMethod('wxchatLogin')">
+                <img :src="require('@/assets/img/sign-weixin.png')" alt="" width="100%">
+              </div>
             </div>
           </div>
-        </div>
+        </transition>
         <!-- 微信扫描 -->
-        <div class="login_box" v-if="loginMethod === 'wxchatLogin'">
-          <div class="tips">{{$t('login.wxTips')}}</div>
-          <!-- 二维码 -->
-          <div class="login_form">
-
-          </div>
-          <div class="login_method">
-            <div class="other_method">{{$t('login.otherLoginMethod')}}</div>
-            <div class="method_icon">
-              <img :src="require('@/assets/img/sign-phone.png')" alt="" width="100%">
+        <transition enter-active-class="animated fadeInRight"
+        >
+          <div class="login_box" v-if="loginMethod === 'wxchatLogin'" :class="loginMethod === 'wxchatLogin' ? '' : 'hidden'">
+            <div class="tips">{{$t('login.wxTips')}}</div>
+            <!-- 二维码 -->
+            <div class="login_form" style="position: relative;">
+              <img :src="require('@/assets/img/qrcode.png')" alt="" class="wxPng">
+              <div class="protocol">
+                {{$t('login.protocolText1')}}
+                <a href="#">{{$t('login.protocolText2')}}</a>
+                {{$t('login.protocolText3')}}
+                <a href="#">{{$t('login.protocolText4')}}</a>
+                {{$t('login.protocolText5')}}
+              </div>
+            </div>
+            <div class="login_method">
+              <div class="other_method">{{$t('login.otherLoginMethod1')}}</div>
+              <div class="method_icon" @click="changeLoginMethod('phoneLogin')">
+                <img :src="require('@/assets/img/sign-phone.png')" alt="" width="100%">
+              </div>
             </div>
           </div>
-        </div>
+        </transition>
       </div>
     </div>
   </div>
@@ -83,13 +103,17 @@ export default {
     data(){
       return {
         subLogin: true,
-        loginMethod: 'wxchatLogin'
+        loginMethod: 'phoneLogin'
       }
     },
     methods:{
       // 切换
       switchSubLogin(value){
         this.subLogin = value
+      },
+      // 改变登录方式 手机号/微信
+      changeLoginMethod(value){
+        this.loginMethod = value
       }
     },
 }
@@ -97,6 +121,7 @@ export default {
 
 <style lang="less" scoped>
 .containers {
+  overflow: hidden;
   background-color: #EDF9FC;
   height: 100vh;
   position: relative;
@@ -154,6 +179,14 @@ export default {
         background-color: #FFFFFF;
         border-radius: 5%;
         box-shadow: 4px 4px 10px 4px rgb(0 0 0 / 20%);
+        // 微信扫码提示
+        .tips {
+          text-align: center;
+          color: @font_color_dark;
+          font-size: @font_size_middle;
+          white-space: nowrap;
+          margin-top: 33%;
+        }
         .sub_title {
           width: 100%;
           height: 32px;
@@ -180,6 +213,26 @@ export default {
           width: 100%;
           height: 60%;
           border-bottom: 1px #F0F0F0 solid;
+          .wxPng {
+            // 扫码图片
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translateY(-50%);
+            transform: translateX(-50%);
+          }
+          .protocol {
+            // 隐私协议
+            font-size: @font_size_small;
+            text-align: center;
+            bottom: 20%;
+            position: absolute;
+            width: 100%;
+            &>a {
+              text-decoration: none;
+              color: @font_color_red;
+            }
+          }
           input[type="text"],input[type="password"] {
             width: 100%;
             height: 16%;
@@ -254,5 +307,8 @@ export default {
       }
     }
   }
+}
+.hidden {
+  display: none;
 }
 </style>

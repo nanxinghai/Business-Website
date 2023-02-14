@@ -7,6 +7,8 @@ import 'normalize.css/normalize.css'
 import '@/assets/css/theme.less'
 // 引入svg全局组件注册
 import '@/assets/icons/index';
+// Animate动画效果
+import animate from 'animate.css'
 // Elementui
 import ElementUI from 'element-ui';
 // 自定义主题
