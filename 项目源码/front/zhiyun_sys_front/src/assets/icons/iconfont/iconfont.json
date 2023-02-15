@@ -1,0 +1,86 @@
+{
+  "id": "3897823",
+  "name": "智云科技后台",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "智云科技后台",
+  "glyphs": [
+    {
+      "icon_id": "34131109",
+      "name": "front",
+      "font_class": "front",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "34131110",
+      "name": "home",
+      "font_class": "home",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "34131111",
+      "name": "setting",
+      "font_class": "setting",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "34131112",
+      "name": "user",
+      "font_class": "user",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "34131102",
+      "name": "demand",
+      "font_class": "demand",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "34128802",
+      "name": "function-line",
+      "font_class": "function-line",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "34128804",
+      "name": "global-line",
+      "font_class": "global-line",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "34128806",
+      "name": "search-line",
+      "font_class": "search-line",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "34128807",
+      "name": "settings-3-line",
+      "font_class": "settings-3-line",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "34128373",
+      "name": "menu-unfold-line",
+      "font_class": "menu-unfold-line",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "34128166",
+      "name": "menu-fold-line",
+      "font_class": "menu-fold-line",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    }
+  ]
+}

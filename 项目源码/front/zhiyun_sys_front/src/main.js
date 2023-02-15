@@ -9,6 +9,8 @@ import '@/assets/css/theme.less'
 import '@/assets/icons/index';
 // Animate动画效果
 import animate from 'animate.css'
+// 引入iconfont
+import '@/assets/icons/iconfont/iconfont.css'
 // Elementui
 import ElementUI from 'element-ui';
 // 自定义主题
