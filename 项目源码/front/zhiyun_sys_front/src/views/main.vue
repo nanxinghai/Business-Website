@@ -1,11 +1,13 @@
 <template>
     <div class="main_container">
         <el-container class="con_all">
-            <el-aside width="200px">
+            <el-aside width="240px">
                 <Aside></Aside>
             </el-aside>
             <el-container>
-                <el-header>Header</el-header>
+                <el-header height="60px">
+                    <Header></Header>
+                </el-header>
                 <el-main>Main</el-main>
             </el-container>
         </el-container>
@@ -29,6 +31,10 @@ export default {
     .con_all {
         height: 100%;
         width: 100%;
+        .el-header {
+            padding:0;
+            border-left: 1px #F0F2F5 solid;
+        }
     }
 }
 </style>

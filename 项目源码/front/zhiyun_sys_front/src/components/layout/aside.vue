@@ -14,30 +14,42 @@
                     <i class="iconfont icon-front"></i>
                     <span slot="title">前台设置</span>
                 </template>
-                <el-menu-item index="1-1">轮播切换</el-menu-item>
+                <el-menu-item index="1-1">菜单开放</el-menu-item>
+                <el-menu-item index="1-2">底部设置</el-menu-item>
+                <el-menu-item index="1-3">联系我们</el-menu-item>
             </el-submenu>
             <el-submenu index="2">
                 <template slot="title">
                     <i class="iconfont icon-demand"></i>
                     <span slot="title">需求设置</span>
                 </template>
-                <el-menu-item index="2-1">轮播切换</el-menu-item>
+                <el-menu-item index="2-1">需求列表</el-menu-item>
             </el-submenu>
             <el-submenu index="3">
                 <template slot="title">
                     <i class="iconfont icon-user"></i>
                     <span slot="title">个人中心</span>
                 </template>
-                <el-menu-item index="3-1">轮播切换</el-menu-item>
+                <el-menu-item index="3-1">个人信息</el-menu-item>
+                <el-menu-item index="3-2">消息列表</el-menu-item>
+                <el-menu-item index="3-3">登录日志</el-menu-item>
             </el-submenu>
             <el-submenu index="4">
                 <template slot="title">
-                    <i class="iconfont icon-setting"></i>
+                    <i class="iconfont icon-settings"></i>
                     <span slot="title">系统设置</span>
                 </template>
-                <el-menu-item index="4-1">轮播切换</el-menu-item>
+                <el-menu-item index="4-1">用户设置</el-menu-item>
+                <el-menu-item index="4-2">角色设置</el-menu-item>
+                <el-menu-item index="4-3">权限设置</el-menu-item>
+                <el-menu-item index="4-4">资源设置</el-menu-item>
             </el-submenu>
         </el-menu>
+        <div class="copyright">
+            <div class="first">ZhiYun BackGround System</div>
+            <div class="two">© 2023 All Rights Reserved</div>
+            <div class="three">Made with qq2830224482</div>
+        </div>
     </div>
 </template>
 
@@ -61,16 +73,36 @@ export default {
         line-height: 60px;
         border-bottom: 1px #F0F2F5 solid;
         overflow: hidden;
+        .svg-icon {
+            width: 1.2em;
+        }
     }
     .el-menu-vertical-demo {
+        padding: 0 10%;
+        box-sizing: border-box;
+        margin: 10px auto 0;
+        width: 100%;
         border: 0;
         color: @font_color_aside_grey;
         font-weight: 400;
         letter-spacing: 0px;
+        max-height: 75%;
+        height: 75%;
+        overflow: auto;
+        .is-active {
+            background-color: #409eff;
+            border-radius: 10px;
+            color: @font_color_white;
+        }
         .el-menu-item {
-            font-size: @font_size_aside;
+            border-radius: 10px;
+            height: auto;
+            line-height: 40px;
+            font-size: @font_size_small;
+            margin-bottom: 10px;
+            margin-top: 10px;
             .iconfont {
-                margin-right: 5px;
+                margin-right: 15px;
                 width: 24px;
                 text-align: center;
                 font-size: 18px;
@@ -78,17 +110,86 @@ export default {
             }
         }
         .el-submenu {
+            margin-bottom: 10px;
             .iconfont {
-                margin-right: 5px;
+                margin-right: 15px;
                 width: 24px;
                 text-align: center;
                 font-size: 18px;
                 vertical-align: middle;
             }
             ::v-deep .el-submenu__title {
-                font-size: @font_size_aside;
+                background-color: @font_color_white;
+                font-size: @font_size_small;
+                height: auto;
+                line-height: 40px;  
+            }
+            &>.el-menu {
+                &>.el-menu-item {
+                    width: 100%;
+                    min-width: 0;
+                    // padding-left: 100px !important;
+                    text-align: center;
+                }
             }
         }
     }
+    // .el-menu-vertical-demo::-webkit-scrollbar {
+    //     width: 2px;
+    //     border-radius: 8px;
+    // }
+    // .el-menu-vertical-demo::-webkit-scrollbar-thumb {
+    //     border-radius: 10px;
+    //     -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    //     opacity: 0.2;
+    //     background: fade(#96999f, 30%);
+    // }
+    // .el-menu-vertical-demo::-webkit-scrollbar-track {
+    //     -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    //     border-radius: 0;
+    //     background: fade(#96999f, 10%);
+    // }
+    .el-menu-vertical-demo::-webkit-scrollbar {
+        width: 2px !important;
+        background: transparent !important;
+        border-radius: 3px !important;
+    }
+
+    .el-menu-vertical-demo::-webkit-scrollbar-thumb {
+        width: 6px !important;
+        background-color: #cfcfcf !important;
+        border-radius: 3px !important;
+    }
+
+    .el-menu-vertical-demo::-webkit-scrollbar-track {
+        // 滚动条里面轨道
+        background: rgba(0, 0, 0, 0.05) !important;
+        background: none !important;
+    }
+
+    // 滚动条的交叉处正方形
+    .el-menu-vertical-demo::-webkit-scrollbar-corner {
+        background-color: transparent !important;
+    }
+    .copyright {
+        width: 80%;
+        margin: 10% auto 0;
+        font-size: @font_size_ssmall;
+        white-space: nowrap;
+        text-align: center;
+        overflow: hidden;
+        .first {
+
+        }
+        .two {
+            margin-top: 5%;
+            color: #717579;
+        }
+        .three {
+            margin-top: 15%;
+            color: #717579;
+        }
+    }
+
 }
 </style>

@@ -6,81 +6,88 @@
   "description": "智云科技后台",
   "glyphs": [
     {
-      "icon_id": "34131109",
-      "name": "front",
-      "font_class": "front",
-      "unicode": "e608",
-      "unicode_decimal": 58888
+      "icon_id": "586815",
+      "name": "console",
+      "font_class": "console",
+      "unicode": "e6e1",
+      "unicode_decimal": 59105
     },
     {
-      "icon_id": "34131110",
-      "name": "home",
-      "font_class": "home",
-      "unicode": "e609",
-      "unicode_decimal": 58889
+      "icon_id": "17606376",
+      "name": "应用中心",
+      "font_class": "yingyongzhongxin",
+      "unicode": "e6b0",
+      "unicode_decimal": 59056
     },
     {
-      "icon_id": "34131111",
-      "name": "setting",
-      "font_class": "setting",
-      "unicode": "e60a",
-      "unicode_decimal": 58890
-    },
-    {
-      "icon_id": "34131112",
+      "icon_id": "4766293",
       "name": "user",
       "font_class": "user",
-      "unicode": "e60b",
-      "unicode_decimal": 58891
+      "unicode": "e7ae",
+      "unicode_decimal": 59310
     },
     {
-      "icon_id": "34131102",
+      "icon_id": "33516",
+      "name": "home",
+      "font_class": "home",
+      "unicode": "e6b8",
+      "unicode_decimal": 59064
+    },
+    {
+      "icon_id": "34155179",
       "name": "demand",
       "font_class": "demand",
-      "unicode": "e607",
-      "unicode_decimal": 58887
+      "unicode": "e60e",
+      "unicode_decimal": 58894
     },
     {
-      "icon_id": "34128802",
-      "name": "function-line",
-      "font_class": "function-line",
-      "unicode": "e603",
-      "unicode_decimal": 58883
+      "icon_id": "34155180",
+      "name": "front",
+      "font_class": "front",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
     },
     {
-      "icon_id": "34128804",
-      "name": "global-line",
-      "font_class": "global-line",
-      "unicode": "e604",
-      "unicode_decimal": 58884
+      "icon_id": "34155181",
+      "name": "settings",
+      "font_class": "settings",
+      "unicode": "e610",
+      "unicode_decimal": 58896
     },
     {
-      "icon_id": "34128806",
-      "name": "search-line",
-      "font_class": "search-line",
-      "unicode": "e605",
-      "unicode_decimal": 58885
+      "icon_id": "34155183",
+      "name": "document",
+      "font_class": "document",
+      "unicode": "e612",
+      "unicode_decimal": 58898
     },
     {
-      "icon_id": "34128807",
-      "name": "settings-3-line",
-      "font_class": "settings-3-line",
-      "unicode": "e606",
-      "unicode_decimal": 58886
+      "icon_id": "34155173",
+      "name": "fileon",
+      "font_class": "fileon",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
     },
     {
-      "icon_id": "34128373",
-      "name": "menu-unfold-line",
-      "font_class": "menu-unfold-line",
-      "unicode": "e602",
-      "unicode_decimal": 58882
+      "icon_id": "34155174",
+      "name": "fileout",
+      "font_class": "fileout",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
     },
     {
-      "icon_id": "34128166",
-      "name": "menu-fold-line",
-      "font_class": "menu-fold-line",
-      "unicode": "e601",
-      "unicode_decimal": 58881
+      "icon_id": "688062",
+      "name": "地球 全球",
+      "font_class": "diqiuquanqiu",
+      "unicode": "e76c",
+      "unicode_decimal": 59244
+    },
+    {
+      "icon_id": "10056821",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e614",
+      "unicode_decimal": 58900
     }
   ]
 }

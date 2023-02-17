@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3897823 */
-  src: url('iconfont.woff2?t=1676470416593') format('woff2'),
-       url('iconfont.woff?t=1676470416593') format('woff'),
-       url('iconfont.ttf?t=1676470416593') format('truetype');
+  src: url('iconfont.woff2?t=1676627085359') format('woff2'),
+       url('iconfont.woff?t=1676627085359') format('woff'),
+       url('iconfont.ttf?t=1676627085359') format('truetype');
 }
 
 .iconfont {
@@ -13,47 +13,51 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-front:before {
-  content: "\e608";
+.icon-console:before {
+  content: "\e6e1";
 }
 
-.icon-home:before {
-  content: "\e609";
-}
-
-.icon-setting:before {
-  content: "\e60a";
+.icon-yingyongzhongxin:before {
+  content: "\e6b0";
 }
 
 .icon-user:before {
-  content: "\e60b";
+  content: "\e7ae";
+}
+
+.icon-home:before {
+  content: "\e6b8";
 }
 
 .icon-demand:before {
-  content: "\e607";
+  content: "\e60e";
 }
 
-.icon-function-line:before {
-  content: "\e603";
+.icon-front:before {
+  content: "\e60f";
 }
 
-.icon-global-line:before {
-  content: "\e604";
+.icon-settings:before {
+  content: "\e610";
 }
 
-.icon-search-line:before {
-  content: "\e605";
+.icon-document:before {
+  content: "\e612";
 }
 
-.icon-settings-3-line:before {
-  content: "\e606";
+.icon-fileon:before {
+  content: "\e60c";
 }
 
-.icon-menu-unfold-line:before {
-  content: "\e602";
+.icon-fileout:before {
+  content: "\e60d";
 }
 
-.icon-menu-fold-line:before {
-  content: "\e601";
+.icon-diqiuquanqiu:before {
+  content: "\e76c";
+}
+
+.icon-sousuo:before {
+  content: "\e614";
 }
 
