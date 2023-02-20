@@ -16,6 +16,8 @@ import ElementUI from 'element-ui';
 // 自定义主题
 import '@/style/theme/index.css'
 Vue.use(ElementUI);
+// 引入vuex
+import store from './store'
 //中英文切换
 import VueI18n from 'vue-i18n'
 import ZH from '@/lang/zh.js'
@@ -33,6 +35,7 @@ const i18n=new VueI18n({
 Vue.config.productionTip = false
 
 new Vue({
+  store,
   router,
   i18n,
   render: h => h(App),

@@ -6,16 +6,16 @@ Vue.use(VueRouter)
 // 路由规则
 const route = [
     {
-        name: 'main',
+        name: 'root',
         path: '/',
         component: ()=> import('@/views/main.vue'),
         redirect: '/home',
         children: [
-            {
-                name: 'home',
-                path: 'home',
-                component: () => import('@/views/home/index.vue')
-            }
+            // {
+            //     name: 'home',
+            //     path: 'home',
+            //     component: () => import('@/views/home/index.vue')
+            // }
         ]
     },
     {

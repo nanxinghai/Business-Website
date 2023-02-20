@@ -8,7 +8,9 @@
                 <el-header height="60px">
                     <Header></Header>
                 </el-header>
-                <el-main>Main</el-main>
+                <el-main>
+                    <Body></Body>
+                </el-main>
             </el-container>
         </el-container>
     </div>
@@ -17,9 +19,10 @@
 <script>
 import Header from '@/components/layout/header.vue'
 import Aside from '@/components/layout/aside.vue'
+import Body from '@/components/layout/body.vue'
 export default {
     name:'Main',
-    components:{Header,Aside}
+    components:{Header,Aside,Body}
 }
 </script>
 

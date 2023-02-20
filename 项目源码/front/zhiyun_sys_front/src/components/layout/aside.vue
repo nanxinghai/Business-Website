@@ -6,7 +6,6 @@
         <el-menu default-active="5" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
             <el-menu-item index="5">
                 <i class="iconfont icon-home"></i>
-                <!-- <span class="iconfont icon-home"></span> -->
                 <span slot="title">首页</span>
             </el-menu-item>
             <el-submenu index="1">

@@ -38,7 +38,7 @@
                     <div>{{$t('login.forgetPass')}}</div>
                   </div>
                   <div class="tips_box">{{$t('login.passTips')}}</div>
-                  <input  type="button" :value="$t('login.title')"/>
+                  <input  type="button" :value="$t('login.title')" @click="login"/>
                 </form>
               </div>
             </transition>
@@ -96,6 +96,7 @@
 </template>
 
 <script>
+import {nanoid} from  'nanoid'
 import ChangeLang from '@/components/common/changeLang.vue'
 export default {
     name:'Login',
@@ -114,6 +115,43 @@ export default {
       // 改变登录方式 手机号/微信
       changeLoginMethod(value){
         this.loginMethod = value
+      },
+      // 调用登录方法
+      login(){
+        let token = nanoid()
+        localStorage.setItem('token',token)
+        let permission = [
+          {
+            id: 1,
+            label: '首页',
+            name: 'home'
+          },
+          {
+            id:1,
+            label: '前台设置',
+            children: [
+              {
+                id:3,
+                label:'菜单开发',
+                name:'menu'
+              },
+              {
+                id:4,
+                label:'底部设置',
+                name:'foot'
+              }
+            ]
+          }
+        ]
+        // 清除菜单store
+        this.$store.commit('menuOptions/CLEARMENU')
+        // 将数据加入菜单store（后面渲染菜单）
+        this.$store.commit('menuOptions/CHANGEMENU',permission)
+        // 添加动态路由
+        this.$store.commit('menuOptions/ADDROUTER',this.$router)
+        // 登录成功 跳转路由
+        this.$router.push({name:'root'})
+
       }
     },
 }
