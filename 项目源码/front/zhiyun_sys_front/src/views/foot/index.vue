@@ -1,5 +1,5 @@
 <template>
-    <div>底部设置</div>
+    <div class="container">底部设置</div>
 </template>
 
 <script>

@@ -9,7 +9,7 @@
                     v-for="(item,index) in breadList"
                     :key="index"
                     :to="{ path: item.path }"
-                >{{item.name}}</el-breadcrumb-item>
+                >{{item.meta.label}}</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <div class="right">
@@ -54,11 +54,19 @@ export default {
         },
         getBreadcrumb() {
             let matched = this.$route.matched; //拿到显示的路由路径
-            console.log('matched',matched)
-            if(!this.isHome(matched[0])){//当前路由等于首页
-                matched = [{ path: "/home", meta: { title: "首页" } }].concat(matched);
+            // 目的：去除路径的根元素（root）start
+            // 真离谱bug（必须先在数组首位添加一个元素，最后删除才不影响二级路由）
+            // 直接删除就会影响二级路由
+            matched = [{ path: "/home", meta: { label: "智云后台" } }].concat(matched);
+            if(!this.isHome(matched[2])){//当前路由等于首页
+                matched.splice(1,0,{path: "/home", meta: { label: "首页" }})
+                matched.splice(2,1)
+            }else{
+                matched.splice(1,1)
             }
-            this.breadList = matched;          
+            matched.splice(0,1)
+            // 目的：去除路径的根元素（root）end
+            this.breadList = matched;    
         }
     }
 }
@@ -81,10 +89,12 @@ export default {
         vertical-align: middle;
         .el-breadcrumb{
             display: inline-block;
+            margin-left: 20px;
         }
         .iconfont {
             font-size: 12px;
             color: @font_color_aside_grey;
+            vertical-align: top;
         }
         &>span {
             font-size: @font_size_small;

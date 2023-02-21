@@ -1,5 +1,4 @@
 import {IsChildren} from './method.js'
-import {nanoid} from  'nanoid'
 const menuOptions = {
     namespaced: true,//开启命名空间
     actions:{

@@ -95,7 +95,8 @@ export default {
             // console.log(key, keyPath);
         },
         changeMenu(item){
-
+            // 往Vuex添加面包屑数据
+            this.$store.dispatch('tagOptions/addTag',item)
             // 切换路由
             this.$router.push({
                 name: item.name

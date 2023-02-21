@@ -1,5 +1,5 @@
 <template>
-    <div>联系我们</div>
+    <div class="container">联系我们</div>
 </template>
 
 <script>

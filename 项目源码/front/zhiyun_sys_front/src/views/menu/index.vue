@@ -1,5 +1,5 @@
 <template>
-    <div>菜单开放</div>
+    <div class="container">菜单开放</div>
 </template>
 
 <script>
