@@ -1,10 +1,12 @@
 <template>
-    <div class="">home</div>
+    <div class="error_box">
+        error
+    </div>
 </template>
 
 <script>
 export default {
-    name:'Home'
+    name:'Error'
 }
 </script>
 

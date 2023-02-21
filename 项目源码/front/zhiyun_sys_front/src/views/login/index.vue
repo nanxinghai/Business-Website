@@ -122,23 +122,29 @@ export default {
         localStorage.setItem('token',token)
         let permission = [
           {
-            id: 1,
+            id: '1',
             label: '首页',
             name: 'home'
           },
           {
-            id:1,
+            id:'2',
             label: '前台设置',
+            name: 'front',
             children: [
               {
-                id:3,
+                id:'3',
                 label:'菜单开发',
                 name:'menu'
               },
               {
-                id:4,
+                id:'4',
                 label:'底部设置',
                 name:'foot'
+              },
+              {
+                id:'5',
+                label:'联系我们',
+                name:'concact'
               }
             ]
           }

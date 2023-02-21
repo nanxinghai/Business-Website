@@ -3,7 +3,29 @@
         <div class="logo_box">
             <svg-icon icon-class="common_logo"></svg-icon>
         </div>
-        <el-menu default-active="5" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
+        <el-menu class="el-menu-vertical-demo"
+            :default-active="menuList[0].id" 
+            @open="handleOpen" 
+            @close="handleClose" 
+            :collapse="isCollapse"
+            >
+            <template v-for="(item) in menuList">
+                <el-menu-item v-if="item.children === undefined" :key="item.id" :index="item.id" @click="changeMenu(item)">
+                    <i :class="`iconfont icon-${item.name}`"></i>
+                    <span slot="title">{{item.label}}</span>
+                </el-menu-item>
+                <el-submenu v-if="item.children !== undefined" :key="item.id" :index="item.id">
+                    <template slot="title">
+                        <i :class="`iconfont icon-${item.name}`"></i>
+                        <span slot="title">{{item.label}}</span>
+                    </template>
+                    <el-menu-item v-for="e in item.children" :index="e.id" :key="e.id" @click="changeMenu(e)">
+                        {{e.label}}
+                    </el-menu-item>
+                </el-submenu>
+            </template>
+        </el-menu>
+        <!-- <el-menu default-active="5" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
             <el-menu-item index="5">
                 <i class="iconfont icon-home"></i>
                 <span slot="title">首页</span>
@@ -43,7 +65,7 @@
                 <el-menu-item index="4-3">权限设置</el-menu-item>
                 <el-menu-item index="4-4">资源设置</el-menu-item>
             </el-submenu>
-        </el-menu>
+        </el-menu> -->
         <div class="copyright">
             <div class="first">ZhiYun BackGround System</div>
             <div class="two">© 2023 All Rights Reserved</div>
@@ -53,8 +75,33 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
-    name: 'Aside'
+    name: 'Aside',
+    computed:{
+        ...mapState('menuOptions',['isCollapse']),
+        ...mapState('menuOptions',{menuList:'menu'})
+    },
+    data(){
+        return {
+
+        }
+    },
+    methods:{
+        handleOpen(key, keyPath){
+            // console.log(key, keyPath);
+        },
+        handleClose(key, keyPath){
+            // console.log(key, keyPath);
+        },
+        changeMenu(item){
+
+            // 切换路由
+            this.$router.push({
+                name: item.name
+            })
+        }
+    }
 }
 </script>
 

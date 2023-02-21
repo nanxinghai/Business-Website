@@ -1,4 +1,5 @@
 import {IsChildren} from './method.js'
+import {nanoid} from  'nanoid'
 const menuOptions = {
     namespaced: true,//开启命名空间
     actions:{
@@ -27,19 +28,6 @@ const menuOptions = {
             state.menu = []
             sessionStorage.removeItem('menuinfo')
         },
-        // 添加路由
-        // ADDROUTER(state,router){
-        //     let baseInfo = sessionStorage.getItem('baseinfo')
-        //     if(state.menu.length == 0)
-        //     state.menu = JSON.parse(baseInfo) || []
-        //     if(router.options.routes[0].children.length == 0){
-        //         state.menu.forEach(element => {
-        //             element.component = () => import(`@/view${element.url}`)
-        //             router.addRoute('main',element)
-        //         });
-        //     }
-        // },
-
         // 添加路由 
         ADDROUTER(state,router){
             // 从sessionStorage中取出菜单信息
@@ -55,6 +43,13 @@ const menuOptions = {
                     toBeAddRoute = toBeAddRoute.concat(route)
                 });
             }
+            // 404页面
+            let error = {
+                name:'error',
+                path:'error',
+                component: () => import(`@/views/error/index.vue`)
+            }
+            toBeAddRoute.push(error)
             toBeAddRoute.forEach(e => {
                 router.addRoute('root',e)
             })

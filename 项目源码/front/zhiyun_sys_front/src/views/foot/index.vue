@@ -1,10 +1,10 @@
 <template>
-    <div class="">home</div>
+    <div>底部设置</div>
 </template>
 
 <script>
 export default {
-    name:'Home'
+    name:'Foot'
 }
 </script>
 

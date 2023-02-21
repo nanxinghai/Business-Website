@@ -1,10 +1,10 @@
 <template>
-    <div class="">home</div>
+    <div>联系我们</div>
 </template>
 
 <script>
 export default {
-    name:'Home'
+    name:'Concact'
 }
 </script>
 

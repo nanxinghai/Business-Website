@@ -1,10 +1,10 @@
 <template>
-    <div class="">home</div>
+    <div>菜单开放</div>
 </template>
 
 <script>
 export default {
-    name:'Home'
+    name:'Menu'
 }
 </script>
 

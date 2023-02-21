@@ -2,8 +2,15 @@
     <div class="header_con">
         <div class="left">
             <i class="iconfont icon-fileon"></i>
-            <span class="one_level">首页</span>
-            <span class="two_level"> / 数据中心</span>
+            <!-- <span class="one_level">首页</span>
+            <span class="two_level"> / 数据中心</span> -->
+            <el-breadcrumb separator="/">
+                <el-breadcrumb-item
+                    v-for="(item,index) in breadList"
+                    :key="index"
+                    :to="{ path: item.path }"
+                >{{item.name}}</el-breadcrumb-item>
+            </el-breadcrumb>
         </div>
         <div class="right">
             <i class="iconfont icon-sousuo"></i>
@@ -24,7 +31,36 @@
 import ChangeLang from '@/components/common/changeLang.vue'
 export default {
     name:'Header',
-    components: {ChangeLang}
+    components: {ChangeLang},
+    data(){
+        return {
+            breadList:[], // 路由集合
+        }
+    },
+    watch:{ //路由改变的时候监听
+          $route() {
+            this.getBreadcrumb();
+        }
+    },
+    created(){
+        this.getBreadcrumb();
+    },
+    methods:{
+        changeCollapse(){
+            this.$store.dispatch('menuOptions/changeCollapse')
+        },
+        isHome(route) { //拿到首页
+            return route.name === "home";
+        },
+        getBreadcrumb() {
+            let matched = this.$route.matched; //拿到显示的路由路径
+            console.log('matched',matched)
+            if(!this.isHome(matched[0])){//当前路由等于首页
+                matched = [{ path: "/home", meta: { title: "首页" } }].concat(matched);
+            }
+            this.breadList = matched;          
+        }
+    }
 }
 </script>
 
@@ -43,6 +79,9 @@ export default {
         left: 1%;
         line-height: 60px;
         vertical-align: middle;
+        .el-breadcrumb{
+            display: inline-block;
+        }
         .iconfont {
             font-size: 12px;
             color: @font_color_aside_grey;
