@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @version: v1.0
  */
 @SpringBootApplication
-@MapperScan("com.chennq.mapper")
+@MapperScan({"com.chennq.mapper","com.chennq.sys.mapper.*"})
 public class ZYWebsiteApplication {
     public static void main(String[] args) {
         SpringApplication.run(ZYWebsiteApplication.class,args);

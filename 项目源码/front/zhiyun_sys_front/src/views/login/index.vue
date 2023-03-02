@@ -32,13 +32,13 @@
             >
               <div class="login_form" v-if="subLogin">
                 <form style="height:100%;width:100%;">
-                  <input type="text" :placeholder="$t('login.passPlaceHolder1')" style="margin-top: 14%;"/>
+                  <input type="text" :placeholder="$t('login.passPlaceHolder1')" style="margin-top: 14%;" v-model="phoneLoginData.phonenumber"/>
                   <div class="pass">
-                    <input type="password" :placeholder="$t('login.passPlaceHolder2')"/>
+                    <input type="password" :placeholder="$t('login.passPlaceHolder2')" v-model="phoneLoginData.password"/>
                     <div>{{$t('login.forgetPass')}}</div>
                   </div>
                   <div class="tips_box">{{$t('login.passTips')}}</div>
-                  <input  type="button" :value="$t('login.title')" @click="login"/>
+                  <input  type="button" :value="$t('login.title')" @click="loginByPhone"/>
                 </form>
               </div>
             </transition>
@@ -96,6 +96,7 @@
 </template>
 
 <script>
+import {phoneNumLogin} from '@/api/login/index.js'
 import {nanoid} from  'nanoid'
 import ChangeLang from '@/components/common/changeLang.vue'
 export default {
@@ -104,7 +105,12 @@ export default {
     data(){
       return {
         subLogin: true,
-        loginMethod: 'phoneLogin'
+        loginMethod: 'phoneLogin',
+        // 手机号登录表单数据
+        phoneLoginData:{
+          phonenumber:'',
+          password:''
+        }
       }
     },
     methods:{
@@ -158,6 +164,12 @@ export default {
         // 登录成功 跳转路由
         this.$router.push({name:'root'})
 
+      },
+      // 手机号登录
+      loginByPhone(){
+        phoneNumLogin(this.phoneLoginData).then(res => {
+          console.log(res)
+        })
       }
     },
 }

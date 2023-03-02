@@ -20,6 +20,7 @@ module.exports = {
   },
   // webpack-dev-server 相关配置
   devServer: {
+      proxy:'http://localhost:9898',
       // open: process.platform === 'vue',
       // host: '127.0.0.1',
       port: 8999,

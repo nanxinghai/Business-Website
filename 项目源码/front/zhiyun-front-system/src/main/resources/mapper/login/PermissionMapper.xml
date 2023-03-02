@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chennq.sys.mapper.login.PermissionMapper">
+    <select id="getUserPermByUserId" resultType="java.lang.String">
+        SELECT
+          DISTINCT m.`perms`
+        FROM
+            tf_sys_user_role ur
+            LEFT JOIN `tf_sysrole` r ON ur.`role_id` = r.`id`
+            LEFT JOIN `tf_sys_role_menu` rm ON ur.`role_id` = rm.`role_id`
+            LEFT JOIN `tf_sysmenu` m ON m.`id` = rm.`menu_id`
+        WHERE
+            user_id = #{userId}
+            AND r.`status` = 0
+            AND m.`status` = 0
+    </select>
+    <select id="getAllPermission" parameterType="java.lang.String" resultType="com.chennq.sys.entity.login.Permission">
+        SELECT
+            m.*
+        FROM
+            tf_sys_user_role ur
+            LEFT JOIN tf_sysrole r ON ur.role_id = r.id
+            LEFT JOIN tf_sys_role_menu rm ON r.id = rm.role_id
+            LEFT JOIN tf_sysmenu m ON rm.menu_id = m.id
+        WHERE
+            user_id = #{userId}
+            AND r.`status` = 0
+            AND m.`status` = 0
+    </select>
+</mapper>
