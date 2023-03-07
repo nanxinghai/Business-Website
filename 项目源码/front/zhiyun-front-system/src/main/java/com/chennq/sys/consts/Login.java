@@ -11,5 +11,5 @@ import lombok.Data;
  */
 public class Login {
     public static final String PHONENUM_INREDISTOKEN_PREFIX = "login:";
-//    public static
+    public static final String CODEEXPIRATION_INREDIS_KEY = "expiration:";
 }

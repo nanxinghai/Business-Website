@@ -13,8 +13,8 @@ spring:
     password: ENC(2AgKiQfCMd1L87szsCXiRA==)
     #连接池
     hikari:
-      minimum-idle: 5
-      maximum-pool-size: 15
+      minimum-idle: 1
+      maximum-pool-size: 5
       auto-commit: true
       idle-timeout: 30000
       pool-name: DatebookHikariCP
@@ -25,6 +25,9 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+    # 设置dispatcherServlet在项目启动时就加载 ，而不是懒加载
+    servlet:
+      load-on-startup: 1
   redis:
     host: 192.168.0.102
     port: 6379
@@ -42,3 +45,10 @@ mybatis-plus:
 jasypt:
   encryptor:
     password: simon_123456
+aliyun:
+  accessKeyId: LTAI5tJxsss5X8DLYjvbXgYs
+  accessKeySecret: D8HCMFrwz2mDgVI62Z6HhU31NBOv6k
+wx:
+  appid: wxd853562a0548a7d0
+  secret: 4a5d5615f93f24bdba2ba8534642dbb6
+  get_accessToken_url: https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code

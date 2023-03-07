@@ -46,6 +46,11 @@ public class UserDetailServiceImpl implements UserDetailsService {
         if(Objects.isNull(userFromDB)){
             throw new MyException("用户不存在!!!");
         }
+        LoginUser loginUserByUser = getLoginUserByUser(userFromDB);
+        return loginUserByUser;
+    }
+
+    public LoginUser getLoginUserByUser(User userFromDB){
         String userId = userFromDB.getId().toString();
         // 2、查询用户权限信息
         // 这是权限标识字符串

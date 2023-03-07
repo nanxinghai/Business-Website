@@ -20,10 +20,12 @@ module.exports = {
   },
   // webpack-dev-server 相关配置
   devServer: {
+      // 不检查hosts文件
+      disableHostCheck: true,
       proxy:'http://localhost:9898',
       // open: process.platform === 'vue',
       // host: '127.0.0.1',
-      port: 8999,
+      port: 80,
       // https: false,
       // hotOnly: false,
       // proxy: { // 设置代理

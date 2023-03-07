@@ -4,23 +4,23 @@
             <svg-icon icon-class="common_logo"></svg-icon>
         </div>
         <el-menu class="el-menu-vertical-demo"
-            :default-active="menuList[0].id" 
+            :default-active="menuList[0].id+''" 
             @open="handleOpen" 
             @close="handleClose" 
             :collapse="isCollapse"
             >
             <template v-for="(item) in menuList">
-                <el-menu-item v-if="item.children === undefined" :key="item.id" :index="item.id" @click="changeMenu(item)">
-                    <i :class="`iconfont icon-${item.name}`"></i>
-                    <span slot="title">{{item.label}}</span>
+                <el-menu-item v-if="item.children === undefined || item.children.length === 0" :key="item.id+''" :index="item.id+''" @click="changeMenu(item)">
+                    <i :class="`iconfont icon-${item.path}`"></i>
+                    <span slot="title">{{item.menuName}}</span>
                 </el-menu-item>
-                <el-submenu v-if="item.children !== undefined" :key="item.id" :index="item.id">
+                <el-submenu v-if="item.children !== undefined && item.children.length !== 0" :key="item.id+''" :index="item.id+''">
                     <template slot="title">
-                        <i :class="`iconfont icon-${item.name}`"></i>
-                        <span slot="title">{{item.label}}</span>
+                        <i :class="`iconfont icon-${item.path}`"></i>
+                        <span slot="title">{{item.menuName}}</span>
                     </template>
-                    <el-menu-item v-for="e in item.children" :index="e.id" :key="e.id" @click="changeMenu(e)">
-                        {{e.label}}
+                    <el-menu-item v-for="e in item.children" :index="e.id+''" :key="e.id+''" @click="changeMenu(e)">
+                        {{e.menuName}}
                     </el-menu-item>
                 </el-submenu>
             </template>
@@ -99,7 +99,7 @@ export default {
             this.$store.dispatch('tagOptions/addTag',item)
             // 切换路由
             this.$router.push({
-                name: item.name
+                name: item.path
             })
         }
     }

@@ -5,7 +5,7 @@ const tagOptions = {
       addTag(context,value){
         let flag = false
         for(let item of context.state.tags){
-            if(item.name == value.name){
+            if(item.path == value.path){
                 flag = true
             }
         }
@@ -16,7 +16,7 @@ const tagOptions = {
       deleteTag(context,value){
         let flag = -1
         context.state.tags.forEach((item,index) => {
-            if(item.name == value.name){
+            if(item.path == value.path){
                 flag = index
             }
         })
@@ -34,9 +34,8 @@ const tagOptions = {
   state:{
     tags:[
       {
-          label:"首页",
-          name:"home",
-          path:"/home",
+          path:'home',
+          menuName:'首页'
       }
     ]
   },

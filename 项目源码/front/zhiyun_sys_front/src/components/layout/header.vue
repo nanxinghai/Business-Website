@@ -9,7 +9,7 @@
                     v-for="(item,index) in breadList"
                     :key="index"
                     :to="{ path: item.path }"
-                >{{item.meta.label}}</el-breadcrumb-item>
+                >{{item.meta.menuName}}</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <div class="right">
@@ -17,9 +17,9 @@
             <i class="iconfont icon-settings"></i>
             <i class="iconfont icon-yingyongzhongxin"></i>
             <span class="img_box">
-                <img :src="require('@/assets/img/ahover.jpg')" alt="">
+                <img :src="userInfo.avatar" alt="">
             </span>
-            <span class="nickname">高启强</span>
+            <span class="nickname">{{userInfo.nickName}}</span>
             <span class="change">
                 <ChangeLang></ChangeLang>
             </span>
@@ -35,6 +35,7 @@ export default {
     data(){
         return {
             breadList:[], // 路由集合
+            userInfo:{}
         }
     },
     watch:{ //路由改变的时候监听
@@ -44,29 +45,33 @@ export default {
     },
     created(){
         this.getBreadcrumb();
+        this.getUserInfo()
     },
     methods:{
         changeCollapse(){
             this.$store.dispatch('menuOptions/changeCollapse')
         },
         isHome(route) { //拿到首页
-            return route.name === "home";
+            return route.meta.menuName === "首页";
         },
         getBreadcrumb() {
             let matched = this.$route.matched; //拿到显示的路由路径
             // 目的：去除路径的根元素（root）start
             // 真离谱bug（必须先在数组首位添加一个元素，最后删除才不影响二级路由）
             // 直接删除就会影响二级路由
-            matched = [{ path: "/home", meta: { label: "智云后台" } }].concat(matched);
+            matched = [{ path: "/home", meta: { menuName: "智云后台" } }].concat(matched);
             if(!this.isHome(matched[2])){//当前路由等于首页
-                matched.splice(1,0,{path: "/home", meta: { label: "首页" }})
+                matched.splice(1,0,{path: "/home", meta: { menuName: "首页" }})
                 matched.splice(2,1)
             }else{
                 matched.splice(1,1)
             }
             matched.splice(0,1)
             // 目的：去除路径的根元素（root）end
-            this.breadList = matched;    
+            this.breadList = matched;   
+        },
+        getUserInfo(){
+            this.userInfo = JSON.parse(localStorage.getItem('userInfo'))
         }
     }
 }

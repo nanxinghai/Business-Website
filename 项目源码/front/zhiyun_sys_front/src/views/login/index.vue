@@ -37,7 +37,7 @@
                     <input type="password" :placeholder="$t('login.passPlaceHolder2')" v-model="phoneLoginData.password"/>
                     <div>{{$t('login.forgetPass')}}</div>
                   </div>
-                  <div class="tips_box">{{$t('login.passTips')}}</div>
+                  <div class="tips_box"></div>
                   <input  type="button" :value="$t('login.title')" @click="loginByPhone"/>
                 </form>
               </div>
@@ -47,13 +47,14 @@
             >
               <div class="login_form" v-if="!subLogin">
                 <form style="height:100%;width:100%;">
-                  <input type="text" :placeholder="$t('login.codePlaceHolder1')" style="margin-top: 14%;"/>
+                  <input type="number" :placeholder="$t('login.codePlaceHolder1')" v-model="codeLoginData.phone" style="margin-top: 14%;"/>
                   <div class="pass">
-                    <input type="password" :placeholder="$t('login.codePlaceHolder2')"/>
-                    <div>{{$t('login.getCode')}}</div>
+                    <input type="number" :placeholder="$t('login.codePlaceHolder2')" v-model="codeLoginData.code"/>
+                    <div @click="sendCode" v-if="codeText">{{$t('login.getCode')}}</div>
+                    <div v-else>{{count}} s </div>
                   </div>
-                  <div class="tips_box">{{$t('login.codeTips')}}</div>
-                  <input  type="button" :value="$t('login.title')"/>
+                  <div class="tips_box"></div>
+                  <input  type="button" :value="$t('login.title')" @click="loginByCode"/>
                 </form>
               </div>
             </transition>
@@ -73,7 +74,8 @@
             <div class="tips">{{$t('login.wxTips')}}</div>
             <!-- 二维码 -->
             <div class="login_form" style="position: relative;">
-              <img :src="require('@/assets/img/qrcode.png')" alt="" class="wxPng">
+              <!-- <img :src="require('@/assets/img/qrcode.png')" alt="" class="wxPng"> -->
+              <div class="wxPng" id="wxPng"></div>
               <div class="protocol">
                 {{$t('login.protocolText1')}}
                 <a href="#">{{$t('login.protocolText2')}}</a>
@@ -96,7 +98,7 @@
 </template>
 
 <script>
-import {phoneNumLogin} from '@/api/login/index.js'
+import {phoneNumLogin,getSmsCode,codeLogin,weChatCallBack} from '@/api/login/index.js'
 import {nanoid} from  'nanoid'
 import ChangeLang from '@/components/common/changeLang.vue'
 export default {
@@ -110,8 +112,48 @@ export default {
         phoneLoginData:{
           phonenumber:'',
           password:''
-        }
+        },
+        // 验证码登录
+        codeLoginData:{
+          phone:'',
+          code:''
+        },
+        timer: null, //设置计时器,
+        // 倒计时60s
+        codeText:true,
+        count:60,
+        // 微信二维码链接
+        wxQrCode:''
       }
+    },
+    created(){
+      let code = this.getQueryString("code");
+      if(code === null || code === undefined || code === ""){
+        return;
+      }
+      weChatCallBack({code}).then((res) => {
+        if(res.code === 0){
+            let {token,userInfo,permissionList} = res.data
+            // 将token存储起来
+            localStorage.setItem('token',token)
+            // 将userInfo也存储起来
+            localStorage.setItem('userInfo',JSON.stringify(userInfo))
+            // 清除菜单store
+            this.$store.commit('menuOptions/CLEARMENU')
+            // 将数据加入菜单store（后面渲染菜单）
+            this.$store.commit('menuOptions/CHANGEMENU',permissionList)
+            // 添加动态路由
+            this.$store.commit('menuOptions/ADDROUTER',this.$router)
+
+            // 登录成功 跳转路由
+            this.$router.push({name:'root'})
+          }else{
+            this.$notify.error({
+              title: '错误',
+              message: res.msg
+            });
+          }
+      })
     },
     methods:{
       // 切换
@@ -121,6 +163,31 @@ export default {
       // 改变登录方式 手机号/微信
       changeLoginMethod(value){
         this.loginMethod = value
+        // 如果跳转到微信登录
+        if(value === 'wxchatLogin'){
+          setTimeout(() => {
+            var obj = new WxLogin({           
+                              self_redirect:false,
+                              id:"wxPng", 
+                              appid: "wxd853562a0548a7d0", 
+                              scope: "snsapi_login", 
+                              redirect_uri: encodeURIComponent("http://bugtracker.itsource.cn"),
+                              state: "",
+                              style: "black",
+                              href: "data:text/css;base64,LmltcG93ZXJCb3ggLnRpdGxlewogIGRpc3BsYXk6IG5vbmU7Cn0KCi5pbXBvd2VyQm94IC53YWl0aW5nIC5pbmZvIHsKICBkaXNwbGF5OiBub25lOwp9CgouaW1wb3dlckJveCAud2FpdGluZyAud3JwX2NvZGUgewogIG1hcmdpbjogMCBhdXRvOyAKICB3aWR0aDogMjAwcHg7CiAgYm9yZGVyOiBub25lOwp9CgouaW1wb3dlckJveCAud2FpdGluZyAucXJjb2RlIHsKICBib3JkZXI6IDA7CiAgd2lkdGg6IDEwMCU7Cn0="
+                            });
+          },300)
+          // getQrWXCode().then((res) => {
+          //   if(res.code === 0){
+          //     this.wxQrCode = res.data.url
+          //   }else{
+          //     this.$notify.error({
+          //       title: '错误',
+          //       message: res.msg
+          //     });
+          //   }
+          // })
+        }
       },
       // 调用登录方法
       login(){
@@ -129,28 +196,28 @@ export default {
         let permission = [
           {
             id: '1',
-            label: '首页',
-            name: 'home'
+            menuName: '首页',
+            path: 'home'
           },
           {
             id:'2',
-            label: '前台设置',
-            name: 'front',
+            menuName: '前台设置',
+            path: 'front',
             children: [
               {
                 id:'3',
-                label:'菜单开发',
-                name:'menu'
+                menuName:'菜单开发',
+                path:'menu'
               },
               {
                 id:'4',
-                label:'底部设置',
-                name:'foot'
+                menuName:'底部设置',
+                path:'foot'
               },
               {
                 id:'5',
-                label:'联系我们',
-                name:'concact'
+                menuName:'联系我们',
+                path:'concact'
               }
             ]
           }
@@ -168,8 +235,141 @@ export default {
       // 手机号登录
       loginByPhone(){
         phoneNumLogin(this.phoneLoginData).then(res => {
-          console.log(res)
+          if(res.code === 0){
+            let {token,userInfo,permissionList} = res.data
+            // 将token存储起来
+            localStorage.setItem('token',token)
+            // 将userInfo也存储起来
+            localStorage.setItem('userInfo',JSON.stringify(userInfo))
+            // 清除菜单store
+            this.$store.commit('menuOptions/CLEARMENU')
+            // 将数据加入菜单store（后面渲染菜单）
+            this.$store.commit('menuOptions/CHANGEMENU',permissionList)
+            // 添加动态路由
+            this.$store.commit('menuOptions/ADDROUTER',this.$router)
+            // 登录成功 跳转路由
+            this.$router.push({name:'root'})
+          }else{
+            this.$notify.error({
+              title: '错误',
+              message: res.msg
+            });
+          }
         })
+      },
+      // 调用发送验证码
+      sendCode(){
+        // 1、校验手机号
+        let flag = this.verificationPhone(this.codeLoginData.phone)
+        if(!flag){
+          return;
+        }
+        // 2、开启倒计时
+        if (!this.timer) {
+          this.codeText = false
+          this.timer = setInterval(() => {
+            if(this.count > 0 && this.count <= 60){
+              this.count--;
+            }else{
+              this.codeText = true
+              clearInterval(this.timer);
+              this.timer = null;
+              this.count = 60
+            }
+          },1000)
+        }
+        // 3、调用发送验证码接口
+        getSmsCode(this.codeLoginData).then((res) => {
+          if(res.code === 0){
+            this.$notify({
+              title: '成功',
+              message: '验证码发送成功，请注意查收',
+              type: 'success'
+            });
+          }else{
+            this.$notify.error({
+              title: '错误',
+              message: res.msg
+            });
+          }
+        })
+      },
+      verificationPhone(phone){
+        let reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+        let flag = true
+        if(!reg.test(phone)){
+          switch (phone) {
+            case "":
+              flag = false
+              this.$notify.error({
+                title: '错误',
+                message: '请填写手机号码'
+              });
+              break;
+            default:
+              flag = false
+              this.$notify.error({
+                title: '错误',
+                message: '手机号码格式错误'
+              });
+              break;
+          }
+        }
+        return flag;
+      },
+      verificationCode(code){
+        let x = /^[0-9]{4,6}$/gim;
+        if (x.test(code)) {
+          return true;
+        }else{
+          this.$notify.error({
+            title: '错误',
+            message: '验证码必须4-6位'
+          });
+          return false; 
+        }
+      },
+      // 验证码登录
+      loginByCode(){
+        // 1、校验手机号
+        let flag = this.verificationPhone(this.codeLoginData.phone)
+        if(!flag){
+          return;
+        }
+        let flagcode = this.verificationCode(this.codeLoginData.code)
+        if(!flagcode){
+          retrun;
+        }
+        codeLogin(this.codeLoginData).then((res) => {
+          if(res.code === 0){
+            let {token,userInfo,permissionList} = res.data
+            // 将token存储起来
+            localStorage.setItem('token',token)
+            // 将userInfo也存储起来
+            localStorage.setItem('userInfo',JSON.stringify(userInfo))
+            // 清除菜单store
+            this.$store.commit('menuOptions/CLEARMENU')
+            // 将数据加入菜单store（后面渲染菜单）
+            this.$store.commit('menuOptions/CHANGEMENU',permissionList)
+            // 添加动态路由
+            this.$store.commit('menuOptions/ADDROUTER',this.$router)
+            // 登录成功 跳转路由
+            this.$router.push({name:'root'})
+          }else{
+            this.$notify.error({
+              title: '错误',
+              message: res.msg
+            });
+          }
+        })
+      },
+      getQueryString(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+          return unescape(r[2]);
+        }
+        return null;
       }
     },
 }
@@ -276,12 +476,14 @@ export default {
             left: 50%;
             transform: translateY(-50%);
             transform: translateX(-50%);
+            overflow: hidden;
+            height: 70%;
           }
           .protocol {
             // 隐私协议
             font-size: @font_size_small;
             text-align: center;
-            bottom: 20%;
+            bottom: 10%;
             position: absolute;
             width: 100%;
             &>a {
@@ -289,7 +491,7 @@ export default {
               color: @font_color_red;
             }
           }
-          input[type="text"],input[type="password"] {
+          input[type="text"],input[type="password"],input {
             width: 100%;
             height: 16%;
             border-radius: 6px;
@@ -298,17 +500,27 @@ export default {
             padding-left: 3%;
             box-sizing: border-box;
           }
-          input[type="text"]:focus,input[type="password"]:focus {
+          input[type="text"]:focus,input[type="password"]:focus,input:focus {
             outline: 0;
             border: 2px #096DD9 solid;
           }
+          // 去除type=number的默认样式start
+          input[type=number] {
+              -moz-appearance:textfield;
+          }
+          input[type=number]::-webkit-inner-spin-button,
+          input[type=number]::-webkit-outer-spin-button {
+              -webkit-appearance: none;
+              margin: 0;
+          }
+          // 去除type=number的默认样式end
           .pass {
             width: 100%;
             height: 16%;
             overflow: hidden;
             margin-top: 8%;
             position: relative;
-            &>input[type="password"] {
+            &>input[type="password"],&>input[type="text"],&>input {
               margin-top:0;
               height: 100%;
             }
@@ -326,6 +538,8 @@ export default {
             color: @font_color_red;
             font-size: @font_size_ssmall;
             margin-top: 8%;
+            height: 12px;
+            overflow: hidden;
           }
           input[type="button"] {
             cursor: pointer;

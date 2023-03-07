@@ -28,6 +28,7 @@ const route = [
 ]
 
 const router = new VueRouter({
+    // mode:'history',
     routes:route
 })
 
@@ -85,7 +86,14 @@ router.beforeEach((to, from, next) => {
                 // 添加完路由后 必须需要替换，可以禁止历史记录（搞了半天）
                 router.replace({...to});
             }
-            next()
+            if(to.query.code || to.query.state){
+                const newto = {...to}
+                delete newto.query.code
+                delete newto.query.state
+                router.replace(newto)
+            }else{
+                next()
+            }
         }
     }else{
         

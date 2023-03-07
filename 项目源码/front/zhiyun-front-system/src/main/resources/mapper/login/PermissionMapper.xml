@@ -16,7 +16,10 @@
     </select>
     <select id="getAllPermission" parameterType="java.lang.String" resultType="com.chennq.sys.entity.login.Permission">
         SELECT
-            m.*
+            m.id,
+            m.pid,
+            m.menu_name,
+            m.path
         FROM
             tf_sys_user_role ur
             LEFT JOIN tf_sysrole r ON ur.role_id = r.id
@@ -26,5 +29,6 @@
             user_id = #{userId}
             AND r.`status` = 0
             AND m.`status` = 0
+            AND m.`type` = '0'
     </select>
 </mapper>

@@ -6,22 +6,26 @@
             id,
             user_name,
             nick_name,
-            PASSWORD,
-            STATUS,
-            email,
-            phonenumber,
-            sex,
-            avatar,
-            user_type,
-            create_by,
-            create_time,
-            update_by,
-            update_time,
-            del_flag
+            password,
+            avatar
         FROM
             tf_sysuser
         WHERE
             phonenumber = #{phoneNum}
             OR email = #{phoneNum}
+            AND del_flag = '0'
+    </select>
+    <select id="getUserByOpenid" parameterType="java.lang.String" resultType="com.chennq.sys.entity.login.User">
+        SELECT
+            id,
+            user_name,
+            nick_name,
+            password,
+            avatar
+        FROM
+            tf_sysuser
+        WHERE
+            openid = #{openid}
+            AND del_flag = '0'
     </select>
 </mapper>

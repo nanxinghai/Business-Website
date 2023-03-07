@@ -12,4 +12,6 @@ import com.chennq.sys.entity.login.User;
  */
 public interface UserMapper extends BaseMapper<User> {
     User getUserByUserNameOrEmail(String phoneNum);
+
+    User getUserByOpenid(String openid);
 }

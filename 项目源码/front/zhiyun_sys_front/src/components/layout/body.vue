@@ -2,13 +2,13 @@
   <div class="body_box">
     <el-tag
       v-for="tag in tags"
-      :key="tag.id"
-      :effect="$route.name == tag.name ? 'dark' : 'light'"
+      :key="tag.id+''"
+      :effect="$route.name == tag.path ? 'dark' : 'light'"
       closable
       @close="handleClose(tag)"
       @click="changeTag(tag)"
       >
-      {{tag.label}}
+      {{tag.menuName}}
     </el-tag>
     <router-view></router-view>
   </div>
@@ -29,7 +29,7 @@ export default {
   methods: {
     //关闭
     handleClose(tag){
-      if(tag.label === '首页'){
+      if(tag.menuName === '首页'){
         this.$message({
           showClose: true,
           message: '首页不能关闭！！！',
@@ -43,14 +43,14 @@ export default {
       let highlight = tags[tags.length - 1]
       // 切换路由
       this.$router.push({
-          name: highlight.name
+          name: highlight.path
       })
     },
     // 点击
     changeTag(tag){
       // 切换路由
       this.$router.push({
-          name: tag.name
+          name: tag.path
       })
     }
   }
