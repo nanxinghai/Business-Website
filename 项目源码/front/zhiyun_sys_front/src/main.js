@@ -31,6 +31,14 @@ const i18n=new VueI18n({
     }
 })
 
+//引入echarts
+import 'echarts'
+//引入vue-echarts
+import VueEcharts from 'vue-echarts'
+
+//注册为全局组件
+Vue.component('v-chart', VueEcharts)
+
 
 Vue.config.productionTip = false
 

@@ -29,7 +29,7 @@ spring:
     servlet:
       load-on-startup: 1
   redis:
-    host: 192.168.0.102
+    host: 120.48.94.210
     port: 6379
     password: redis
 mybatis-plus:
@@ -47,7 +47,7 @@ jasypt:
     password: simon_123456
 aliyun:
   accessKeyId:
-  accessKeySecret: 
+  accessKeySecret:
 wx:
   appid: wxd853562a0548a7d0
   secret: 4a5d5615f93f24bdba2ba8534642dbb6

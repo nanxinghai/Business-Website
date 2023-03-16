@@ -104,7 +104,7 @@ public class IpUtil {
      * @version 1.0
      */
     public static String getRealAddress(String ip) {
-        if(ip.equals("127.0.0.1") || ip.equals("localhost")){
+        if(ip.equals("127.0.0.1") || ip.equals("localhost") || ip.equals("0:0:0:0:0:0:0:1")){
             return "本机地址";
         }
         String result = "";

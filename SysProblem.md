@@ -204,3 +204,9 @@ https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code
 
 
 
+### 4、PV和UV
+
+pv:pageViews，页面访问次数，同一个电脑访问次数可以叠加
+
+uv：uniqueVisitor，独立访问客户，同一个电脑访问次数不算叠加
+
