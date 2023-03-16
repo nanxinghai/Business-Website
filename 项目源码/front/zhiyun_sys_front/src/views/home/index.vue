@@ -6,20 +6,32 @@
             <li>
               <PvEchart></PvEchart>
             </li>
-            <li></li>
+            <li>
+              <PvEchart></PvEchart>
+            </li>
           </ul>
         </el-col>
+        <el-col :span="7">
+          <LineChart></LineChart>
+        </el-col>
         <el-col :span="7"></el-col>
-        <el-col :span="7"></el-col>
+      </el-row>
+      <el-row :gutter="20" class="bottom">
+        <el-col :span="11">
+          <MapChart></MapChart>
+        </el-col>
+        <el-col :span="13"></el-col>
       </el-row>
     </div>
 </template>
 
 <script>
 import PvEchart from '@/components/common/PvEchart.vue'
+import LineChart from '@/components/common/MonthLineChart.vue'
+import MapChart from '@/components/common/MapChart.vue'
 export default {
     name:'Home',
-    components:{PvEchart},
+    components:{PvEchart,LineChart,MapChart},
     data(){
       return {
         
@@ -76,6 +88,12 @@ li {
           transform: translateY(-50%);
         }
       }
+    }
+  }
+  .bottom {
+    height: 60%;
+    .el-col {
+      height: 100%;
     }
   }
 }
