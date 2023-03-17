@@ -30,7 +30,8 @@ public class MyWebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new ResultInterceptor()).addPathPatterns("/**");
-        // 拦截前台请求 除去后台请求不会拦截
-        registry.addInterceptor(getFrontUserInterceptor()).addPathPatterns("/**").excludePathPatterns("/sys/**");
+        // 拦截前台请求 除去后台请求不会拦截 /sys/**/**:排除sys开头的无论后面有几层的数据
+        registry.addInterceptor(getFrontUserInterceptor()).addPathPatterns("/**").excludePathPatterns("/sys/**/**").excludePathPatterns("/error");
+        // 上方排除error是因为,springsecurity会优先经过他自己的过滤器，如果鉴权失败，他会将请求路径更改为/error
     }
 }

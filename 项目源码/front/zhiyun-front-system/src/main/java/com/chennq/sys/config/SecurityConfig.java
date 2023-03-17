@@ -1,5 +1,7 @@
 package com.chennq.sys.config;
 
+import com.chennq.sys.filter.JwtAuthticationTokenFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -26,6 +29,9 @@ import java.util.Arrays;
 // 开启SpringSecurity注解式授权
 @EnableGlobalMethodSecurity(prePostEnabled =true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private JwtAuthticationTokenFilter jwtAuthticationTokenFilter;
+
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -53,10 +59,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/sys/getSmsCode",
                         "/sys/codeLogin",
                         "/sys/weChatCallBack").anonymous()
-                .antMatchers("/sys/**").authenticated()
+                .antMatchers("/sys/**/**").authenticated()
                 // 除上面外的所有请求均放行
                 .anyRequest().permitAll();
         //允许跨域
         http.cors();
+        //把token校验过滤器添加到过滤器链中(准确来说，添加到security之前)
+        http.addFilterBefore(jwtAuthticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

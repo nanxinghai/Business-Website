@@ -14,13 +14,32 @@
         <el-col :span="7">
           <LineChart></LineChart>
         </el-col>
-        <el-col :span="7"></el-col>
+        <el-col :span="7" class="user">
+          <div class="ava">
+            <img  :src="userInfo.avatar" />
+          </div>
+          <div class="login_info">
+            <div>下午好,{{userInfo.nickName}}</div>
+            <div>当前角色：管理员</div>
+            <div>上次登录：2023-03-17 18:04:32</div>
+          </div>
+        </el-col>
       </el-row>
       <el-row :gutter="20" class="bottom">
         <el-col :span="11">
           <MapChart></MapChart>
         </el-col>
-        <el-col :span="13"></el-col>
+        <el-col :span="13">
+          <el-table
+            :data="tableData"
+            style="width: 100%">
+            <el-table-column
+              prop=""
+              label="IP"
+              >
+            </el-table-column>
+          </el-table>
+        </el-col>
       </el-row>
     </div>
 </template>
@@ -34,13 +53,14 @@ export default {
     components:{PvEchart,LineChart,MapChart},
     data(){
       return {
-        
+        userInfo:null,
+        tableData:[]
       }
     },
     created(){
       // 微信扫码登录后清楚回调携带的参数
       this.clearAddress()
-
+      this.getAvaImg()
     },
     methods:{
       clearAddress(){
@@ -50,6 +70,10 @@ export default {
         let lastindex = href.indexOf("#");
         let end = href.substring(lastindex,href.length)
         window.location.href = start + end
+      },
+      getAvaImg(){
+        let userInfo = JSON.parse(localStorage.getItem('userInfo'))
+        this.userInfo = userInfo
       }
     }
 }
@@ -86,6 +110,31 @@ li {
           top: 50%;
           right: 0;
           transform: translateY(-50%);
+        }
+      }
+    }
+    .user {
+      .ava {
+        position: relative;
+        width: 100%;
+        height: 50%;
+        img {
+          width: 25%;
+          height: 65%;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%,-50%);
+          border-radius: 50%;
+        }
+      }
+      .login_info {
+        overflow: hidden;
+        width: 100%;
+        height: 50%;
+        text-align: center;
+        div {
+          margin-top: 7%;
         }
       }
     }

@@ -13,6 +13,7 @@
             user_id = #{userId}
             AND r.`status` = 0
             AND m.`status` = 0
+            AND m.`type` = '1'
     </select>
     <select id="getAllPermission" parameterType="java.lang.String" resultType="com.chennq.sys.entity.login.Permission">
         SELECT

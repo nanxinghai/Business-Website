@@ -20,6 +20,7 @@ public class FrontUserInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        System.out.println(request);
         // 拦截请求 做log处理
         Log log = IpUtil.getLog(request);
         String servletPath = request.getServletPath();

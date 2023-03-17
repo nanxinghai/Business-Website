@@ -54,9 +54,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
         String userId = userFromDB.getId().toString();
         // 2、查询用户权限信息
         // 这是权限标识字符串
-//        List<String> permissions = permissionMapper.getUserPermByUserId(userId);
+        List<String> permissions = permissionMapper.getUserPermByUserId(userId);
         // TODO 由于数据库暂时无权限数据，先写死
-        List<String> permissions = Arrays.asList("sys:home");
+//        List<String> permissions = Arrays.asList("sys:home");
         // 这是所有权限(扁平化数据)
         List<Permission> allPermission = permissionMapper.getAllPermission(userId);
         // 扁平化数据转成父子级数据
