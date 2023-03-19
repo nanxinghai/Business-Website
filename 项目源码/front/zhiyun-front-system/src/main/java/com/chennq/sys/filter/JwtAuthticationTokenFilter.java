@@ -2,10 +2,13 @@ package com.chennq.sys.filter;
 
 import com.alibaba.fastjson.JSON;
 import com.chennq.base.exception.MyException;
+import com.chennq.base.util.Result;
 import com.chennq.sys.consts.Login;
 import com.chennq.sys.entity.login.LoginUser;
 import com.chennq.sys.util.JwtUtil;
+import com.chennq.sys.util.WebUtil;
 import io.jsonwebtoken.Claims;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,6 +32,7 @@ import java.util.Objects;
  * @modified By：
  * @version: v1.0
  */
+@Slf4j
 @Component
 public class JwtAuthticationTokenFilter extends OncePerRequestFilter {
     @Autowired
@@ -47,14 +51,22 @@ public class JwtAuthticationTokenFilter extends OncePerRequestFilter {
             Claims claims = JwtUtil.parseJWT(token);
             userId = claims.getSubject();
         } catch (Exception e) {
+            Result result = Result.failure("token不合法");
+            String json = JSON.toJSONString(result);
+            WebUtil.write(response,json);
             e.printStackTrace();
+            log.error("token不合法");
             throw new MyException("token不合法");
         }
         // 2、从redis中根据userId取出用户信息
         String userStringJson = stringRedisTemplate.opsForValue().get(Login.PHONENUM_INREDISTOKEN_PREFIX + userId);
         LoginUser loginUser = JSON.parseObject(userStringJson, LoginUser.class);
         if(Objects.isNull(loginUser)){
-            throw new MyException("用户未登录!!!");
+            Result result = Result.failure("用户未登录");
+            String json = JSON.toJSONString(result);
+            WebUtil.write(response,json);
+            log.error("用户未登录");
+            throw new MyException("用户未登录");
         }
         // 3、将用户信息存入SecurityContext中
         Authentication usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(loginUser,null,loginUser.getAuthorities());

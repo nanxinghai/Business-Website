@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chennq.sys.mapper.home.HomeMapper">
+    <select id="selectPv" resultType="com.chennq.sys.entity.home.vo.PvUvVo">
+      SELECT
+        COUNT(*) AS totalPV,
+        SUM(
+            TO_DAYS( reqTime ) = TO_DAYS(
+            NOW())) AS todayPV,
+        (
+            SUM(
+                TO_DAYS( reqTime ) = TO_DAYS(
+                NOW())) / COUNT(*)) * 100 AS PVScale
+        FROM
+        tf_log
+    </select>
+</mapper>

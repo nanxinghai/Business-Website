@@ -29,16 +29,46 @@
         <el-col :span="11">
           <MapChart></MapChart>
         </el-col>
-        <el-col :span="13">
+        <el-col :span="13" class="table_box">
           <el-table
             :data="tableData"
             style="width: 100%">
             <el-table-column
-              prop=""
+              prop="ip"
               label="IP"
               >
             </el-table-column>
+            <el-table-column
+              prop="addr"
+              label="地址"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="content"
+              label="操作内容"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="osName"
+              label="浏览器类别"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="reqTime"
+              label="操作时间"
+              >
+            </el-table-column>
           </el-table>
+          <div class="page_box">
+            <el-pagination
+              v-if="condition.total !== 0"
+              @current-change="handleCurrentChange"
+              :current-page.sync="condition.currentPage"
+              :page-size="condition.pageSize"
+              layout="total, prev, pager, next, jumper"
+              :total="condition.total">
+            </el-pagination>
+          </div>
         </el-col>
       </el-row>
     </div>
@@ -48,21 +78,43 @@
 import PvEchart from '@/components/common/PvEchart.vue'
 import LineChart from '@/components/common/MonthLineChart.vue'
 import MapChart from '@/components/common/MapChart.vue'
+import {getLogData} from '@/api/home/index.js'
 export default {
     name:'Home',
     components:{PvEchart,LineChart,MapChart},
     data(){
       return {
         userInfo:null,
-        tableData:[]
+        tableData:[],
+        condition:{
+          currentPage: 1,
+          pageNum: 1,
+          pageSize: 8,
+          total:0
+        }
       }
     },
     created(){
       // 微信扫码登录后清楚回调携带的参数
       this.clearAddress()
       this.getAvaImg()
+      this.getTableData()
     },
     methods:{
+      // 获取表格数据
+      getTableData(){
+        getLogData(this.condition).then(res => {
+          if(res.code === 0){
+            this.tableData = res.data.data
+            this.condition.total = res.data.total
+          }
+        })
+      },
+      // 切换页码时
+      handleCurrentChange(val){
+        this.condition.pageNum = val
+        this.getTableData()
+      },
       clearAddress(){
         let href = window.location.href
         let index = href.indexOf("?");
@@ -143,6 +195,17 @@ li {
     height: 60%;
     .el-col {
       height: 100%;
+    }
+    .table_box {
+      padding-top: 10px;
+    }
+    .page_box {
+      position: relative;
+      margin-top: 10px;
+      .el-pagination {
+        position: absolute;
+        right: 0;
+      }
     }
   }
 }

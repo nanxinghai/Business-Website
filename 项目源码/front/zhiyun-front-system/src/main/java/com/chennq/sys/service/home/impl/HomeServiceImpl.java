@@ -1,6 +1,10 @@
 package com.chennq.sys.service.home.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.chennq.sys.entity.PageDto;
+import com.chennq.sys.entity.PageVo;
 import com.chennq.sys.entity.home.Log;
+import com.chennq.sys.entity.home.vo.PvUvVo;
 import com.chennq.sys.mapper.home.HomeMapper;
 import com.chennq.sys.service.home.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +18,15 @@ public class HomeServiceImpl implements HomeService {
     private HomeMapper homeMapper;
 
     @Override
-    public List<Log> getLogData() {
-        List<Log> logs = homeMapper.selectList(null);
-        return logs;
+    public PageVo<Log> getLogData(PageDto pageDto) {
+        Page<Log> logPage = homeMapper.selectPage(new Page<>(pageDto.getPageNum(),pageDto.getPageSize()), null);
+        List<Log> logs = logPage.getRecords();
+        return new PageVo<>(logs,logPage.getTotal());
+    }
+
+    @Override
+    public PvUvVo getPUvData() {
+        homeMapper.selectPv();
+        return null;
     }
 }
