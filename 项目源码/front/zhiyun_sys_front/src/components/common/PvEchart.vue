@@ -1,23 +1,92 @@
 <template>
-    <v-chart :option="options" :autoresize="true" ></v-chart>
+    <v-chart :option="options" :autoresize="true" ref="charts"></v-chart>
 </template>
 
 <script>
 export default {
     // 首页pv组件
     name:'PvEchart',
+    props:{
+        seriesData:{
+            type:Array
+        }
+    },
+    watch:{
+        seriesData:{
+            handler(nv,ov){
+                this.sData = nv
+            },
+            immediate:true,
+            deep:true
+        },
+        sData:{
+            handler(nv,ov){
+                this.options.series[0].data = nv
+            },
+            immediate:true,
+            deep:true
+        }
+    },
     data(){
         return {
-            seriesData:[
-                { value: 777, name: '今日PV', scale:'66.6%'},
-                { value: 1048, name: '总共PV', scale:'100%'}
+            sData:[
+                {
+                    name: this.seriesData[0].name
+                },
+                {
+                    name: this.seriesData[1].name
+                }
             ],
-
             options:{
                 color:['#95d475','#409eff'],
                 tooltip: {
                     trigger: 'item'
                 },
+                
+                series: [
+                {
+                    name: '服务访问',
+                    type: 'pie',
+                    radius: ['40%', '55%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                        show: true,
+                        position: 'center',
+                        formatter:(name)=>{
+                            // let items = this.seriesData[0]
+                            let items = this.sData[0]
+                            let arr = [
+                                '{a|'+items.name+'}',
+                                '{b|'+items.scale+'}'
+                            ]
+                            return arr.join('\n')
+                        },
+                        rich:{
+                            a:{
+                                fontSize: 16,
+                                color:'#3f3f3f',
+                                fontWeight:'bold'
+                            },
+                            b:{
+                                fontSize: 18,
+                                color:'#3f3f3f',
+                                fontWeight:'bold',
+                                padding:[10,0,0,0],
+                            }
+                        }
+                    },
+                    // data: [
+                    //     { value: 777, name: '今日PV' ,color:'#95d475'},
+                    //     { value: 1048, name: '总共PV',color:'#409eff' }
+                    // ],
+                    data: this.sData ,
+                    itemStyle:{
+                        // 饼图间隙
+                        borderWidth: 5,
+                        borderColor: '#fff'
+                    }
+                }
+                ],
                 legend: {
                     // 设置图例不是圆角
                     icon:'rect',
@@ -51,9 +120,12 @@ export default {
                         // var icon = '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:' + this.getColor(name) + ';"></span>';
                         // var text = '<span style="font-size:14px;">' + name + '</span>';
                         // return [icon + text];
-                        
-                        let items = this.seriesData.find(function(item){return item.name === name;})
-                        
+                        console.log(name)
+                        let items = this.sData.find(function(item){return item.name === name;})
+                        // if(items == undefined){
+                        //     return
+                        // }
+
                         let arr = [
                             '{a|'+name+'}',
                             '{b|'+items.value+'}'
@@ -61,48 +133,6 @@ export default {
                         return arr.join('\n')
                     }
                 },
-                series: [
-                {
-                    name: '服务访问',
-                    type: 'pie',
-                    radius: ['40%', '55%'],
-                    avoidLabelOverlap: false,
-                    label: {
-                        show: true,
-                        position: 'center',
-                        formatter:(name)=>{
-                            let items = this.seriesData[0]
-                            let arr = [
-                                '{a|'+items.name+'}',
-                                '{b|'+items.scale+'}'
-                            ]
-                            return arr.join('\n')
-                        },
-                        rich:{
-                            a:{
-                                fontSize: 16,
-                                color:'#3f3f3f',
-                                fontWeight:'bold'
-                            },
-                            b:{
-                                fontSize: 18,
-                                color:'#3f3f3f',
-                                fontWeight:'bold',
-                                padding:[10,0,0,0],
-                            }
-                        }
-                    },
-                    data: [
-                        { value: 777, name: '今日PV' ,color:'#95d475'},
-                        { value: 1048, name: '总共PV',color:'#409eff' }
-                    ],
-                    itemStyle:{
-                        // 饼图间隙
-                        borderWidth: 5,
-                        borderColor: '#fff'
-                    }
-                }
-                ]
             }
         }
     },

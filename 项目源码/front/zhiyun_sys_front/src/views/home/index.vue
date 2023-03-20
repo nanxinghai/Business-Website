@@ -4,10 +4,10 @@
         <el-col :span="10" class="pv_pie">
           <ul>
             <li>
-              <PvEchart></PvEchart>
+              <PvEchart :seriesData="PVData"></PvEchart>
             </li>
             <li>
-              <PvEchart></PvEchart>
+              <PvEchart :seriesData="UVData"></PvEchart>
             </li>
           </ul>
         </el-col>
@@ -78,7 +78,7 @@
 import PvEchart from '@/components/common/PvEchart.vue'
 import LineChart from '@/components/common/MonthLineChart.vue'
 import MapChart from '@/components/common/MapChart.vue'
-import {getLogData} from '@/api/home/index.js'
+import {getLogData,getPUvData} from '@/api/home/index.js'
 export default {
     name:'Home',
     components:{PvEchart,LineChart,MapChart},
@@ -91,7 +91,15 @@ export default {
           pageNum: 1,
           pageSize: 8,
           total:0
-        }
+        },
+        PVData:[
+                { value: 797, name: '今日PV', scale:'66.6%',color:'#95d475'},
+                { value: 1048, name: '总共PV', scale:'100%',color:'#409eff'}
+            ],
+        UVData:[
+                { value: 797, name: '今日PV', scale:'66.6%',color:'#95d475'},
+                { value: 1048, name: '总共PV', scale:'100%',color:'#409eff'}
+        ]
       }
     },
     created(){
@@ -99,6 +107,7 @@ export default {
       this.clearAddress()
       this.getAvaImg()
       this.getTableData()
+      this.getPieData()
     },
     methods:{
       // 获取表格数据
@@ -108,6 +117,21 @@ export default {
             this.tableData = res.data.data
             this.condition.total = res.data.total
           }
+        })
+      },
+      // 获取首页饼形图数据
+      getPieData(){
+        getPUvData().then(res => {
+          let pv = [
+            {value: res.data.todayPV,name: '今日PV', scale:res.data.pvscale,color:'#95d475'},
+            {value: res.data.totalPV, name: '总共PV', scale:'100%',color:'#409eff'}
+          ]
+          this.PVData = pv
+          let uv = [
+            {value: res.data.todayUV,name: '今日UV', scale:res.data.uvscale,color:'#95d475'},
+            {value: res.data.totalUV,name: '总共UV', scale:'100%',color:'#409eff'},
+          ]
+          this.UVData = uv
         })
       },
       // 切换页码时

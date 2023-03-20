@@ -1,5 +1,6 @@
 package com.chennq.sys.service.home.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chennq.sys.entity.PageDto;
 import com.chennq.sys.entity.PageVo;
@@ -19,14 +20,16 @@ public class HomeServiceImpl implements HomeService {
 
     @Override
     public PageVo<Log> getLogData(PageDto pageDto) {
-        Page<Log> logPage = homeMapper.selectPage(new Page<>(pageDto.getPageNum(),pageDto.getPageSize()), null);
+        QueryWrapper<Log> logQueryWrapper = new QueryWrapper<>();
+        logQueryWrapper.orderByDesc("reqTime");
+        Page<Log> logPage = homeMapper.selectPage(new Page<>(pageDto.getPageNum(),pageDto.getPageSize()), logQueryWrapper);
         List<Log> logs = logPage.getRecords();
         return new PageVo<>(logs,logPage.getTotal());
     }
 
     @Override
     public PvUvVo getPUvData() {
-        homeMapper.selectPv();
-        return null;
+        PvUvVo pvUvVo = homeMapper.selectPv();
+        return pvUvVo;
     }
 }

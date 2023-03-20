@@ -2,16 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chennq.sys.mapper.home.HomeMapper">
     <select id="selectPv" resultType="com.chennq.sys.entity.home.vo.PvUvVo">
-      SELECT
-        COUNT(*) AS totalPV,
-        SUM(
-            TO_DAYS( reqTime ) = TO_DAYS(
-            NOW())) AS todayPV,
-        (
+        SELECT
+            COUNT(*) AS totalPV,
             SUM(
-                TO_DAYS( reqTime ) = TO_DAYS(
-                NOW())) / COUNT(*)) * 100 AS PVScale
+                        TO_DAYS( reqTime ) = TO_DAYS(
+                            NOW())) AS todayPV,
+            (
+                    SUM(
+                                TO_DAYS( reqTime ) = TO_DAYS(
+                                    NOW())) / COUNT(*)) * 100 AS PVScale,
+            count( DISTINCT ip ) AS totalUV,
+            (
+                SELECT
+                    count( DISTINCT ip )
+                FROM
+                    tf_log
+                WHERE
+                        TO_DAYS( reqTime ) = TO_DAYS(
+                            NOW())) AS todayUV,
+            (
+                    (
+                        SELECT
+                            count( DISTINCT ip )
+                        FROM
+                            tf_log
+                        WHERE
+                                TO_DAYS( reqTime ) = TO_DAYS(
+                                    NOW())) / ( SELECT count( DISTINCT ip ) FROM tf_log )
+                ) * 100 AS UVScale
         FROM
-        tf_log
+            tf_log
     </select>
 </mapper>

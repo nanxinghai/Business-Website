@@ -9,7 +9,7 @@ instance.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
   let userInfo = JSON.parse(localStorage.getItem('userInfo'))
   let token = localStorage.getItem('token')
-  if(userInfo !== null && userInfo !== undefined){
+  if(userInfo !== null && userInfo !== undefined && token !== null && token !== undefined){
     config.headers['token'] = token
   }
   return config;
