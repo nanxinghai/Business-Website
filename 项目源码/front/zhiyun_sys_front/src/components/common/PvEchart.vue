@@ -120,7 +120,7 @@ export default {
                         // var icon = '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:' + this.getColor(name) + ';"></span>';
                         // var text = '<span style="font-size:14px;">' + name + '</span>';
                         // return [icon + text];
-                        console.log(name)
+                        // console.log(name)
                         let items = this.sData.find(function(item){return item.name === name;})
                         // if(items == undefined){
                         //     return

@@ -26,6 +26,7 @@ public class HomeController {
 
     @ResultApi
     @ApiOperation("获取PV、UV数据接口")
+    @PreAuthorize("hasAuthority('sys:home:getPUvData')")
     @PostMapping("/getPUvData")
     public PvUvVo getPUvData(){
         return homeService.getPUvData();
