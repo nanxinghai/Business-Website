@@ -1,9 +1,7 @@
 package com.chennq.sys.entity.settings;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.*;
+import com.chennq.sys.entity.PageDto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -17,7 +15,8 @@ import java.util.Date;
  * @version: v1.0
  */
 @Data
-public class SysUser {
+@TableName("tf_sysuser")
+public class SysUser extends PageDto {
     @TableId(value = "id",type = IdType.AUTO)
     private Long id;
     @TableField("user_name")

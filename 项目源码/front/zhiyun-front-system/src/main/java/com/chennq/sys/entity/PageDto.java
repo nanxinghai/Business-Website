@@ -1,5 +1,6 @@
 package com.chennq.sys.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
 /**
@@ -11,6 +12,8 @@ import lombok.Data;
  */
 @Data
 public class PageDto {
+    @TableField(exist = false)
     private Long pageNum;
+    @TableField(exist = false)
     private Long pageSize;
 }
