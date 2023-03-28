@@ -1,4 +1,5 @@
 import axios from "axios"
+import {Message} from 'element-ui'
 
 const instance = axios.create({
   baseURL:'http://localhost:80/'
@@ -6,7 +7,6 @@ const instance = axios.create({
 
 // 添加请求拦截器
 instance.interceptors.request.use(function (config) {
-  // 在发送请求之前做些什么
   let userInfo = JSON.parse(localStorage.getItem('userInfo'))
   let token = localStorage.getItem('token')
   if(userInfo !== null && userInfo !== undefined && token !== null && token !== undefined){
@@ -14,16 +14,23 @@ instance.interceptors.request.use(function (config) {
   }
   return config;
 }, function (error) {
-  // 对请求错误做些什么
   return Promise.reject(error);
 });
 
 // 添加响应拦截器
 instance.interceptors.response.use(function (response) {
-  // 对响应数据做点什么
-  return response.data;
+  if(response.data.code === 0){
+    return response.data;
+  }else {
+    // 错误信息的提示框
+    Message({
+      type: 'error',
+      message: response.data.msg,
+      showClose: true,
+    })
+  }
+  return Promise.reject(response)
 }, function (error) {
-  // 对响应错误做点什么
   return Promise.reject(error);
 });
 

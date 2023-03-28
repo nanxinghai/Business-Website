@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chennq.sys.mapper.settings.PermissionSettingsMapper">
+    <update id="changeStatus" parameterType="com.chennq.sys.entity.settings.SysMenu">
+        UPDATE tf_sysmenu
+        SET STATUS = #{status}
+        WHERE
+                id IN (
+                SELECT
+                    a.*
+                FROM
+                    (
+                        SELECT DATA
+                                   .id
+                        FROM
+                            (
+                                SELECT
+                                    @ids AS _ids,
+				( SELECT @ids := GROUP_CONCAT( id ) FROM tf_sysmenu WHERE FIND_IN_SET( pid, @ids ) ) AS cids,
+				@l := @l + 1 AS LEVEL
+                                FROM
+                                    tf_sysmenu,
+                                    ( SELECT @ids := #{id}, @l := 0 ) b
+                                WHERE
+                                    @ids IS NOT NULL
+                            ) ID,
+                            tf_sysmenu DATA
+                        WHERE
+                            FIND_IN_SET( DATA.id, ID._ids )
+                    ) a
+            )
+    </update>
+</mapper>
