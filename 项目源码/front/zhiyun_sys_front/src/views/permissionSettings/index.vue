@@ -70,7 +70,7 @@
         <el-table-column
           label="操作">
           <template slot-scope="scope">
-            <el-button type="primary" @click="edit(scope.row)" size="mini">编辑</el-button>
+            <el-button type="primary" @click="editDialog(scope.row)" size="mini">编辑</el-button>
             <el-button v-if="scope.row.status === '0'" type="danger" @click="stop(scope.row)" size="mini">停用</el-button>
             <el-button v-if="scope.row.status === '1'" type="success" @click="returnPer(scope.row)" size="mini">恢复</el-button>
           </template>
@@ -86,11 +86,67 @@
         :total="queryCondition.total">
       </el-pagination>
     </div>
+    <!-- 对话框 -->
+    <div class="dialog_box">
+      <el-dialog
+        :title="dialogTitle"
+        :visible.sync="dialogVisible"
+        width="30%"
+        :before-close="handleClose"
+        :close-on-press-escape="false"
+        :close-on-click-modal="false">
+        <el-form :model="form" class="inline_form" label-width="80px" :rules="rules" ref="formPer">
+          <el-form-item label="上级">
+            <el-cascader
+              v-model="form.pid"
+              :options="tableData"
+              :props="{ 
+                checkStrictly: true,
+                value:'id',
+                label: 'menuName',
+                children: 'children'
+              }"
+              :show-all-levels="false"
+              :filterable="true"
+              size="mini"
+              clearable>
+            </el-cascader>
+          </el-form-item>
+          <el-form-item label="名称" prop="menuName">
+            <el-input v-model="form.menuName" placeholder="请输入名称" size="mini"></el-input>
+          </el-form-item>
+          <el-form-item label="路径" prop="path">
+            <el-input v-model="form.path" placeholder="请输入路径" size="mini"></el-input>
+          </el-form-item>
+          <el-form-item label="类型" prop="type">
+            <el-select v-model="form.type" placeholder="请选择类型" size="mini" clearable>
+              <el-option label="菜单" value="0"></el-option>
+              <el-option label="接口" value="1"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="状态">
+            <el-select v-model="form.status" placeholder="请选择状态" size="mini" clearable>
+              <el-option label="正常" value="0"></el-option>
+              <el-option label="停用" value="1"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="权限">
+            <el-input v-model="form.perms" placeholder="请输入权限字符串" size="mini"></el-input>
+          </el-form-item>
+          <el-form-item label="备注">
+            <el-input type="textarea" v-model="form.remark" placeholder="请输入备注" size="mini" rows="8"></el-input>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="submit" size="mini">确 定</el-button>
+        </span>
+      </el-dialog>
+    </div>
   </div>
 </template>
 
 <script>
-import {pageListPer,stopStatus,returnStatus} from '@/api/settings/PermissionSettings.js' 
+import {pageListPer,addOnePer,editOnePer,stopStatus,returnStatus} from '@/api/settings/PermissionSettings.js' 
 export default {
   name:'permissionSettings',
   data(){
@@ -104,6 +160,30 @@ export default {
         path:'',
         type:'',
         status:''
+      },
+      // 表单数据
+      dialogTitle:'',
+      dialogVisible:false,
+      form:{
+        pid: [],
+        menuName:'',
+        path:'',
+        type:'',
+        status:'0',
+        perms:'',
+        remark:''
+      },
+      // 表单校验规则
+      rules:{
+        menuName:[
+          { required: true, message: '请输入名称', trigger: 'blur' },
+        ],
+        path:[
+          { required: true, message: '请输入路径', trigger: 'blur' },
+        ],
+        type:[
+          { required: true, message: '请输入类型', trigger: 'change' },
+        ]
       }
     }
   },
@@ -130,7 +210,64 @@ export default {
     },
     // 弹出新增
     addDailog(){
-
+      this.dialogTitle = '新增'
+      this.dialogVisible = true
+    },
+    editDialog(obj){
+      this.dialogTitle = '编辑'
+      this.dialogVisible = true
+      this.form = obj
+    },
+    // 对话框数据提交
+    submit(){
+      this.$refs.formPer.validate((valid) => {
+        // 校验通过
+        if(valid){
+          let data = {
+            ...this.form,
+            pid: Array.isArray(this.form.pid)?this.form.pid[this.form.pid.length - 1]:this.form.pid,
+          }
+          //判断新增还是编辑
+          if(this.dialogTitle === '新增'){
+            addOnePer(data).then((res) => {
+              // 刷新页面
+              this.getData()
+              // 关闭dailog
+              this.dialogVisible = false
+              // 重置表单数据
+              this.$refs.formPer.resetFields();
+              this.$message({
+                type: 'success',
+                message: '操作成功!'
+              });
+            })
+          }
+          if(this.dialogTitle === '编辑'){
+            editOnePer(data).then((res) => {
+              // 刷新页面
+              this.getData()
+              // 关闭dailog
+              this.dialogVisible = false
+              // 重置表单数据
+              this.$refs.formPer.resetFields();
+              this.$message({
+                type: 'success',
+                message: '操作成功!'
+              });
+            })
+          }
+          
+        }else {
+          return false
+        }
+      })
+    },
+    // 对话框关闭
+    handleClose(done){
+      // 重置表单数据
+      this.$refs.formPer.resetFields();
+      // 关闭对话框
+      done()
     },
     // 停用按钮
     stop(obj){
@@ -154,6 +291,7 @@ export default {
         });
       })
     },
+    // 恢复按钮
     returnPer(obj){
       this.$confirm('此操作将恢复此菜单及下级菜单, 是否继续?', '提示', {
         confirmButtonText: '确定',
@@ -194,6 +332,13 @@ export default {
     .el-pagination {
       position: absolute;
       right: 0;
+    }
+  }
+  .dialog_box {
+    .inline_form {
+      .el-form-item {
+        margin-right: 50px;
+      }
     }
   }
 }

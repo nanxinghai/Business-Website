@@ -31,6 +31,23 @@ public class PermissionSettingsController {
     }
 
     @ResultApi
+    @ApiOperation("添加权限列表")
+    @PreAuthorize("hasAuthority('sys:permissionSettings:addOnePer')")
+    @PostMapping("/addOnePer")
+    public void addOnePer(@RequestBody SysMenu sysMenu){
+        permissionSettingsService.addOnePer(sysMenu);
+    }
+
+    @ResultApi
+    @ApiOperation("编辑权限列表")
+    @PreAuthorize("hasAuthority('sys:permissionSettings:editOnePer')")
+    @PostMapping("/editOnePer")
+    public void editOnePer(@RequestBody SysMenu sysMenu){
+        permissionSettingsService.editOnePer(sysMenu);
+    }
+
+
+    @ResultApi
     @ApiOperation("停用权限数据")
     @PreAuthorize("hasAuthority('sys:permissionSettings:stopStatus')")
     @PostMapping("/stopStatus")

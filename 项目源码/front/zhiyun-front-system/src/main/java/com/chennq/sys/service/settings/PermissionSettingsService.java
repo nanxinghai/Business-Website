@@ -9,4 +9,8 @@ public interface PermissionSettingsService {
     void stopStatus(SysMenu sysMenu);
 
     void returnStatus(SysMenu sysMenu);
+
+    void addOnePer(SysMenu sysMenu);
+
+    void editOnePer(SysMenu sysMenu);
 }

@@ -9,6 +9,25 @@ export const pageListPer = ((obj) => {
     })
 })
 
+// 添加权限列表
+export const addOnePer = ((obj) => {
+    return instance({
+        data: obj,
+        method:'post',
+        url:'/sys/permissionSettings/addOnePer'
+    })
+})
+
+// 添加权限列表
+export const editOnePer = ((obj) => {
+    return instance({
+        data: obj,
+        method:'post',
+        url:'/sys/permissionSettings/editOnePer'
+    })
+})
+
+
 // 停用权限数据
 export const stopStatus = ((obj) => {
     return instance({

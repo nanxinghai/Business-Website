@@ -59,7 +59,15 @@ public class PermissionSettingsServiceImpl implements PermissionSettingsService 
         permissionSettingsMapper.changeStatus(sysMenu);
     }
 
+    @Override
+    public void addOnePer(SysMenu sysMenu) {
+        permissionSettingsMapper.insert(sysMenu);
+    }
 
+    @Override
+    public void editOnePer(SysMenu sysMenu) {
+        permissionSettingsMapper.updateById(sysMenu);
+    }
 
 
     // 根据当前父类 找出子类， 并通过递归找出子类的子类
