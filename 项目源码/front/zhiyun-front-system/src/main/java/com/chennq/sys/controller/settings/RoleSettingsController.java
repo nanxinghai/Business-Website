@@ -2,6 +2,7 @@ package com.chennq.sys.controller.settings;
 
 import com.chennq.base.annotation.ResultApi;
 import com.chennq.sys.entity.PageVo;
+import com.chennq.sys.entity.settings.SysMenu;
 import com.chennq.sys.entity.settings.SysRole;
 import com.chennq.sys.entity.settings.SysUser;
 import com.chennq.sys.service.settings.RoleSettingsService;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author ：Simon
@@ -34,5 +37,38 @@ public class RoleSettingsController {
     @PostMapping("/pageListRole")
     public PageVo<SysRole> pageListRole(@RequestBody SysRole sysRole){
         return roleSettingsService.pageListRole(sysRole);
+    }
+
+    @ResultApi
+    @ApiOperation("添加角色列表")
+    @PreAuthorize("hasAuthority('sys:roleSettings:addOneRole')")
+    @PostMapping("/addOneRole")
+    public void addOneRole(@RequestBody SysRole sysRole){
+        roleSettingsService.addOneRole(sysRole);
+    }
+
+    @ResultApi
+    @ApiOperation("查询角色权限")
+    @PreAuthorize("hasAuthority('sys:roleSettings:queryRolePer')")
+    @PostMapping("/queryRolePer")
+    public List<SysMenu> queryRolePer(@RequestBody SysRole sysRole){
+        return roleSettingsService.queryRolePer(sysRole);
+    }
+
+
+    @ResultApi
+    @ApiOperation("禁用角色状态")
+    @PreAuthorize("hasAuthority('sys:roleSettings:forbbinStatus')")
+    @PostMapping("/forbbinStatus")
+    public void forbbinStatus(@RequestBody SysRole sysRole){
+        roleSettingsService.forbbinStatus(sysRole);
+    }
+
+    @ResultApi
+    @ApiOperation("恢复角色状态")
+    @PreAuthorize("hasAuthority('sys:roleSettings:returnStatus')")
+    @PostMapping("/returnStatus")
+    public void returnStatus(@RequestBody SysRole sysRole){
+        roleSettingsService.returnStatus(sysRole);
     }
 }

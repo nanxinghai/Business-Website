@@ -96,7 +96,7 @@
         :close-on-press-escape="false"
         :close-on-click-modal="false">
         <el-form :model="form" class="inline_form" label-width="80px" :rules="rules" ref="formPer">
-          <el-form-item label="上级">
+          <el-form-item label="上级" prop="pid">
             <el-cascader
               v-model="form.pid"
               :options="tableData"
@@ -124,16 +124,16 @@
               <el-option label="接口" value="1"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="状态">
+          <el-form-item label="状态" prop="status">
             <el-select v-model="form.status" placeholder="请选择状态" size="mini" clearable>
               <el-option label="正常" value="0"></el-option>
               <el-option label="停用" value="1"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="权限">
+          <el-form-item label="权限" prop="perms">
             <el-input v-model="form.perms" placeholder="请输入权限字符串" size="mini"></el-input>
           </el-form-item>
-          <el-form-item label="备注">
+          <el-form-item label="备注" prop="remark">
             <el-input type="textarea" v-model="form.remark" placeholder="请输入备注" size="mini" rows="8"></el-input>
           </el-form-item>
         </el-form>

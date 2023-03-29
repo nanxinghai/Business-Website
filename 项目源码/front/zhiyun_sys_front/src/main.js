@@ -23,12 +23,12 @@ import VueI18n from 'vue-i18n'
 import ZH from '@/lang/zh.js'
 import EN from '@/lang/en.js'
 Vue.use(VueI18n)
-const i18n=new VueI18n({
-    locale: localStorage.getItem('languageSet')||'zh',   //从localStorage里获取用户中英文选择，没有则默认中文
-    messages:{
-        'zh': ZH,
-        'en': EN
-    }
+const i18n = new VueI18n({
+  locale: localStorage.getItem('languageSet') || 'zh',   //从localStorage里获取用户中英文选择，没有则默认中文
+  messages: {
+    'zh': ZH,
+    'en': EN
+  }
 })
 
 //引入echarts

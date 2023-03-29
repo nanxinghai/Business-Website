@@ -35,4 +35,6 @@ public class SysMenu extends PageDto {
     // 不是数据库字段
     @TableField(exist = false)
     private List<SysMenu> children;
+    @TableField(exist = false)
+    private Boolean hasPermission;
 }

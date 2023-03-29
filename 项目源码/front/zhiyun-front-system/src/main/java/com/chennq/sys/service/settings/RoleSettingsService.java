@@ -1,7 +1,10 @@
 package com.chennq.sys.service.settings;
 
 import com.chennq.sys.entity.PageVo;
+import com.chennq.sys.entity.settings.SysMenu;
 import com.chennq.sys.entity.settings.SysRole;
+
+import java.util.List;
 
 /**
  * @author ：Simon
@@ -12,4 +15,12 @@ import com.chennq.sys.entity.settings.SysRole;
  */
 public interface RoleSettingsService {
     PageVo<SysRole> pageListRole(SysRole sysRole);
+
+    void forbbinStatus(SysRole sysRole);
+
+    void returnStatus(SysRole sysRole);
+
+    void addOneRole(SysRole sysRole);
+
+    List<SysMenu> queryRolePer(SysRole sysRole);
 }

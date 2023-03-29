@@ -16,6 +16,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit" size="mini">查询</el-button>
+          <el-button type="primary" @click="addDailog" size="mini">新增</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -52,9 +53,9 @@
         <el-table-column
           label="操作">
           <template slot-scope="scope">
-            <el-button type="primary" @click="authorize(scope.row.id)" size="mini">授权</el-button>
-            <el-button type="warning" @click="forbidden(scope.row.id)" size="mini">禁用</el-button>
-            <el-button type="danger" @click="delete(scope.row.id)" size="mini">删除</el-button>
+            <el-button type="success" @click="authorize(scope.row)" size="mini">授权</el-button>
+            <el-button type="danger" @click="forbidden(scope.row)" size="mini" v-if="scope.row.status === '0'">禁用</el-button>
+            <el-button type="success" @click="returnRole(scope.row)" size="mini" v-if="scope.row.status === '1'">恢复</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -68,11 +69,49 @@
         :total="queryCondition.total">
       </el-pagination>
     </div>
+    <!-- 对话框 -->
+    <div class="add_dialog_box">
+      <el-dialog
+        :title="新增"
+        :visible.sync="addDialogVisible"
+        width="30%"
+        :before-close="handleClose"
+        :close-on-press-escape="false"
+        :close-on-click-modal="false">
+        <el-form 
+          ref="form" 
+          :model="form" 
+          :rules="rules"
+          label-width="80px">
+          <el-form-item label="角色名称" prop="name">
+            <el-input v-model="form.name" placeholder="请输入角色名称" size="mini" clearable></el-input>
+          </el-form-item>
+          <el-form-item label="角色字符" prop="roleKey">
+            <el-input v-model="form.roleKey" placeholder="请输入角色字符串" size="mini" clearable></el-input>
+          </el-form-item>
+          <el-form-item label="状态" prop="status">
+            <el-select v-model="form.status" placeholder="请选择状态" size="mini" clearable>
+              <el-option label="正常" value="0"></el-option>
+              <el-option label="停用" value="1"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="备注" prop="remark">
+            <el-input type="textarea" v-model="form.remark" placeholder="请输入备注" size="mini" rows="8"></el-input>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="submit" size="mini">确 定</el-button>
+        </span>
+      </el-dialog>
+    </div>
+    <div class="edit_dialog_box">
+
+    </div>
   </div>
 </template>
 
 <script>
-import {pageListRole} from "@/api/settings/RoleSettings.js"
+import {pageListRole,addOneRole,forbbinStatus,returnStatus} from "@/api/settings/RoleSettings.js"
 export default {
   name:'roleSettings',
   data(){
@@ -85,6 +124,25 @@ export default {
         name:'',
         roleKey:'',
         status:''
+      },
+      // 新增弹框
+      addDialogVisible:false,
+      form:{
+        name:'',
+        roleKey:'',
+        status:'0',
+        remark:''
+      },
+      rules:{
+        name:[
+          { required: true, message: '请输入名称', trigger: 'blur' },
+        ],
+        roleKey:[
+          { required: true, message: '请输入路径', trigger: 'blur' },
+        ],
+        status:[
+          { required: true, message: '请输入类型', trigger: 'change' },
+        ]
       }
     }
   },
@@ -109,17 +167,85 @@ export default {
       this.queryCondition.pageNum = 1
       this.getData()
     },
+    // 新增弹框
+    addDailog(){
+      this.addDialogVisible = true
+    },
+    // 提交新增
+    submit(){
+      this.$refs.form.validate((valid) => {
+        // 校验通过
+        if(valid){
+          addOneRole(this.form).then((res) => {
+            // 刷新页面
+            this.getData()
+            // 关闭dailog
+            this.addDialogVisible = false
+            // 重置表单数据
+            this.$refs.form.resetFields();
+            this.$message({
+              type: 'success',
+              message: '操作成功!'
+            });
+          })
+        }else{
+          return false
+        }
+      })
+    },
+    // 弹框关闭回调
+    handleClose(done){
+      // 重置表单数据
+      this.$refs.form.resetFields();
+      done()
+    },
     // 授权按钮
     authorize(val){
 
     },
     // 禁用按钮
-    forbidden(val){
-
+    forbidden(obj){
+      this.$confirm('此操作将停用此角色, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        forbbinStatus(obj).then((res) => {
+          // 刷新页面
+          this.getData()
+          this.$message({
+            type: 'success',
+            message: '操作成功!'
+          });
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消操作'
+        });
+      })
     },
-    // 删除按钮
-    delete(val){
-
+    // 恢复按钮
+    returnRole(obj){
+      this.$confirm('此操作将恢复此角色, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        returnStatus(obj).then((res) => {
+          // 刷新页面
+          this.getData()
+          this.$message({
+            type: 'success',
+            message: '操作成功!'
+          });
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消操作'
+        });
+      })
     }
   }
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chennq.sys.mapper.settings.RoleSettingsMapper">
+    <select id="queryRolePer" resultType="com.chennq.sys.entity.settings.SysMenu">
+        SELECT
+            rm.*,
+            m.*
+        FROM
+            tf_sys_role_menu rm
+                LEFT JOIN tf_sysmenu m ON rm.menu_id = m.id
+        WHERE
+            role_id = '5'
+    </select>
+</mapper>
