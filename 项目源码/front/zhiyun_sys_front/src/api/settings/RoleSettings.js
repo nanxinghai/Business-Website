@@ -18,6 +18,15 @@ export const addOneRole = ((obj) => {
     })
 })
 
+// 查询角色权限
+export const queryRolePer = ((obj) => {
+    return instance({
+        data: obj,
+        method:'post',
+        url:'/sys/roleSettings/queryRolePer'
+    })
+})
+
 // 禁用角色状态
 export const forbbinStatus = ((obj) => {
     return instance({

@@ -72,7 +72,7 @@
     <!-- 对话框 -->
     <div class="add_dialog_box">
       <el-dialog
-        :title="新增"
+        title="新增"
         :visible.sync="addDialogVisible"
         width="30%"
         :before-close="handleClose"
@@ -105,13 +105,36 @@
       </el-dialog>
     </div>
     <div class="edit_dialog_box">
+      <el-dialog
+        title="授权"
+        :visible.sync="editDialogVisible"
+        width="60%"
+        :close-on-press-escape="false"
+        :close-on-click-modal="false">
+        <el-tree
+          :data="roleMenus"
+          show-checkbox
+          node-key="id"
+          default-expand-all
+          :default-checked-keys="checkedIds"
+          @check-change="handleNodeClick"
+          :props="{
+            label:'menuName',
+            children:'children',
+            disabled(data,node){
+              return data.status === '0' ? false : true
+            }
+          }"
+          >
 
+        </el-tree>
+      </el-dialog>
     </div>
   </div>
 </template>
 
 <script>
-import {pageListRole,addOneRole,forbbinStatus,returnStatus} from "@/api/settings/RoleSettings.js"
+import {pageListRole,addOneRole,queryRolePer,forbbinStatus,returnStatus} from "@/api/settings/RoleSettings.js"
 export default {
   name:'roleSettings',
   data(){
@@ -143,7 +166,12 @@ export default {
         status:[
           { required: true, message: '请输入类型', trigger: 'change' },
         ]
-      }
+      },
+      // 授权弹框
+      editDialogVisible:false,
+      roleMenus:[],
+      // 默认选中
+      checkedIds:[]
     }
   },
   created(){
@@ -170,6 +198,11 @@ export default {
     // 新增弹框
     addDailog(){
       this.addDialogVisible = true
+    },
+    handleNodeClick(item, self, son){
+      console.log(item)
+      console.log(self)
+      console.log(son)
     },
     // 提交新增
     submit(){
@@ -201,7 +234,13 @@ export default {
     },
     // 授权按钮
     authorize(val){
-
+      queryRolePer(val).then(res=>{
+        this.roleMenus = res.data.sysMenus
+        this.checkedIds = res.data.ids
+        // 打开窗口
+        this.editDialogVisible = true
+      })
+      
     },
     // 禁用按钮
     forbidden(obj){

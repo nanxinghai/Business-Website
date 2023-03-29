@@ -5,6 +5,7 @@ import com.chennq.sys.entity.PageVo;
 import com.chennq.sys.entity.settings.SysMenu;
 import com.chennq.sys.entity.settings.SysRole;
 import com.chennq.sys.entity.settings.SysUser;
+import com.chennq.sys.entity.settings.vo.SysMenuWithHasPer;
 import com.chennq.sys.service.settings.RoleSettingsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -51,7 +52,7 @@ public class RoleSettingsController {
     @ApiOperation("查询角色权限")
     @PreAuthorize("hasAuthority('sys:roleSettings:queryRolePer')")
     @PostMapping("/queryRolePer")
-    public List<SysMenu> queryRolePer(@RequestBody SysRole sysRole){
+    public SysMenuWithHasPer queryRolePer(@RequestBody SysRole sysRole){
         return roleSettingsService.queryRolePer(sysRole);
     }
 
