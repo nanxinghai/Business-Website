@@ -30,4 +30,27 @@
                     ) a
             )
     </update>
+
+    <select id="selectAllSonById" resultType="com.chennq.sys.entity.settings.SysMenu">
+        SELECT DATA
+                   .*
+        FROM
+            (
+                SELECT
+                    @ids AS _ids,
+		( SELECT @ids := GROUP_CONCAT( id ) FROM tf_sysmenu WHERE FIND_IN_SET( pid, @ids ) ) AS cids,
+		@l := @l + 1 AS LEVEL
+                FROM
+                    tf_sysmenu,
+                    ( SELECT @ids := #{id}, @l := 0 ) b
+                WHERE
+                    @ids IS NOT NULL
+            ) ID,
+            tf_sysmenu DATA
+        WHERE
+            FIND_IN_SET(
+                    DATA.id,
+                    ID._ids
+                )
+    </select>
 </mapper>

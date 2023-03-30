@@ -23,6 +23,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -72,6 +74,16 @@ public class JwtAuthticationTokenFilter extends OncePerRequestFilter {
         Authentication usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(loginUser,null,loginUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         // 4、放行，那么后续的Securiyt内置的过滤器判断到SecurityContext中已经有值，那他就不会拦截
-        filterChain.doFilter(request,response);
+        // 5、重写request，修改userId为请求参数的一部分
+        // 初始化自定义HttpServletRequestWrapper
+        ChangeRequestWrapper changeRequestWrapper = new ChangeRequestWrapper((HttpServletRequest) request);
+        // 获取所有参数集合
+        Map<String, String[]> parameterMap = new HashMap<>(changeRequestWrapper.getParameterMap());
+        // 修改集合中的某个参数
+        parameterMap.put("createBy", new String[]{userId});
+        // 将集合存到自定义HttpServletRequestWrapper
+        changeRequestWrapper.setParameterMap(parameterMap);
+        // 替换原本的request
+        filterChain.doFilter(changeRequestWrapper,response);
     }
 }

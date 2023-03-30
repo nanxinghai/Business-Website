@@ -8,3 +8,12 @@ export const pageListUser = ((obj) => {
         url:'/sys/userSettings/pageListUser'
     })
 })
+
+// 添加用户列表
+export const addOneUser = ((obj) => {
+    return instance({
+        data: obj,
+        method:'post',
+        url:'/sys/userSettings/addOneUser'
+    })
+})

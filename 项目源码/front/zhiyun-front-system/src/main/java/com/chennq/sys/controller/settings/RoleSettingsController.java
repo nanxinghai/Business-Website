@@ -5,6 +5,7 @@ import com.chennq.sys.entity.PageVo;
 import com.chennq.sys.entity.settings.SysMenu;
 import com.chennq.sys.entity.settings.SysRole;
 import com.chennq.sys.entity.settings.SysUser;
+import com.chennq.sys.entity.settings.dto.ChangeRolePerDto;
 import com.chennq.sys.entity.settings.vo.SysMenuWithHasPer;
 import com.chennq.sys.service.settings.RoleSettingsService;
 import io.swagger.annotations.Api;
@@ -54,6 +55,14 @@ public class RoleSettingsController {
     @PostMapping("/queryRolePer")
     public SysMenuWithHasPer queryRolePer(@RequestBody SysRole sysRole){
         return roleSettingsService.queryRolePer(sysRole);
+    }
+
+    @ResultApi
+    @ApiOperation("更改角色权限")
+    @PreAuthorize("hasAuthority('sys:roleSettings:changeRolePer')")
+    @PostMapping("/changeRolePer")
+    public void changeRolePer(@RequestBody ChangeRolePerDto changeRolePerDto){
+        roleSettingsService.changeRolePer(changeRolePerDto);
     }
 
 

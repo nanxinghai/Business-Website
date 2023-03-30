@@ -36,4 +36,14 @@ public class UserSettingsController {
     public PageVo<SysUser> pageListUser(@RequestBody SysUser sysUser){
         return userSettingsService.pageListUser(sysUser);
     }
+
+    @ResultApi
+    @ApiOperation("添加用户列表")
+    @PreAuthorize("hasAuthority('sys:userSettings:addOneUser')")
+    @PostMapping("/addOneUser")
+    public void addOneUser(@RequestBody SysUser sysUser){
+        userSettingsService.addOneUser(sysUser);
+    }
+
+
 }

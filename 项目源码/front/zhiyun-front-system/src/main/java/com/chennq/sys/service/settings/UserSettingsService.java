@@ -13,4 +13,6 @@ import com.chennq.sys.entity.settings.SysUser;
  */
 public interface UserSettingsService {
     PageVo<SysUser> pageListUser(SysUser sysUser);
+
+    void addOneUser(SysUser sysUser);
 }

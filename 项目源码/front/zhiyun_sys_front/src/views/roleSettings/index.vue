@@ -116,8 +116,9 @@
           show-checkbox
           node-key="id"
           default-expand-all
+          :check-strictly="true"
           :default-checked-keys="checkedIds"
-          @check-change="handleNodeClick"
+          @check="handleNodeClick"
           :props="{
             label:'menuName',
             children:'children',
@@ -125,6 +126,7 @@
               return data.status === '0' ? false : true
             }
           }"
+          ref="tree"
           >
 
         </el-tree>
@@ -134,7 +136,7 @@
 </template>
 
 <script>
-import {pageListRole,addOneRole,queryRolePer,forbbinStatus,returnStatus} from "@/api/settings/RoleSettings.js"
+import {pageListRole,addOneRole,queryRolePer,changeRolePer,forbbinStatus,returnStatus} from "@/api/settings/RoleSettings.js"
 export default {
   name:'roleSettings',
   data(){
@@ -167,6 +169,8 @@ export default {
           { required: true, message: '请输入类型', trigger: 'change' },
         ]
       },
+      // 当前选中对象
+      currentObj:{},
       // 授权弹框
       editDialogVisible:false,
       roleMenus:[],
@@ -199,10 +203,20 @@ export default {
     addDailog(){
       this.addDialogVisible = true
     },
-    handleNodeClick(item, self, son){
-      console.log(item)
-      console.log(self)
-      console.log(son)
+    handleNodeClick(item, node){
+      //判断当前状态是选中还是取消选中
+      const isCheck = this.$refs.tree.getCheckedNodes().indexOf(item) > -1
+      let data = {
+        id:item.id,
+        roleId:this.currentObj.id,
+        isChecked:isCheck
+      }
+      changeRolePer(data).then(res => {
+        this.$message({
+          type: 'success',
+          message: '操作成功!'
+        });
+      })
     },
     // 提交新增
     submit(){
@@ -234,6 +248,8 @@ export default {
     },
     // 授权按钮
     authorize(val){
+      // 赋值当前对象
+      this.currentObj = val
       queryRolePer(val).then(res=>{
         this.roleMenus = res.data.sysMenus
         this.checkedIds = res.data.ids

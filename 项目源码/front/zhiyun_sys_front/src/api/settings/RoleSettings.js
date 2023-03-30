@@ -27,6 +27,15 @@ export const queryRolePer = ((obj) => {
     })
 })
 
+// 更改角色权限
+export const changeRolePer = ((obj) => {
+    return instance({
+        data: obj,
+        method:'post',
+        url:'/sys/roleSettings/changeRolePer'
+    })
+})
+
 // 禁用角色状态
 export const forbbinStatus = ((obj) => {
     return instance({

@@ -10,4 +10,19 @@
         WHERE
             role_id = #{id}
     </select>
+
+    <insert id="batchSaveRoleMenu" parameterType="com.chennq.sys.entity.settings.dto.ChangeRolePerDto">
+        INSERT INTO tf_sys_role_menu ( role_id, menu_id )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.roleId},#{item.id})
+        </foreach>
+    </insert>
+
+    <delete id="batchDeleteRoleMenu" parameterType="com.chennq.sys.entity.settings.dto.ChangeRolePerDto">
+        DELETE FROM tf_sys_role_menu WHERE ( role_id, menu_id ) IN
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            (#{item.roleId},#{item.id})
+        </foreach>
+    </delete>
 </mapper>

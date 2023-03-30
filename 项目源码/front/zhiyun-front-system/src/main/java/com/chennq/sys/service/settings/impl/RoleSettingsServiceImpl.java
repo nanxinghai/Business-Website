@@ -2,9 +2,11 @@ package com.chennq.sys.service.settings.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.chennq.base.exception.MyException;
 import com.chennq.sys.entity.PageVo;
 import com.chennq.sys.entity.settings.SysMenu;
 import com.chennq.sys.entity.settings.SysRole;
+import com.chennq.sys.entity.settings.dto.ChangeRolePerDto;
 import com.chennq.sys.entity.settings.vo.SysMenuWithHasPer;
 import com.chennq.sys.mapper.settings.PermissionSettingsMapper;
 import com.chennq.sys.mapper.settings.RoleSettingsMapper;
@@ -87,6 +89,32 @@ public class RoleSettingsServiceImpl implements RoleSettingsService {
                 .collect(Collectors.toList());
 
         return new SysMenuWithHasPer(collect,ids);
+    }
+
+    @Override
+    public void changeRolePer(ChangeRolePerDto changeRolePerDto) {
+        Boolean isChecked = changeRolePerDto.getIsChecked();
+        if(Objects.isNull(isChecked)) {
+            throw new MyException("必须传递参数isChecked");
+        }
+        if(changeRolePerDto.getId() == null){
+            throw new MyException("必须传递参数Id");
+        }
+        List<SysMenu> sysMenus = permissionSettingsMapper.selectAllSonById(changeRolePerDto.getId());
+        List<ChangeRolePerDto> changeRolePerDtoList = new ArrayList<>();
+        for (SysMenu sysMenu : sysMenus) {
+            Long id = sysMenu.getId();
+            changeRolePerDtoList.add(new ChangeRolePerDto(id,changeRolePerDto.getRoleId(),changeRolePerDto.getIsChecked()));
+        }
+        if(isChecked){
+            // 说明勾选了权限
+            // 批量增加
+            roleSettingsMapper.batchSaveRoleMenu(changeRolePerDtoList);
+        }else{
+            // 说明取消了权限
+            // 批量删除
+            roleSettingsMapper.batchDeleteRoleMenu(changeRolePerDtoList);
+        }
     }
 
     // 根据当前父类 找出子类， 并通过递归找出子类的子类

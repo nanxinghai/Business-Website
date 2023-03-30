@@ -32,4 +32,9 @@ public class UserSettingsServiceImpl implements UserSettingsService {
         Page<SysUser> sysUserPage = userSettingsMapper.selectPage(new Page<>(sysUser.getPageNum(), sysUser.getPageSize()), sysUserQueryWrapper);
         return new PageVo<>(sysUserPage.getRecords(),sysUserPage.getTotal());
     }
+
+    @Override
+    public void addOneUser(SysUser sysUser) {
+        userSettingsMapper.insert(sysUser);
+    }
 }
