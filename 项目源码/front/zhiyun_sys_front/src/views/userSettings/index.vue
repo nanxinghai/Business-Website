@@ -126,14 +126,31 @@
         width="30%"
         :close-on-press-escape="false"
         :close-on-click-modal="false">
-        
+        <el-tree
+          :data="roleList"
+          show-checkbox
+          node-key="id"
+          default-expand-all
+          :check-strictly="true"
+          :default-checked-keys="checkedIds"
+          @check="handleNodeClick"
+          :props="{
+            label:'name',
+            children:'children',
+            disabled(data,node){
+              return data.status === '0' ? false : true
+            }
+          }"
+          ref="tree"
+          >
+        </el-tree>
       </el-dialog>
     </div>
   </div>
 </template>
 
 <script>
-import { pageListUser, addOneUser } from '@/api/settings/UserSettings.js'
+import { pageListUser, addOneUser,queryUserRole,changeUserRole } from '@/api/settings/UserSettings.js'
 export default {
   name:'userSettings',
   data(){
@@ -173,8 +190,10 @@ export default {
         ]
       },
       // 授权角色弹框
+      currentObj:{},
       editVisible:false,
-
+      roleList:[],
+      checkedIds:[],
     }
   },
   created(){
@@ -224,7 +243,32 @@ export default {
     },
     // 设置角色弹框
     editDialogVisible(obj){
-
+      this.currentObj = obj
+      queryUserRole(this.currentObj).then(res => {
+        this.roleList = res.data.list
+        this.checkedIds = res.data.isCheckIds
+        // 打开弹框
+        this.editVisible = true
+      })
+    },
+    // 勾选框勾选的时候取消的时候
+    handleNodeClick(item,node){
+      this.checkChange(item,node)
+    },
+    checkChange(item,node){
+      //判断当前状态是选中还是取消选中
+      const isCheck = this.$refs.tree.getCheckedNodes().indexOf(item) > -1
+      let data = {
+        userId:this.currentObj.id,
+        roleId:item.id,
+        isChecked:isCheck
+      }
+      changeUserRole(data).then(res => {
+        this.$message({
+          type: 'success',
+          message: '操作成功!'
+        });
+      })
     },
     handleCurrentChange(val){
       this.queryCondition.pageNum = val
@@ -233,6 +277,25 @@ export default {
     onSubmit(){
       this.queryCondition.pageNum = 1
       this.getUserPage()
+    },
+    // 节流
+    throttle(func, wait) {
+      let timeout;
+      return function() {
+        let context = this;
+        let args = arguments;
+        if (!timeout) {
+          timeout = setTimeout(() => {
+            timeout = null;
+            func.apply(context, args);
+          }, wait);
+        }else{
+          this.$message({
+            type: 'warning',
+            message: '请勿频繁操作!'
+          });
+        }
+      }
     }
   }
 }

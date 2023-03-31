@@ -1,0 +1,27 @@
+package com.chennq.sys.controller.user;
+
+import com.chennq.base.annotation.ResultApi;
+import com.chennq.sys.entity.PageVo;
+import com.chennq.sys.entity.settings.SysUser;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@Api(tags = "后台个人中心功能接口")
+@RestController
+@RequestMapping("/sys/personal")
+public class PersonalController {
+
+    @ResultApi
+    @ApiOperation("查询当前个人信息")
+    @PreAuthorize("hasAuthority('sys:personal:getPersonInfo')")
+    @PostMapping("/getPersonInfo")
+    public PageVo<SysUser> pageListUser(@RequestBody SysUser sysUser){
+        
+    }
+
+}

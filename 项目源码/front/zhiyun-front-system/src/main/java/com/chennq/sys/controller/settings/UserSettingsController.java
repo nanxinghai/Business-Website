@@ -4,6 +4,8 @@ import com.chennq.base.annotation.ResultApi;
 import com.chennq.sys.entity.PageDto;
 import com.chennq.sys.entity.PageVo;
 import com.chennq.sys.entity.settings.SysUser;
+import com.chennq.sys.entity.settings.dto.ChangeUserRoleDto;
+import com.chennq.sys.entity.settings.vo.SysRoleWithHasPer;
 import com.chennq.sys.service.settings.UserSettingsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -45,5 +47,20 @@ public class UserSettingsController {
         userSettingsService.addOneUser(sysUser);
     }
 
+    @ResultApi
+    @ApiOperation("查询用户角色")
+    @PreAuthorize("hasAuthority('sys:userSettings:queryUserRole')")
+    @PostMapping("/queryUserRole")
+    public SysRoleWithHasPer queryUserRole(@RequestBody SysUser sysUser){
+        return userSettingsService.queryUserRole(sysUser);
+    }
+
+    @ResultApi
+    @ApiOperation("更改用户角色")
+    @PreAuthorize("hasAuthority('sys:userSettings:changeUserRole')")
+    @PostMapping("/changeUserRole")
+    public void changeUserRole(@RequestBody ChangeUserRoleDto changeUserRoleDto){
+        userSettingsService.changeUserRole(changeUserRoleDto);
+    }
 
 }

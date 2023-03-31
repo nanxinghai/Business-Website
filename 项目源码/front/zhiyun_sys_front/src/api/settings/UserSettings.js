@@ -17,3 +17,21 @@ export const addOneUser = ((obj) => {
         url:'/sys/userSettings/addOneUser'
     })
 })
+
+// 查询用户角色
+export const queryUserRole = ((obj) => {
+    return instance({
+        data: obj,
+        method:'post',
+        url:'/sys/userSettings/queryUserRole'
+    })
+})
+
+// 更改用户角色
+export const changeUserRole = ((obj) => {
+    return instance({
+        data: obj,
+        method:'post',
+        url:'/sys/userSettings/changeUserRole'
+    })
+})

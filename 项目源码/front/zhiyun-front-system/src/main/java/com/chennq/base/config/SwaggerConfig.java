@@ -26,6 +26,7 @@ public class SwaggerConfig {
     public Docket docket(){
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
+                .groupName("前台接口")
                 .select()  //通过select去配置扫描接口
                 //RequestHandlerSelectors配置如何扫描接口
                 .apis(RequestHandlerSelectors.basePackage("com.chennq.controller"))
@@ -34,17 +35,18 @@ public class SwaggerConfig {
                 .build();
     }
 
-//    @Bean
-//    public Docket docket1(){
-//        return new Docket(DocumentationType.SWAGGER_2)
-//                .apiInfo(apiInfo())
-//                .groupName("用户模块")  可分组
-//                .enable(true)
-//                .select()
-//                .apis(RequestHandlerSelectors.basePackage("com.jzx.swagger.dome"))
+    @Bean
+    public Docket docket1(){
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo())
+                .groupName("后台接口")
+                .enable(true)
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.chennq.sys.controller"))
 //                .paths(PathSelectors.ant("/user/*"))
-//                .build();
-//    }
+                .paths(PathSelectors.any())
+                .build();
+    }
 
     private ApiInfo apiInfo(){
         Contact contact = new Contact("simon", "2830224482@qq.com", "2830224482@qq.com");
