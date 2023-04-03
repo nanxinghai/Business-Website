@@ -1,6 +1,8 @@
 package com.chennq.sys.filter;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.chennq.base.exception.MyException;
 import com.chennq.base.util.Result;
 import com.chennq.sys.consts.Login;
@@ -9,6 +11,7 @@ import com.chennq.sys.util.JwtUtil;
 import com.chennq.sys.util.WebUtil;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,10 +22,16 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
+import javax.servlet.ReadListener;
 import javax.servlet.ServletException;
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -75,15 +84,37 @@ public class JwtAuthticationTokenFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         // 4、放行，那么后续的Securiyt内置的过滤器判断到SecurityContext中已经有值，那他就不会拦截
         // 5、重写request，修改userId为请求参数的一部分
-        // 初始化自定义HttpServletRequestWrapper
-        ChangeRequestWrapper changeRequestWrapper = new ChangeRequestWrapper((HttpServletRequest) request);
-        // 获取所有参数集合
-        Map<String, String[]> parameterMap = new HashMap<>(changeRequestWrapper.getParameterMap());
-        // 修改集合中的某个参数
-        parameterMap.put("createBy", new String[]{userId});
-        // 将集合存到自定义HttpServletRequestWrapper
-        changeRequestWrapper.setParameterMap(parameterMap);
+        HttpServletRequest req = (HttpServletRequest) request;
+
+        StringBuilder requestBody = new StringBuilder();
+        try (BufferedReader reader = req.getReader()) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                requestBody.append(line);
+            }
+        }
+        String createBy = "{\"createBy\":" + userId +"}";
+        requestBody.append(createBy);
+        // 将数据变成标准格式
+        String jsonStr = requestBody.toString();
+        // 使用fastjson库将jsonStr解析为JSONArray对象
+        JSONArray jsonArray = JSON.parseArray("[" + jsonStr + "]");
+
+        // 将多个JSONObject对象合并为一个JSONObject对象
+        JSONObject mergedJsonObj = new JSONObject();
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JSONObject jsonObj = jsonArray.getJSONObject(i);
+            mergedJsonObj.putAll(jsonObj);
+        }
+
+        // 将合并后的JSONObject对象转换为JSON字符串
+        String mergedJson = mergedJsonObj.toJSONString();
+
+
         // 替换原本的request
-        filterChain.doFilter(changeRequestWrapper,response);
+        // 将requestBody作为请求参数传递给下一个Filter或Servlet
+        filterChain.doFilter(new RequestWrapper(req, mergedJson), response);
     }
+
+
 }
