@@ -1,7 +1,6 @@
 package com.chennq.sys.controller.user;
 
 import com.chennq.base.annotation.ResultApi;
-import com.chennq.sys.entity.PageVo;
 import com.chennq.sys.entity.settings.SysUser;
 import com.chennq.sys.service.user.PersonalService;
 import io.swagger.annotations.Api;
@@ -27,6 +26,15 @@ public class PersonalController {
     @PostMapping("/getPersonInfo")
     public SysUser getPersonInfo(@RequestBody SysUser sysUser){
         return personalService.getPersonInfo(sysUser);
+    }
+
+
+    @ResultApi
+    @ApiOperation("更新当前个人信息")
+    @PreAuthorize("hasAuthority('sys:personal:editUser')")
+    @PostMapping("/editUser")
+    public void editUser(@RequestBody SysUser sysUser){
+        personalService.editUser(sysUser);
     }
 
 

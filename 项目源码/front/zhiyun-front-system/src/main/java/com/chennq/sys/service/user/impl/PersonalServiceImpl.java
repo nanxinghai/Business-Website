@@ -17,4 +17,9 @@ public class PersonalServiceImpl implements PersonalService {
         sysUser1.setPassword(null);
         return sysUser1;
     }
+
+    @Override
+    public void editUser(SysUser sysUser) {
+        personalMapper.updateById(sysUser);
+    }
 }
