@@ -36,7 +36,7 @@
             <img :src="form.avatar"/>
           </div>
           <div class="btn">
-            <el-button icon="el-icon-refresh" size="mini">随机</el-button>
+            <el-button type="primary" icon="el-icon-refresh" size="mini" @click="randomClick">随机</el-button>
           </div>
         </el-card>
       </el-col>
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import instance from '@/axios'
 import {getPersonInfo,editUser} from '@/api/user/personal.js'
 export default {
   name:'personalInfo',
@@ -67,6 +68,8 @@ export default {
       getPersonInfo({id}).then(res => {
         this.form = JSON.parse(JSON.stringify(res.data))
         this.oldForm = JSON.parse(JSON.stringify(res.data))
+        // 将userInfo也存储起来
+        localStorage.setItem('userInfo',JSON.stringify(res.data))
       })
     },
     cancel(){
@@ -85,6 +88,9 @@ export default {
         this.getData()
         this.editable = true
       })
+    },
+    randomClick(){
+      
     },
   }
 }

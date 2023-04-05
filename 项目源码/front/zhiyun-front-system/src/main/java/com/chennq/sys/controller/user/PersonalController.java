@@ -38,4 +38,11 @@ public class PersonalController {
     }
 
 
+    @ResultApi
+    @ApiOperation("更新当前个人头像")
+    @PreAuthorize("hasAuthority('sys:personal:editAvator')")
+    @PostMapping("/editAvator")
+    public void editAvator(@RequestBody SysUser sysUser){
+        personalService.editAvator(sysUser);
+    }
 }

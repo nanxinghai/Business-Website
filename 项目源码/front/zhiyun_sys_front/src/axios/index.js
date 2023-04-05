@@ -31,6 +31,12 @@ instance.interceptors.response.use(function (response) {
   }
   return Promise.reject(response)
 }, function (error) {
+  // 错误信息的提示框
+  Message({
+    type: 'error',
+    message: error.message,
+    showClose: true,
+  })
   return Promise.reject(error);
 });
 

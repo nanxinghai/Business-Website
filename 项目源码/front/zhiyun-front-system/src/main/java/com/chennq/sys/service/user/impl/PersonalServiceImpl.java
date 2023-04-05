@@ -22,4 +22,9 @@ public class PersonalServiceImpl implements PersonalService {
     public void editUser(SysUser sysUser) {
         personalMapper.updateById(sysUser);
     }
+
+    @Override
+    public void editAvator(SysUser sysUser) {
+        personalMapper.updateById(sysUser);
+    }
 }

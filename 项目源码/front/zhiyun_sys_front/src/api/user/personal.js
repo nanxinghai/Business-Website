@@ -17,3 +17,4 @@ export const editUser = ((obj) => {
         url:'/sys/personal/editUser'
     })
 })
+
