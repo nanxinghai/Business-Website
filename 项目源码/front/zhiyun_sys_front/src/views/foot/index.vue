@@ -3,12 +3,25 @@
         <el-row :gutter="30">
           <el-col :span="8" >
             <el-card class="avtor_box">
-              <h4>前台二维码</h4>
+              <h5 style="text-align:center;">前台二维码</h5>
               <div class="avtor">
                 <img :src="pngData.path" />
               </div>
               <div class="btn">
-
+                <el-upload
+                  drag
+                  action=""
+                  :auto-upload="true"
+                  :http-request="uploadPng"
+                  :show-file-list="false"
+                  :file-list="fileList"
+                  :limit="1"
+                  :on-exceed="exceed"
+                  :on-success="success"
+                  >
+                  <i class="el-icon-upload"></i>
+                  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                </el-upload>
               </div>
             </el-card>
           </el-col>
@@ -121,7 +134,7 @@
 </template>
 
 <script>
-import {pageList,editSysPhone,addOne,getOne} from '@/api/front/foot.js'
+import {pageList,editSysPhone,addOne,getOne,uploadQrcode} from '@/api/front/foot.js'
 export default {
     name:'Foot',
     data(){
@@ -153,7 +166,8 @@ export default {
           isshow:[
             { required: true, message: '请输入类型', trigger: 'change' },
           ]
-        }
+        },
+        fileList:[]
       }
     },
     mounted(){
@@ -241,6 +255,26 @@ export default {
             this.DialogVisible = false
           })
         }
+      },
+      // 上传图片
+      uploadPng(params){
+        console.log(params)
+        let fd = new FormData();
+        fd.append("id",this.pngData.id)
+        fd.append('file', params.file);
+        uploadQrcode(fd).then(() =>{
+          this.$message({
+            type: 'success',
+            message: '上传成功!'
+          });
+          this.getPng()
+        })
+      },
+      exceed(files, fileList){
+        this.$message.warning('最多选择一个文件')
+      },
+      success(){
+
       },
     }
 }

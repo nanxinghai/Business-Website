@@ -35,3 +35,12 @@ export const getOne = ((obj) => {
         url:'/sys/foot/getOne'
     })
 })
+
+// 上传底部设置二维码
+export const uploadQrcode = ((obj) => {
+    return instance({
+        data: obj,
+        method:'post',
+        url:'/sys/foot/uploadQrcode'
+    })
+})

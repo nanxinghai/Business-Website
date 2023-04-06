@@ -84,36 +84,37 @@ public class JwtAuthticationTokenFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         // 4、放行，那么后续的Securiyt内置的过滤器判断到SecurityContext中已经有值，那他就不会拦截
         // 5、重写request，修改userId为请求参数的一部分
-        HttpServletRequest req = (HttpServletRequest) request;
-
-        StringBuilder requestBody = new StringBuilder();
-        try (BufferedReader reader = req.getReader()) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                requestBody.append(line);
-            }
-        }
-        String createBy = "{\"createBy\":" + userId +"}";
-        requestBody.append(createBy);
+//        HttpServletRequest req = (HttpServletRequest) request;
+//
+//        StringBuilder requestBody = new StringBuilder();
+//        try (BufferedReader reader = req.getReader()) {
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                requestBody.append(line);
+//            }
+//        }
+//        String createBy = "{\"createBy\":" + userId +"}";
+//        requestBody.append(createBy);
         // 将数据变成标准格式
-        String jsonStr = requestBody.toString();
+//        String jsonStr = requestBody.toString();
         // 使用fastjson库将jsonStr解析为JSONArray对象
-        JSONArray jsonArray = JSON.parseArray("[" + jsonStr + "]");
+//        JSONArray jsonArray = JSON.parseArray("[" + jsonStr + "]");
 
         // 将多个JSONObject对象合并为一个JSONObject对象
-        JSONObject mergedJsonObj = new JSONObject();
-        for (int i = 0; i < jsonArray.size(); i++) {
-            JSONObject jsonObj = jsonArray.getJSONObject(i);
-            mergedJsonObj.putAll(jsonObj);
-        }
+//        JSONObject mergedJsonObj = new JSONObject();
+//        for (int i = 0; i < jsonArray.size(); i++) {
+//            JSONObject jsonObj = jsonArray.getJSONObject(i);
+//            mergedJsonObj.putAll(jsonObj);
+//        }
 
         // 将合并后的JSONObject对象转换为JSON字符串
-        String mergedJson = mergedJsonObj.toJSONString();
+//        String mergedJson = mergedJsonObj.toJSONString();
 
 
         // 替换原本的request
         // 将requestBody作为请求参数传递给下一个Filter或Servlet
-        filterChain.doFilter(new RequestWrapper(req, mergedJson), response);
+//        filterChain.doFilter(new RequestWrapper(req, mergedJson), response);
+        filterChain.doFilter(request,response);
     }
 
 

@@ -7,12 +7,13 @@ import com.chennq.sys.entity.front.SysQrCode;
 import com.chennq.sys.service.front.SysFootService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Api(tags = "后台底部设置功能接口")
 @RestController
@@ -53,5 +54,12 @@ public class SysFootController {
         return sysFootService.getOne();
     }
 
+    @ResultApi
+    @ApiOperation("上传底部设置二维码")
+    @PreAuthorize("hasAuthority('sys:foot:uploadQrcode')")
+    @PostMapping("/uploadQrcode")
+    public void uploadQrcode(@RequestParam("file") MultipartFile file, HttpServletRequest request){
+        sysFootService.uploadQrcode(file,request);
+    }
 
 }
