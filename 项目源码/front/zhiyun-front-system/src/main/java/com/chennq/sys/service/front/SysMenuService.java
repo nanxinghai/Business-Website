@@ -14,4 +14,6 @@ public interface SysMenuService {
     PageVo<SysMenu> pageList(SysMenu sysMenu);
 
     void editMenu(SysMenu sysMenu);
+
+    void addOne(SysMenu sysMenu);
 }

@@ -37,5 +37,10 @@ public class SysMenuServiceImpl implements SysMenuService {
         sysMenuMapper.updateById(sysMenu);
     }
 
+    @Override
+    public void addOne(SysMenu sysMenu) {
+        sysMenuMapper.insert(sysMenu);
+    }
+
 
 }

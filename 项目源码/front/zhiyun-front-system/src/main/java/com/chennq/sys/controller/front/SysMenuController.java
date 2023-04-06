@@ -43,5 +43,12 @@ public class SysMenuController {
         sysMenuService.editMenu(sysMenu);
     }
 
+    @ResultApi
+    @ApiOperation("新增前台菜单")
+    @PreAuthorize("hasAuthority('sys:menu:addOne')")
+    @PostMapping("/addOne")
+    public void addOne(@RequestBody SysMenu sysMenu){
+        sysMenuService.addOne(sysMenu);
+    }
 
 }
