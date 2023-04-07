@@ -23,7 +23,9 @@ public class EBCtyest {
 
     @Test
     public void getPass() {
+        // 数据库用户名
         String name = encryptor.encrypt("root");
+        // 数据库密码
         String password = encryptor.encrypt("");
         System.out.println(name+"----------------");
         System.out.println(password+"----------------");
